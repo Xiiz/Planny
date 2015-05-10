@@ -8,16 +8,29 @@ import java.util.Date;
  */
 public class Sceance {
 
+    private int id;
     private int numSceance;
     private Date dateSceance;
     private Module module;
     private Formateur formateur;
 
-    public Sceance(int numSceance, Date dateSceance, Module module, Formateur formateur) {
+    public Sceance(int id, int numSceance, Date dateSceance, Module module, Formateur formateur) {
+        this.id = id;
         this.numSceance = numSceance;
         this.dateSceance = dateSceance;
         this.module = module;
         this.formateur = formateur;
+    }
+
+    public Sceance() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumSceance() {

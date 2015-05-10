@@ -19,3 +19,6 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+
+# Database
+/planny.db

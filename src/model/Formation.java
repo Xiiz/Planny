@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -8,14 +8,27 @@ import java.util.ArrayList;
  */
 public class Formation {
 
+    private int id;
     private String nom;
     private int dureeSceance;
-    private ArrayList<Module> listeModules;
+    private HashMap<Integer, Module> listeModules;
 
-    public Formation(String nom, int dureeSceance, ArrayList<Module> listeModules) {
+    public Formation(int id, String nom, int dureeSceance, HashMap<Integer, Module> listeModules) {
+        this.id = id;
         this.nom = nom;
         this.dureeSceance = dureeSceance;
         this.listeModules = listeModules;
+    }
+
+    public Formation() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {
@@ -34,11 +47,11 @@ public class Formation {
         this.dureeSceance = dureeSceance;
     }
 
-    public ArrayList<Module> getListeModules() {
+    public HashMap<Integer, Module> getListeModules() {
         return listeModules;
     }
 
-    public void setListeModules(ArrayList<Module> listeModules) {
+    public void setListeModules(HashMap<Integer, Module> listeModules) {
         this.listeModules = listeModules;
     }
 

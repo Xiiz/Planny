@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -8,29 +8,48 @@ import java.util.ArrayList;
  */
 public class Planning {
 
-    private ArrayList<Formation> listeFormations;
+    private int id;
+    private String anneePlanning;
+    private HashMap<Integer, Formation> listeFormations;
 
-    public Planning(ArrayList<Formation> listeFormations) {
+    public Planning(int id, String anneePlanning, HashMap<Integer, Formation> listeFormations) {
+        this.id = id;
+        this.anneePlanning = anneePlanning;
         this.listeFormations = listeFormations;
     }
 
-    public ArrayList<Formation> getListeFormations() {
+    public Planning() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getAnneePlanning() {
+        return anneePlanning;
+    }
+
+    public void setAnneePlanning(String anneePlanning) {
+        this.anneePlanning = anneePlanning;
+    }
+
+    public HashMap<Integer, Formation> getListeFormations() {
         return listeFormations;
     }
 
-    public void setListeFormations(ArrayList<Formation> listeFormations) {
+    public void setListeFormations(HashMap<Integer, Formation> listeFormations) {
         this.listeFormations = listeFormations;
     }
 
-    public void addFormation(Formation formation) {
-        this.listeFormations.add(formation);
+    public void addFormation(Integer key, Formation formation) {
+        this.listeFormations.put(key, formation);
     }
 
-    public void removeFormation(Formation formation) {
-        for (Formation f : this.listeFormations) {
-            if (f == formation) {
-                this.listeFormations.remove(f);
-            }
-        }
+    public void removeFormation(Integer key) {
+        this.listeFormations.remove(key);
     }
 }

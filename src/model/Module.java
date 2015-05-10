@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -8,18 +8,31 @@ import java.util.ArrayList;
  */
 public class Module {
 
+    private int id;
     private String nom;
     private String abbr;
     private String couleur;
     private int nbSceances;
-    private ArrayList<Sceance> listeSceances;
+    private HashMap<Integer, Sceance> listeSceances;
 
-    public Module(String nom, String abbr, String couleur, int nbSceances, ArrayList<Sceance> listeSceances) {
+    public Module(int id, String nom, String abbr, String couleur, int nbSceances, HashMap<Integer, Sceance> listeSceances) {
+        this.id = id;
         this.nom = nom;
         this.abbr = abbr;
         this.couleur = couleur;
         this.nbSceances = nbSceances;
         this.listeSceances = listeSceances;
+    }
+
+    public Module() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {
@@ -54,11 +67,11 @@ public class Module {
         this.nbSceances = nbSceances;
     }
 
-    public ArrayList<Sceance> getListeSceances() {
+    public HashMap<Integer, Sceance> getListeSceances() {
         return listeSceances;
     }
 
-    public void setListeSceances(ArrayList<Sceance> listeSceances) {
+    public void setListeSceances(HashMap<Integer, Sceance> listeSceances) {
         this.listeSceances = listeSceances;
     }
 

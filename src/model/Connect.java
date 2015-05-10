@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
+ * Classe de connexion à la base de données SQLite
  *
  * @author Yassine Doghri
  */
@@ -25,6 +26,7 @@ public class Connect {
     }
 
     public static Connection get() {
+        System.out.println("test");
         if (c == null) {
             c = Connect.open();
         }
