@@ -3,6 +3,7 @@ package model;
 import java.util.HashMap;
 
 /**
+ * Classe modèle pour l'objet Module
  *
  * @author Yassine Doghri
  */
@@ -12,16 +13,16 @@ public class Module {
     private String nom;
     private String abbr;
     private String couleur;
-    private int nbSceances;
-    private HashMap<Integer, Sceance> listeSceances;
+    private int nbSeances;
+    private HashMap<Integer, Seance> listeSeances;
 
-    public Module(int id, String nom, String abbr, String couleur, int nbSceances, HashMap<Integer, Sceance> listeSceances) {
+    public Module(int id, String nom, String abbr, String couleur, int nbSeances, HashMap<Integer, Seance> listeSeances) {
         this.id = id;
         this.nom = nom;
         this.abbr = abbr;
         this.couleur = couleur;
-        this.nbSceances = nbSceances;
-        this.listeSceances = listeSceances;
+        this.nbSeances = nbSeances;
+        this.listeSeances = listeSeances;
     }
 
     public Module() {
@@ -59,20 +60,28 @@ public class Module {
         this.couleur = couleur;
     }
 
-    public int getNbSceances() {
-        return nbSceances;
+    public int getNbSeances() {
+        return nbSeances;
     }
 
-    public void setNbSceances(int nbSceances) {
-        this.nbSceances = nbSceances;
+    public void setNbSeances(int nbSeances) {
+        this.nbSeances = nbSeances;
     }
 
-    public HashMap<Integer, Sceance> getListeSceances() {
-        return listeSceances;
+    public HashMap<Integer, Seance> getListeSeances() {
+        return listeSeances;
+    }
+    
+    public Seance getSeance(Integer key) {
+        return listeSeances.get(key);
     }
 
-    public void setListeSceances(HashMap<Integer, Sceance> listeSceances) {
-        this.listeSceances = listeSceances;
+    public void setListeSeances(HashMap<Integer, Seance> listeSeances) {
+        this.listeSeances = listeSeances;
+    }
+    
+    public void addSeance(Integer key, Seance seance) {
+        this.listeSeances.put(key, seance);
     }
 
 }

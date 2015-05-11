@@ -3,7 +3,8 @@ package model;
 import java.util.HashMap;
 
 /**
- *
+ * Classe modèle pour l'objet Formation
+ * 
  * @author Yassine Doghri
  */
 public class Formation {
@@ -50,9 +51,17 @@ public class Formation {
     public HashMap<Integer, Module> getListeModules() {
         return listeModules;
     }
+    
+    public Module getModule(Integer key) {
+        return listeModules.get(key);
+    }
 
     public void setListeModules(HashMap<Integer, Module> listeModules) {
         this.listeModules = listeModules;
+    }
+    
+    public void addModule(Integer key, Module module) {
+        this.listeModules.put(key, module);
     }
 
 }

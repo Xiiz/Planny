@@ -3,15 +3,17 @@ package model;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.provider.FormateurProvider;
 import model.provider.FormationProvider;
 import model.provider.ModuleProvider;
 import model.provider.PlanningProvider;
-import model.provider.SceanceProvider;
+import model.provider.SeanceProvider;
 
 /**
+ * Classe d'accès aux données de la base de données SQLite
  *
  * @author Yassine Doghri
  */
@@ -23,7 +25,12 @@ public class DAO {
         FormationProvider.createTable(c);
         ModuleProvider.createTable(c);
         PlanningProvider.createTable(c);
-        SceanceProvider.createTable(c);
+        SeanceProvider.createTable(c);
+    }
+
+    public static HashMap<Integer, Planning>  initPlannings() {
+        Connection c = Connect.get();
+        return PlanningProvider.getAll(c);
     }
 
     public static void insertData(String tableName, String fieldNames, String values) throws Exception {
@@ -35,8 +42,8 @@ public class DAO {
             throw new Exception("Le nombre de champs est différent de celui des données");
         }
 
-        Connection c = Connect.get();
         try {
+            Connection c = Connect.get();
             Statement stmt = c.createStatement();
             String sql = "INSERT INTO " + tableName + " (" + fieldNames + ") "
                     + "VALUES (" + values + ");";

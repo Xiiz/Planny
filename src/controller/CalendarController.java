@@ -16,9 +16,8 @@ public class CalendarController {
     private Calendar calendar;
 
     /**
-     * Méthode de création du calendrier grégorien avec la date du système
-     *
-     * @params void
+     * Méthode de création du calendrier grégorien avec par défaut la date du
+     * système
      */
     public void initCalendar() {
         this.calendar = new GregorianCalendar(Locale.getDefault());
@@ -27,52 +26,9 @@ public class CalendarController {
     /**
      * Retourne une liste des jours de la semaine actuelle (de lundi à dimanche)
      *
-     * @return ArrayList Date
+     * @return liste de dates de la semaine
      */
     public ArrayList<Date> getWeekDays() {
-        return this.getArrayWeekDays();
-    }
-
-    /**
-     * Retourne une liste des jours de la semaine pour une année, un mois et un
-     * jour données
-     *
-     * @param year
-     * @param month
-     * @param day
-     * @return ArrayList Date
-     */
-    public ArrayList<Date> getWeekDays(int year, int month, int day) {
-        calendar.set(year, month, day);
-        return this.getArrayWeekDays();
-    }
-
-    /**
-     * Retourne la liste des jours de la semaine précédente
-     *
-     * @return ArrayList Date
-     */
-    public ArrayList<Date> getPreviousWeek() {
-        calendar.add(Calendar.DATE, -7);
-        return this.getArrayWeekDays();
-    }
-
-    /**
-     * Retourne la liste des jours de la semaine prochaine
-     *
-     * @return ArrayList Date
-     */
-    public ArrayList<Date> getNextWeek() {
-        calendar.add(Calendar.DATE, 7);
-        return this.getArrayWeekDays();
-    }
-
-    /**
-     * Retourne la liste des jours de la semaine
-     *
-     * @return ArrayList Date
-     */
-    private ArrayList<Date> getArrayWeekDays() {
         ArrayList<Date> days = new ArrayList();
         int delta;
         if (calendar.get(GregorianCalendar.DAY_OF_WEEK) == 1) {
@@ -90,10 +46,44 @@ public class CalendarController {
     }
 
     /**
+     * Retourne une liste des jours de la semaine pour une année, un mois et un
+     * jour données
+     *
+     * @param year année de la date
+     * @param month mois de la date (allant de 0 à 11)
+     * @param day jour de la date
+     * @return ArrayList Date
+     */
+    public ArrayList<Date> getWeekDays(int year, int month, int day) {
+        calendar.set(year, month, day);
+        return this.getWeekDays();
+    }
+
+    /**
+     * Retourne la liste des jours de la semaine précédant la date sélectionnée
+     *
+     * @return ArrayList Date
+     */
+    public ArrayList<Date> getPreviousWeek() {
+        calendar.add(Calendar.DATE, -7);
+        return this.getWeekDays();
+    }
+
+    /**
+     * Retourne la liste des jours de la semaine suivant la date sélectionnée
+     *
+     * @return ArrayList Date
+     */
+    public ArrayList<Date> getNextWeek() {
+        calendar.add(Calendar.DATE, 7);
+        return this.getWeekDays();
+    }
+
+    /**
      * Retourne le libellé du jour de la date passée en paramètre
-     * 
+     *
      * @param date
-     * @return 
+     * @return String libellé du jour
      */
     public static String sayDayName(Date date) {
         SimpleDateFormat f = new SimpleDateFormat("EEEE");

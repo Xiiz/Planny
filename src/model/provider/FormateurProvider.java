@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Formateur;
+import model.Seance;
 
 /**
+ * 
  *
  * @author Yassine Doghri
  */
@@ -32,29 +33,28 @@ public class FormateurProvider {
         } catch (SQLException ex) {
             Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("La table Formateur créé");
+        System.out.println("Table Formateur initialisée");
     }
 
-    public static ArrayList<Formateur> getAll(Connection c) {
+    public static Formateur getFormateur(Seance seance, Connection c) {
         try {
-            ArrayList<Formateur> formateurs = new ArrayList();
-
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM FORMATEUR;");
+            ResultSet rs = stmt.executeQuery("SELECT f.IDFORMATEUR, NOM, PRENOM, INITIALES, TELEPHONE, EMAIL"
+                    + " FROM FORMATEUR f"
+                    + " JOIN SEANCE s ON f.IDFORMATEUR = s.IDFORMATEUR"
+                    + " WHERE s.IDSEANCE = " + seance.getId() + ";");
 
+            Formateur formateur = new Formateur();
             while (rs.next()) {
-                Formateur formateur = new Formateur();
-                formateur.setId(rs.getInt("id"));
+                formateur.setId(rs.getInt("idFormateur"));
                 formateur.setNom(rs.getString("nom"));
                 formateur.setPrenom(rs.getString("prenom"));
                 formateur.setInitiales(rs.getString("initiales"));
                 formateur.setTelephone(rs.getString("telephone"));
                 formateur.setEmail(rs.getString("email"));
-                formateur.setListeSceances(SceanceProvider.getSceancesFormateur(rs.getInt("id"), c));
-
-                formateurs.add(formateur);
+                formateur.addSeance(seance.getId(), seance);
             }
-            return formateurs;
+            return formateur;
         } catch (SQLException ex) {
             Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
         }

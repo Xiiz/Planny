@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Planning;
@@ -29,22 +29,22 @@ public class PlanningProvider {
         } catch (SQLException ex) {
             Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("La table Planning créé");
+        System.out.println("Table Planning initialisée");
     }
 
-    public static ArrayList<Planning> getAll(Connection c) {
+    public static HashMap<Integer, Planning> getAll(Connection c) {
         try {
-            ArrayList<Planning> plannings = new ArrayList();
+            HashMap<Integer, Planning> plannings = new HashMap();
 
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM PLANNING;");
             while (rs.next()) {
                 Planning planning = new Planning();
-                planning.setId(rs.getInt("id"));
+                planning.setId(rs.getInt("idPlanning"));
                 planning.setAnneePlanning(rs.getString("anneePlanning"));
-                planning.setListeFormations(FormationProvider.getFormations(rs.getInt("id"), c));
+                planning.setListeFormations(FormationProvider.getFormations(rs.getInt("idPlanning"), c));
 
-                plannings.add(planning);
+                plannings.put(rs.getInt("idPlanning"), planning);
             }
             rs.close();
             stmt.close();

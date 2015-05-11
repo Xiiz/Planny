@@ -26,7 +26,6 @@ public class Connect {
     }
 
     public static Connection get() {
-        System.out.println("test");
         if (c == null) {
             c = Connect.open();
         }

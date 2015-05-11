@@ -3,26 +3,27 @@ package model;
 import java.util.Date;
 
 /**
- *
+ * Classe modèle pour l'objet Seance
+ * 
  * @author Yassine Doghri
  */
-public class Sceance {
+public class Seance {
 
     private int id;
-    private int numSceance;
-    private Date dateSceance;
+    private int numSeance;
+    private Date dateSeance;
     private Module module;
     private Formateur formateur;
 
-    public Sceance(int id, int numSceance, Date dateSceance, Module module, Formateur formateur) {
+    public Seance(int id, int numSeance, Date dateSeance, Module module, Formateur formateur) {
         this.id = id;
-        this.numSceance = numSceance;
-        this.dateSceance = dateSceance;
+        this.numSeance = numSeance;
+        this.dateSeance = dateSeance;
         this.module = module;
         this.formateur = formateur;
     }
 
-    public Sceance() {
+    public Seance() {
     }
 
     public int getId() {
@@ -33,20 +34,20 @@ public class Sceance {
         this.id = id;
     }
 
-    public int getNumSceance() {
-        return numSceance;
+    public int getNumSeance() {
+        return numSeance;
     }
 
-    public void setNumSceance(int numSceance) {
-        this.numSceance = numSceance;
+    public void setNumSeance(int numSeance) {
+        this.numSeance = numSeance;
     }
 
-    public Date getDateSceance() {
-        return dateSceance;
+    public Date getDateSeance() {
+        return dateSeance;
     }
 
-    public void setDateSceance(Date dateSceance) {
-        this.dateSceance = dateSceance;
+    public void setDateSeance(Date dateSeance) {
+        this.dateSeance = dateSeance;
     }
 
     public Module getModule() {

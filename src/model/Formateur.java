@@ -3,7 +3,8 @@ package model;
 import java.util.HashMap;
 
 /**
- *
+ * Classe modèle pour l'objet Formateur
+ * 
  * @author Yassine Doghri
  */
 public class Formateur {
@@ -14,7 +15,7 @@ public class Formateur {
     private String initiales;
     private String telephone;
     private String email;
-    private HashMap<Integer, Sceance> listeSceances;
+    private HashMap<Integer, Seance> listeSeance = new HashMap();
 
     /**
      * Constructeur de l'objet Formateur
@@ -25,16 +26,16 @@ public class Formateur {
      * @param initiales
      * @param telephone
      * @param email
-     * @param sceances
+     * @param seances
      */
-    public Formateur(int id, String nom, String prenom, String initiales, String telephone, String email, HashMap<Integer, Sceance> sceances) {
+    public Formateur(int id, String nom, String prenom, String initiales, String telephone, String email, HashMap<Integer, Seance> seances) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.initiales = initiales;
         this.telephone = telephone;
         this.email = email;
-        this.listeSceances = sceances;
+        this.listeSeance = seances;
     }
 
     public Formateur() {
@@ -88,12 +89,16 @@ public class Formateur {
         this.email = email;
     }
 
-    public HashMap<Integer, Sceance> getListeSceances() {
-        return listeSceances;
+    public HashMap<Integer, Seance> getListeSceances() {
+        return listeSeance;
     }
 
-    public void setListeSceances(HashMap<Integer, Sceance> listeSceances) {
-        this.listeSceances = listeSceances;
+    public void setListeSceances(HashMap<Integer, Seance> listeSceances) {
+        this.listeSeance = listeSceances;
+    }
+    
+    public void addSeance(Integer key, Seance seance) {
+        this.listeSeance.put(key, seance);
     }
 
 }
