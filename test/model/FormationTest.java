@@ -22,6 +22,7 @@ public class FormationTest {
     private Formation laFormation;
     private Module moduleFra;
     private HashMap<Integer, Module> listeModules;
+
     public FormationTest() {
     }
 
@@ -39,9 +40,9 @@ public class FormationTest {
         Module moduleBdd = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
         moduleFra = new Module(1, "Français", "FRA", "Blue", 5, lesSeances);
         listeModules = new HashMap<Integer, Module>();
-        laFormation = new Formation(1,"L3 2/3 A", 40, listeModules);
-        laFormation.addModule(1,moduleBdd);
-        laFormation.addModule(2,moduleFra);
+        laFormation = new Formation(1, "L3 2/3 A", 40, listeModules);
+        laFormation.addModule(1, moduleBdd);
+        laFormation.addModule(2, moduleFra);
     }
 
     @After
@@ -141,7 +142,7 @@ public class FormationTest {
         Module moduleEng = new Module(1, "Anglais", "ENG", "Yellow", 5, lesNouvellesSeances);
         Module moduleMarketing = new Module(1, "Marketing", "Mark", "Orange", 10, lesNouvellesSeances);
         listeNouveauxModules.put(Integer.SIZE, moduleEng);
-        listeNouveauxModules.put(Integer.SIZE, moduleMarketing);        
+        listeNouveauxModules.put(Integer.SIZE, moduleMarketing);
         laFormation.setListeModules(listeNouveauxModules);
         HashMap<Integer, Module> expResult = listeNouveauxModules;
         HashMap<Integer, Module> result = laFormation.getListeModules();
