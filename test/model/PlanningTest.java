@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Xiiz
+ * @author Lasalmonie Pierre
  */
 public class PlanningTest {
 
