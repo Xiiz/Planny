@@ -16,21 +16,12 @@ import view.PlannySplash;
 public class PlannyController {
 
     private HashMap<Integer, Planning> plannings;
-    private final CalendarController calendar;
-    
-    public PlannyController() {
-        calendar = new CalendarController();
-    }
 
     public void startApplication() {
         try {
             PlannySplash splashScreen = new PlannySplash(this);
             splashScreen.setVisible(true);
 
-            // TESTS Fonctionnels
-//            for (HashMap.Entry<Integer, Planning> entry : plannings.entrySet()) {
-//                System.out.println(entry.getKey() + " : " + entry.getValue().getFormation(1).getModule(2).getSeance(1).getDateSeance());
-//            }
         } catch (IOException ex) {
             Logger.getLogger(PlannyController.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -61,9 +52,4 @@ public class PlannyController {
     public HashMap<Integer, Planning> getPlannings() {
         return plannings;
     }
-
-    public CalendarController getCalendar() {
-        return calendar;
-    }
-
 }

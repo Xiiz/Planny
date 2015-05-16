@@ -7,6 +7,7 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
+import view.PlanningFrame;
 
 /**
  *
@@ -14,13 +15,14 @@ import javax.swing.JToolBar;
  */
 public class NavigationBar extends JToolBar {
 
-    public NavigationBar() {
+    public NavigationBar(PlanningFrame mainFrame) {
         ImageIcon prevIcon = new ImageIcon(
                 ToolBar.class.getResource("images/icon-arrow-prev.png"));
         Action prevAction = new AbstractAction("Previous", prevIcon) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Previous");
+                
             }
         };
 
@@ -30,6 +32,7 @@ public class NavigationBar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Next");
+                mainFrame.getMainPanel().getPlanningTable();
             }
         };
 

@@ -1,17 +1,16 @@
 package view.components;
 
-import controller.CalendarController;
+import helper.CalendarHelper;
 import controller.PlannyController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
+import view.PlanningFrame;
 
 /**
  *
@@ -19,22 +18,22 @@ import javax.swing.JToolBar;
  */
 public class MainPanel extends JPanel {
 
-    private JToolBar toolBar;
-    private JToolBar navigationBar;
+    private ToolBar toolBar;
+    private NavigationBar navigationBar;
     private PlanningTable planningTable;
     private JScrollPane planningSP;
 
-    public MainPanel(PlannyController controller) {
+    public MainPanel(PlanningFrame mainFrame) {
         this.setLayout(new BorderLayout());
 
         this.setPreferredSize(new Dimension(900, 600));
         this.setBackground(Color.white);
         createToolBar();
-        createNavigationBar();
+        createNavigationBar(mainFrame);
         this.add(navigationBar, BorderLayout.SOUTH);
         add(toolBar, BorderLayout.NORTH);
 
-        createPlanningTable(controller);
+        createPlanningTable(null);
 
         this.add(planningSP, BorderLayout.CENTER);
 
@@ -46,21 +45,30 @@ public class MainPanel extends JPanel {
         toolBar = new ToolBar();
     }
 
-    public final void createPlanningTable(PlannyController controller) {
+    public final void createPlanningTable(Date date) {
         Object rowData[][] = {{"Matin", "Matin", "Matin", "Matin", "Matin", "Matin", "Matin"},
         {"Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi"}};
 
         ArrayList<String> daysColumns = new ArrayList();
-        ArrayList<Date> weekDays = controller.getCalendar().getWeekDays();
+        ArrayList<Date> weekDays;
+        if (date == null) {
+            weekDays = CalendarHelper.getCurrentWeekDays();
+        } else {
+            weekDays = CalendarHelper.getCurrentWeekDays();
+        }
         for (Date wd : weekDays) {
-            daysColumns.add(CalendarController.getDayColumnLabel(wd));
+            daysColumns.add(CalendarHelper.getDayColumnLabel(wd));
         }
         planningTable = new PlanningTable(rowData, daysColumns.toArray());
         planningSP = new JScrollPane(planningTable);
         planningSP.setBorder(BorderFactory.createEmptyBorder());
     }
 
-    public final void createNavigationBar() {
-        navigationBar = new NavigationBar();
+    public PlanningTable getPlanningTable() {
+        return this.planningTable;
+    }
+
+    public final void createNavigationBar(PlanningFrame mainFrame) {
+        navigationBar = new NavigationBar(mainFrame);
     }
 }

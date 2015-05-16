@@ -19,10 +19,10 @@ public class PlanningFrame extends JFrame {
 
 //    private final JSplitPane splitPaneV;
     private final JSplitPane splitPaneH;
-    private JPanel sidebarPanel;
-    private JPanel mainPanel;
+    private SidebarPanel sidebarPanel;
+    private MainPanel mainPanel;
     private JPanel footerPanel;
-    private JMenuBar menuBar;
+    private MenuBar menuBar;
 
     /**
      * Méthode constructeur pour la Fenêtre de Planning
@@ -42,8 +42,8 @@ public class PlanningFrame extends JFrame {
         createMenuBar();
 
         // Create the panels
-        createSidebarPanel();
-        createMainPanel(controller);
+        createSidebarPanel(this);
+        createMainPanel(this);
         createFooterPanel();
 
         // Create a splitter pane
@@ -69,12 +69,12 @@ public class PlanningFrame extends JFrame {
         menuBar = new MenuBar();
     }
 
-    public final void createSidebarPanel() {
-        sidebarPanel = new SidebarPanel();
+    public final void createSidebarPanel(PlanningFrame mainFrame) {
+        sidebarPanel = new SidebarPanel(mainFrame);
     }
 
-    public final void createMainPanel(PlannyController controller) {
-        mainPanel = new MainPanel(controller);
+    public final void createMainPanel(PlanningFrame mainFrame) {
+        mainPanel = new MainPanel(mainFrame);
     }
 
     public final void createFooterPanel() {
@@ -91,5 +91,8 @@ public class PlanningFrame extends JFrame {
 
         footerPanel.add(copyrightPanel, BorderLayout.WEST);
         footerPanel.add(versionPanel, BorderLayout.EAST);
+    }
+    public MainPanel getMainPanel() {
+        return this.mainPanel;
     }
 }
