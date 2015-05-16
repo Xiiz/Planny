@@ -9,12 +9,12 @@ import java.util.HashMap;
  */
 public class Formation {
 
-    private int id;
+    private Integer id;
     private String nom;
     private int dureeSceance;
-    private HashMap<Integer, Module> listeModules;
+    private HashMap<Integer, Module> listeModules = new HashMap();
 
-    public Formation(int id, String nom, int dureeSceance, HashMap<Integer, Module> listeModules) {
+    public Formation(Integer id, String nom, int dureeSceance, HashMap<Integer, Module> listeModules) {
         this.id = id;
         this.nom = nom;
         this.dureeSceance = dureeSceance;
@@ -24,11 +24,11 @@ public class Formation {
     public Formation() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

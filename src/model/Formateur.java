@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class Formateur {
 
-    private int id;
+    private Integer id;
     private String nom;
     private String prenom;
     private String initiales;
@@ -28,7 +28,7 @@ public class Formateur {
      * @param email
      * @param seances
      */
-    public Formateur(int id, String nom, String prenom, String initiales, String telephone, String email, HashMap<Integer, Seance> seances) {
+    public Formateur(Integer id, String nom, String prenom, String initiales, String telephone, String email, HashMap<Integer, Seance> seances) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -41,11 +41,11 @@ public class Formateur {
     public Formateur() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

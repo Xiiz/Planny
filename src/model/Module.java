@@ -9,14 +9,14 @@ import java.util.HashMap;
  */
 public class Module {
 
-    private int id;
+    private Integer id;
     private String nom;
     private String abbr;
     private String couleur;
     private int nbSeances;
-    private HashMap<Integer, Seance> listeSeances;
+    private HashMap<Integer, Seance> listeSeances = new HashMap();
 
-    public Module(int id, String nom, String abbr, String couleur, int nbSeances, HashMap<Integer, Seance> listeSeances) {
+    public Module(Integer id, String nom, String abbr, String couleur, int nbSeances, HashMap<Integer, Seance> listeSeances) {
         this.id = id;
         this.nom = nom;
         this.abbr = abbr;
@@ -28,11 +28,11 @@ public class Module {
     public Module() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,7 +71,7 @@ public class Module {
     public HashMap<Integer, Seance> getListeSeances() {
         return listeSeances;
     }
-    
+
     public Seance getSeance(Integer key) {
         return listeSeances.get(key);
     }
@@ -79,9 +79,13 @@ public class Module {
     public void setListeSeances(HashMap<Integer, Seance> listeSeances) {
         this.listeSeances = listeSeances;
     }
-    
-    public void addSeance(Integer key, Seance seance) {
-        this.listeSeances.put(key, seance);
+
+    public void addSeance(Integer key, Seance seance) throws Exception {
+        if (listeSeances.size() + 1 > nbSeances) {
+            throw new Exception("Attention ! Le nombre limite de séances est atteind !");
+        } else {
+            this.listeSeances.put(key, seance);
+        }
     }
 
 }

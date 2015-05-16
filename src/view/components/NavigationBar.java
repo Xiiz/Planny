@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.components;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -16,7 +10,7 @@ import javax.swing.JToolBar;
 
 /**
  *
- * @author Amine
+ * @author Amine Bouazizi
  */
 public class NavigationBar extends JToolBar {
 
@@ -29,7 +23,7 @@ public class NavigationBar extends JToolBar {
                 System.out.println("Previous");
             }
         };
-        
+
         ImageIcon nextIcon = new ImageIcon(
                 ToolBar.class.getResource("images/icon-arrow-next.png"));
         Action nextAction = new AbstractAction("Next", nextIcon) {
@@ -39,7 +33,6 @@ public class NavigationBar extends JToolBar {
             }
         };
 
-        
         JLabel weekLabel = new JLabel("Week 5");
         this.add(prevAction);
         this.add(Box.createHorizontalGlue());

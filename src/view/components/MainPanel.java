@@ -1,15 +1,16 @@
 package view.components;
 
-
+import controller.CalendarController;
+import controller.PlannyController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.JComboBox;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JToolBar;
 
 /**
@@ -20,40 +21,48 @@ public class MainPanel extends JPanel {
 
     private JToolBar toolBar;
     private JToolBar navigationBar;
-    private final JPanel center;
+    private PlanningTable planningTable;
+    private JScrollPane planningSP;
 
-    public MainPanel() {
+    public MainPanel(PlannyController controller) {
         this.setLayout(new BorderLayout());
         JPanel toolBarPanel = new JPanel();
         toolBarPanel.setLayout(new FlowLayout());
         this.add(toolBarPanel, BorderLayout.NORTH);
 
-        this.setPreferredSize(new Dimension(800, 600));
+        this.setPreferredSize(new Dimension(900, 600));
         this.setBackground(Color.white);
-        String[] choseView = {"Day view", "Week view", "Month view"};
-        JComboBox comboBox = new JComboBox(choseView);
         createToolBar();
         createNavigationBar();
         this.add(navigationBar, BorderLayout.SOUTH);
         toolBarPanel.add(toolBar, FlowLayout.LEFT);
-        toolBarPanel.add(comboBox);
 
-        Object rowData[][] = {{"Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column3"},
-        {"Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column1", "Row1-Column2", "Row1-Column3", "Row1-Column3"}};
-        Object daysColumns[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
-        JTable planningTable = new JTable(rowData, daysColumns);
-        this.center = new JPanel();
-        this.center.setLayout(new BorderLayout());
-        this.center.add(planningTable, BorderLayout.CENTER);
-        planningTable.setFillsViewportHeight(true);
-        this.add(new JScrollPane(planningTable), BorderLayout.CENTER);
+        createPlanningTable(controller);
 
-        
+        this.add(planningSP, BorderLayout.CENTER);
+
+        int rowSize = (this.getComponent(2).getPreferredSize().height + 100) / 2;
+        planningTable.setRowHeight(rowSize);
     }
 
     public final void createToolBar() {
         toolBar = new ToolBar();
     }
+
+    public final void createPlanningTable(PlannyController controller) {
+        Object rowData[][] = {{"Matin", "Matin", "Matin", "Matin", "Matin", "Matin", "Matin"},
+        {"Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi"}};
+
+        ArrayList<String> daysColumns = new ArrayList();
+        ArrayList<Date> weekDays = controller.getCalendar().getWeekDays();
+        for (Date wd : weekDays) {
+            daysColumns.add(CalendarController.getDayColumnLabel(wd));
+        }
+        planningTable = new PlanningTable(rowData, daysColumns.toArray());
+        planningSP = new JScrollPane(planningTable);
+        planningSP.setBorder(BorderFactory.createEmptyBorder());
+    }
+
     public final void createNavigationBar() {
         navigationBar = new NavigationBar();
     }

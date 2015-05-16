@@ -1,25 +1,35 @@
 package view;
 
+import controller.PlannyController;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
 import view.components.MainPanel;
 import view.components.SidebarPanel;
 import view.components.MenuBar;
 
+/**
+ * Classe de la fenêtre de planning
+ *
+ * @author Yassine Doghri
+ * @author Mohammed Amine Bouazizi
+ */
 public class PlanningFrame extends JFrame {
 
-    private final JSplitPane splitPaneV;
+//    private final JSplitPane splitPaneV;
     private final JSplitPane splitPaneH;
-    private JPanel sideBarPanel;
+    private JPanel sidebarPanel;
     private JPanel mainPanel;
-    private JPanel copyrightPanel;
+    private JPanel footerPanel;
     private JMenuBar menuBar;
-    
 
     /**
+     * Méthode constructeur pour la Fenêtre de Planning
      *
+     * @param controller
      */
-    public PlanningFrame() {
+    public PlanningFrame(PlannyController controller) {
         setTitle("Planny");
         getContentPane().setBackground(Color.white);
         JPanel topPanel = new JPanel();
@@ -33,22 +43,26 @@ public class PlanningFrame extends JFrame {
 
         // Create the panels
         createSidebarPanel();
-        createMainPanel();
+        createMainPanel(controller);
         createDownPanel();
 
         // Create a splitter pane
-        splitPaneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitPaneV.setDividerSize(1);
-        splitPaneV.setContinuousLayout(true);
-        topPanel.add(splitPaneV, BorderLayout.CENTER);
         splitPaneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPaneH.setDividerSize(1);
         splitPaneH.setContinuousLayout(true);
-        splitPaneH.setLeftComponent(sideBarPanel);
+        splitPaneH.setLeftComponent(sidebarPanel);
         splitPaneH.setRightComponent(mainPanel);
-        splitPaneV.setLeftComponent(splitPaneH);
-        splitPaneV.setRightComponent(copyrightPanel);
+        topPanel.add(splitPaneH, BorderLayout.CENTER);
+        topPanel.add(footerPanel, BorderLayout.SOUTH);
         this.setJMenuBar(menuBar);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("Closed");
+                e.getWindow().dispose();
+            }
+        });
     }
 
     public final void createMenuBar() {
@@ -56,17 +70,26 @@ public class PlanningFrame extends JFrame {
     }
 
     public final void createSidebarPanel() {
-        sideBarPanel = new SidebarPanel();
+        sidebarPanel = new SidebarPanel();
     }
 
-    public final void createMainPanel() {
-        mainPanel = new MainPanel();
+    public final void createMainPanel(PlannyController controller) {
+        mainPanel = new MainPanel(controller);
     }
 
     public final void createDownPanel() {
-        copyrightPanel = new JPanel();
-        copyrightPanel.setLayout(new BorderLayout());
-        copyrightPanel.setPreferredSize(new Dimension(400, 20));
-        copyrightPanel.add(new JLabel("  © 2015 Planny Inc."), BorderLayout.WEST);
+        footerPanel = new JPanel();
+        footerPanel.setLayout(new BorderLayout());
+
+        JPanel copyrightPanel = new JPanel();
+        copyrightPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        copyrightPanel.add(new JLabel("© 2015 Planny Inc."));
+
+        JPanel versionPanel = new JPanel();
+        versionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        versionPanel.add(new JLabel("version 1"));
+
+        footerPanel.add(copyrightPanel, BorderLayout.WEST);
+        footerPanel.add(versionPanel, BorderLayout.EAST);
     }
 }

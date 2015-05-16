@@ -13,14 +13,18 @@ import java.util.Locale;
  */
 public class CalendarController {
 
-    private Calendar calendar;
+    private Calendar calendar = new GregorianCalendar(Locale.getDefault());
 
+    public void CalendarController() {
+        this.initCalendar();
+    }
+    
     /**
      * Méthode de création du calendrier grégorien avec par défaut la date du
      * système
      */
     public void initCalendar() {
-        this.calendar = new GregorianCalendar(Locale.getDefault());
+//        this.calendar = new GregorianCalendar(Locale.getDefault());
     }
 
     /**
@@ -92,6 +96,11 @@ public class CalendarController {
         } catch (Exception e) {
             return "";
         }
+    }
+    
+    public static String getDayColumnLabel(Date date) {
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM");
+        return sayDayName(date) + ' ' + f.format(date); 
     }
 
 }

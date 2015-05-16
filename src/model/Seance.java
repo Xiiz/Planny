@@ -9,13 +9,13 @@ import java.util.Date;
  */
 public class Seance {
 
-    private int id;
+    private Integer id;
     private int numSeance;
     private Date dateSeance;
     private Module module;
     private Formateur formateur;
 
-    public Seance(int id, int numSeance, Date dateSeance, Module module, Formateur formateur) {
+    public Seance(Integer id, int numSeance, Date dateSeance, Module module, Formateur formateur) {
         this.id = id;
         this.numSeance = numSeance;
         this.dateSeance = dateSeance;
@@ -26,11 +26,11 @@ public class Seance {
     public Seance() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

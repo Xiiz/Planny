@@ -9,11 +9,11 @@ import java.util.HashMap;
  */
 public class Planning {
 
-    private int id;
+    private Integer id;
     private String anneePlanning;
-    private HashMap<Integer, Formation> listeFormations;
+    private HashMap<Integer, Formation> listeFormations = new HashMap();
 
-    public Planning(int id, String anneePlanning, HashMap<Integer, Formation> listeFormations) {
+    public Planning(Integer id, String anneePlanning, HashMap<Integer, Formation> listeFormations) {
         this.id = id;
         this.anneePlanning = anneePlanning;
         this.listeFormations = listeFormations;
@@ -32,11 +32,11 @@ public class Planning {
     private void linkFormateurs(HashMap<Integer, Module> lesModules) {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
