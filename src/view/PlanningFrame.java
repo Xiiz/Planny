@@ -2,9 +2,9 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
-import view.component.MainPanel;
-import view.component.SideBarPanel;
-import view.component.MenuBar;
+import view.components.MainPanel;
+import view.components.SidebarPanel;
+import view.components.MenuBar;
 
 public class PlanningFrame extends JFrame {
 
@@ -14,6 +14,7 @@ public class PlanningFrame extends JFrame {
     private JPanel mainPanel;
     private JPanel copyrightPanel;
     private JMenuBar menuBar;
+    
 
     /**
      *
@@ -23,7 +24,7 @@ public class PlanningFrame extends JFrame {
         getContentPane().setBackground(Color.white);
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
-        topPanel.setSize(500, 500);
+        topPanel.setSize(700, 700);
         topPanel.setBackground(Color.white);
         getContentPane().add(topPanel);
 
@@ -55,7 +56,7 @@ public class PlanningFrame extends JFrame {
     }
 
     public final void createSidebarPanel() {
-        sideBarPanel = new SideBarPanel();
+        sideBarPanel = new SidebarPanel();
     }
 
     public final void createMainPanel() {

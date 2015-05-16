@@ -1,4 +1,4 @@
-package view.component;
+package view.components;
 
 import com.toedter.calendar.JCalendar;
 import java.awt.BorderLayout;
@@ -11,9 +11,9 @@ import javax.swing.JPanel;
  *
  * @author Amine
  */
-public class SideBarPanel extends JPanel {
+public class SidebarPanel extends JPanel {
 
-    public SideBarPanel() {
+    public SidebarPanel() {
         this.setPreferredSize(new Dimension(200, 400));
         this.setLayout(new BorderLayout(0, 0));
         JButton jsave = new JButton("Save");

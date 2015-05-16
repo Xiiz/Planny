@@ -1,4 +1,4 @@
-package view.component;
+package view.components;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
