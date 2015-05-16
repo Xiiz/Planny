@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRootPane;
 
 /**
  * Splash Screen de l'application pour initialiser la base de données et les
@@ -34,6 +35,7 @@ public class PlannySplash extends JFrame {
         super("Planny");
         setSize(600, 400);
         setUndecorated(true);
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         setLocationRelativeTo(null);
         toFront();
 

@@ -59,24 +59,11 @@ public class ToolBar extends JToolBar {
             }
         };
 
-        this.add(Box.createHorizontalGlue());
         this.add(undoAction);
         this.add(redoAction);
         this.add(copyAction);
         this.add(pasteAction);
         this.add(deleteAction);
-        this.setBorder(BorderFactory.createEmptyBorder());
-
-        //this.setRollover(true);
-        /*
-         for (int i = 0; i < buttonLabels.length; ++i) {
-         icons[i] = new ImageIcon(iconFiles[i]);
-         buttons[i] = new JButton(icons[i]);
-         buttons[i].setToolTipText(buttonLabels[i]);
-         if (i == 3) {
-         this.addSeparator();
-         }
-         this.add(buttons[i]);*/
         this.setFloatable(false);
     }
 }

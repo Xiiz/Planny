@@ -26,16 +26,13 @@ public class MainPanel extends JPanel {
 
     public MainPanel(PlannyController controller) {
         this.setLayout(new BorderLayout());
-        JPanel toolBarPanel = new JPanel();
-        toolBarPanel.setLayout(new FlowLayout());
-        this.add(toolBarPanel, BorderLayout.NORTH);
 
         this.setPreferredSize(new Dimension(900, 600));
         this.setBackground(Color.white);
         createToolBar();
         createNavigationBar();
         this.add(navigationBar, BorderLayout.SOUTH);
-        toolBarPanel.add(toolBar, FlowLayout.LEFT);
+        add(toolBar, BorderLayout.NORTH);
 
         createPlanningTable(controller);
 

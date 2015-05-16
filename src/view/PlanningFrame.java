@@ -44,7 +44,7 @@ public class PlanningFrame extends JFrame {
         // Create the panels
         createSidebarPanel();
         createMainPanel(controller);
-        createDownPanel();
+        createFooterPanel();
 
         // Create a splitter pane
         splitPaneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -77,7 +77,7 @@ public class PlanningFrame extends JFrame {
         mainPanel = new MainPanel(controller);
     }
 
-    public final void createDownPanel() {
+    public final void createFooterPanel() {
         footerPanel = new JPanel();
         footerPanel.setLayout(new BorderLayout());
 

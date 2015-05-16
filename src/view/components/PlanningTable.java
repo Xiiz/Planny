@@ -8,6 +8,9 @@ package view.components;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -29,6 +32,16 @@ public class PlanningTable extends JTable {
         setFillsViewportHeight(true);
         setColumnSelectionAllowed(true);
         setRowSelectionAllowed(false);
+        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.setColumnSelectionInterval(5, 5);
+
+        getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                // print column value from selected cell
+                System.out.println(getSelectedColumn());
+            }
+        });
     }
 
     @Override
@@ -43,4 +56,5 @@ public class PlanningTable extends JTable {
 
         return c;
     }
+
 }
