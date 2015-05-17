@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import view.forms.ExportHtmlForm;
 
 /**
  *
@@ -79,7 +80,13 @@ public class MenuBar extends JMenuBar {
 
             }
         });
-
+        html.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {               
+                ExportHtmlForm YearCalendarForm = new ExportHtmlForm(controller);
+                YearCalendarForm.setVisible(true);
+            }
+        });
+        
         about = new JMenuItem("A propos");
 
         // add menu items to menus
