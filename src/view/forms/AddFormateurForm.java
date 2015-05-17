@@ -1,5 +1,6 @@
 package view.forms;
 
+import controller.PlannyController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
+import model.Seance;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -24,7 +26,7 @@ public class AddFormateurForm extends JFrame {
 
     JTextField nomField, prenomField, initialesField, telephoneField, emailField;
 
-    public AddFormateurForm() {
+    public AddFormateurForm(PlannyController controller) {
         super("Planny | Ajouter un formateur");
         try {
             setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
@@ -69,17 +71,18 @@ public class AddFormateurForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button pressed");
+//                Module module = 
+//                controller.addSeance(new Seance(1, 2, new Date(), new Module(), new Formateur()));
             }
-
         });
+        
         JButton buttonAnnuler = new JButton("Annuler");
         this.add(buttonAnnuler, "growx");
         buttonAnnuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
+                dispose();
             }
-
         });
 
         this.pack();

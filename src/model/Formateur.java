@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * Classe modèle pour l'objet Formateur
- * 
+ *
  * @author Yassine Doghri
  */
 public class Formateur {
@@ -96,9 +96,14 @@ public class Formateur {
     public void setListeSceances(HashMap<Integer, Seance> listeSceances) {
         this.listeSeance = listeSceances;
     }
-    
+
     public void addSeance(Integer key, Seance seance) {
         this.listeSeance.put(key, seance);
+    }
+
+    @Override
+    public String toString() {
+        return prenom + " " + nom;
     }
 
 }

@@ -1,5 +1,6 @@
 package view.forms;
 
+import controller.PlannyController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,9 +23,11 @@ import net.miginfocom.swing.MigLayout;
 public class AddFormationForm extends JFrame{
 
     JTextField nomSeanceField, dureeField;
+    private PlannyController controller;
 
-    public AddFormationForm() {
+    public AddFormationForm(PlannyController controller) {
         super("Planny | Ajouter une Formation");
+        this.controller = controller;
         try {
             setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
         } catch (IOException e) {
@@ -32,7 +35,6 @@ public class AddFormationForm extends JFrame{
         }
 
         this.setLayout(new MigLayout("center"));
-
         
         JLabel title = new JLabel("Ajouter une formation");
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 20));
@@ -64,7 +66,7 @@ public class AddFormationForm extends JFrame{
         buttonAnnuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
+                dispose();
             }
 
         });

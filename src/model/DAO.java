@@ -28,7 +28,7 @@ public class DAO {
         SeanceProvider.createTable(c);
     }
 
-    public static HashMap<Integer, Planning>  initPlannings() {
+    public static HashMap<Integer, Planning> initPlannings() {
         Connection c = Connect.get();
         return PlanningProvider.getAll(c);
     }
@@ -56,5 +56,20 @@ public class DAO {
 
     public static void updateData() {
 
+    }
+
+    public static HashMap<Integer, Formateur> getAllFormateurs() {
+        Connection c = Connect.get();
+        return FormateurProvider.getAllFormateurs(c);
+    }
+
+    public static HashMap<Integer, Module> getAllModules() {
+        Connection c = Connect.get();
+        return ModuleProvider.getAllModules(c);
+    }
+
+    public static void addSeance(Seance seance) {
+        Connection c = Connect.get();
+        SeanceProvider.addSeance(c, seance);
     }
 }

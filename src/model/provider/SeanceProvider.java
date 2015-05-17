@@ -74,4 +74,27 @@ public class SeanceProvider {
         }
         return null;
     }
+
+    public static void addSeance(Connection c, Seance seance) {
+        try {
+            c.setAutoCommit(false);
+            Statement stmt = c.createStatement();
+
+            String sql = "INSERT INTO SEANCE (IDMODULE,IDSEANCE,IDFORMATEUR,NUMSEANCE,DATESEANCE) "
+                    + "VALUES (" + seance.getModule().getId() + ", "
+                    + seance.getId() + ", "
+                    + seance.getFormateur().getId() + ", "
+                    + seance.getNumSeance() + ", "
+                    + seance.getDateSeance() + " );";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            c.commit();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records created successfully");
+    }
 }

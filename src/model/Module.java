@@ -14,14 +14,16 @@ public class Module {
     private String abbr;
     private String couleur;
     private int nbSeances;
+    private Formation formation;
     private HashMap<Integer, Seance> listeSeances = new HashMap();
 
-    public Module(Integer id, String nom, String abbr, String couleur, int nbSeances, HashMap<Integer, Seance> listeSeances) {
+    public Module(Integer id, String nom, String abbr, String couleur, int nbSeances, Formation formation, HashMap<Integer, Seance> listeSeances) {
         this.id = id;
         this.nom = nom;
         this.abbr = abbr;
         this.couleur = couleur;
         this.nbSeances = nbSeances;
+        this.formation = formation;
         this.listeSeances = listeSeances;
     }
 
@@ -68,6 +70,14 @@ public class Module {
         this.nbSeances = nbSeances;
     }
 
+    public Formation getFormation() {
+        return formation;
+    }
+
+    public void setFormation(Formation formation) {
+        this.formation = formation;
+    }
+
     public HashMap<Integer, Seance> getListeSeances() {
         return listeSeances;
     }
@@ -88,4 +98,8 @@ public class Module {
         }
     }
 
+    @Override
+    public String toString() {
+        return nom;
+    }
 }

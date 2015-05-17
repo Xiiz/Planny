@@ -1,6 +1,7 @@
 package view.forms;
 
 import com.toedter.calendar.JDateChooser;
+import controller.PlannyController;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +26,7 @@ public class AddSeanceForm extends JFrame {
     JComboBox comboModules;
     JComboBox comboFormateurs;
 
-    public AddSeanceForm() {
+    public AddSeanceForm(PlannyController controller) {
         super("Planny | Ajouter une séance");
         try {
             setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
@@ -40,8 +41,8 @@ public class AddSeanceForm extends JFrame {
         this.add(title, "dock north");
 
         dateChooser = new JDateChooser();
-        comboModules = new JComboBox();
-        comboFormateurs = new JComboBox();
+        comboModules = new JComboBox(controller.getAllModules().toArray());
+        comboFormateurs = new JComboBox(controller.getAllFormateurs().toArray());
 
         this.add(new JLabel("Date"), "alignx trailing");
         this.add(dateChooser, "wrap");
@@ -55,18 +56,17 @@ public class AddSeanceForm extends JFrame {
         buttonAjouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
-            }
 
+            }
         });
+
         JButton buttonAnnuler = new JButton("Annuler");
         this.add(buttonAnnuler, "growx");
         buttonAnnuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
+                dispose();
             }
-
         });
 
         this.pack();

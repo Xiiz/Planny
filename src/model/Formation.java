@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * Classe modèle pour l'objet Formation
- * 
+ *
  * @author Yassine Doghri
  */
 public class Formation {
@@ -12,12 +12,14 @@ public class Formation {
     private Integer id;
     private String nom;
     private int dureeSceance;
+    private Planning planning;
     private HashMap<Integer, Module> listeModules = new HashMap();
 
-    public Formation(Integer id, String nom, int dureeSceance, HashMap<Integer, Module> listeModules) {
+    public Formation(Integer id, String nom, int dureeSceance, Planning planning, HashMap<Integer, Module> listeModules) {
         this.id = id;
         this.nom = nom;
         this.dureeSceance = dureeSceance;
+        this.planning = planning;
         this.listeModules = listeModules;
     }
 
@@ -48,10 +50,18 @@ public class Formation {
         this.dureeSceance = dureeSceance;
     }
 
+    public Planning getPlanning() {
+        return planning;
+    }
+
+    public void setPlanning(Planning planning) {
+        this.planning = planning;
+    }
+
     public HashMap<Integer, Module> getListeModules() {
         return listeModules;
     }
-    
+
     public Module getModule(Integer key) {
         return listeModules.get(key);
     }
@@ -59,7 +69,7 @@ public class Formation {
     public void setListeModules(HashMap<Integer, Module> listeModules) {
         this.listeModules = listeModules;
     }
-    
+
     public void addModule(Integer key, Module module) {
         this.listeModules.put(key, module);
     }

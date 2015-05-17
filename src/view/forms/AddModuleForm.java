@@ -1,4 +1,5 @@
 package view.forms;
+import controller.PlannyController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,7 @@ public class AddModuleForm extends JFrame {
     JTextField nomModuleField, abbreviationField, nbSeanceField;
     JComboBox couleurComboBox ,formationComboBox;
 
-    public AddModuleForm() {
+    public AddModuleForm(PlannyController controller) {
         super("Planny | Ajouter un formateur");
         try {
             setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
@@ -79,7 +80,7 @@ public class AddModuleForm extends JFrame {
         buttonAnnuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
+                dispose();
             }
 
         });

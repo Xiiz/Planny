@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.components;
 
+import controller.PlannyController;
 import helper.CalendarHelper;
 import java.awt.Color;
 import java.awt.Component;
@@ -25,6 +21,10 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import model.Seance;
+import view.components.tableModel.PlanningCellRenderer;
+import view.components.tableModel.PlanningTableModel;
+import view.forms.AddSeanceForm;
 
 /**
  *
@@ -33,6 +33,7 @@ import javax.swing.table.TableColumnModel;
 public final class PlanningTable extends JTable implements ActionListener {
 
     private final JPopupMenu popup;
+    private PlannyController controller;
 
     /**
      * Constructeur de la table Planning
@@ -40,19 +41,16 @@ public final class PlanningTable extends JTable implements ActionListener {
      * @param rowData
      * @param columnNames
      */
-    public PlanningTable(Object[][] rowData, Object[] columnNames) {
+    public PlanningTable(Object[][] rowData, Object[] columnNames, PlannyController controller) {
         super(rowData, columnNames);
+
+        this.controller = controller;
 
         getTableHeader().setReorderingAllowed(false);
         setFillsViewportHeight(true);
         setColumnSelectionAllowed(true);
         setRowSelectionAllowed(false);
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // set default selected column to sysdate
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        setSelectedColumn(cal);
 
         getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -95,6 +93,12 @@ public final class PlanningTable extends JTable implements ActionListener {
             TableCellRenderer renderer, int row, int column) {
         Component c = super.prepareRenderer(renderer, row, column);
 
+        if (column >= 5 && row == 0) {
+            c.setBackground(Color.decode("#F0F0F0"));
+        }
+        if (column >= 5 && row == 1) {
+            c.setBackground(Color.decode("#F5F5F5"));
+        }
         return c;
     }
 
@@ -109,22 +113,14 @@ public final class PlanningTable extends JTable implements ActionListener {
         }
     }
 
-    public void changeRowsContents(ArrayList<Date> weekDays) {
-
-    }
-
-    public void setSelectedColumn(Calendar cal) {
-        int indice = CalendarHelper.getWeekNumber(cal);
-        setColumnSelectionInterval(indice, indice);
-//        getColumn(indice).getIdentifier();
-//        this.get;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         int y = this.getSelectedRow() + 1;
         int d = this.getSelectedColumn() + 1;
-        System.out.println(this.getColumnName(d-1));
+        System.out.println(this.getColumnName(d - 1));
         System.out.println("ligne: " + y + " et colomne: " + d);
+
+        // Open Add Séance Form
+        AddSeanceForm addSeance = new AddSeanceForm(controller);
     }
 }

@@ -1,5 +1,6 @@
 package view.components;
 
+import controller.PlannyController;
 import view.forms.AddFormationForm;
 import view.forms.AddFormateurForm;
 import view.forms.AddModuleForm;
@@ -23,9 +24,9 @@ public class MenuBar extends JMenuBar {
             addFormation, addFormateur, addModule, addSeance, about;
 
     /**
-     *
+     * 
      */
-    public MenuBar() {
+    public MenuBar(PlannyController controller) {
         // create menus
         file = new JMenu("Fichier");
         exportPlanning = new JMenu("Exporter planning");
@@ -52,28 +53,28 @@ public class MenuBar extends JMenuBar {
 
         addFormation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                AddFormationForm formationForm = new AddFormationForm();
+                AddFormationForm formationForm = new AddFormationForm(controller);
                 formationForm.setVisible(true);
 
             }
         });
         addFormateur.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                AddFormateurForm formateurForm = new AddFormateurForm();
+                AddFormateurForm formateurForm = new AddFormateurForm(controller);
                 formateurForm.setVisible(true);
 
             }
         });
         addModule.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                AddModuleForm moduleForm = new AddModuleForm();
+                AddModuleForm moduleForm = new AddModuleForm(controller);
                 moduleForm.setVisible(true);
 
             }
         });
         addSeance.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                AddSeanceForm seanceForm = new AddSeanceForm();
+                AddSeanceForm seanceForm = new AddSeanceForm(controller);
                 seanceForm.setVisible(true);
 
             }

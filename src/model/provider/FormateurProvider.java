@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Formateur;
 import model.Seance;
 
 /**
- * 
+ *
  *
  * @author Yassine Doghri
  */
@@ -55,6 +56,31 @@ public class FormateurProvider {
                 formateur.addSeance(seance.getId(), seance);
             }
             return formateur;
+        } catch (SQLException ex) {
+            Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static HashMap<Integer, Formateur> getAllFormateurs(Connection c) {
+        try {
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM FORMATEUR f;");
+
+            HashMap<Integer, Formateur> formateurs = new HashMap();
+            while (rs.next()) {
+                Formateur formateur = new Formateur();
+
+                formateur.setId(rs.getInt("idFormateur"));
+                formateur.setNom(rs.getString("nom"));
+                formateur.setPrenom(rs.getString("prenom"));
+                formateur.setInitiales(rs.getString("initiales"));
+                formateur.setTelephone(rs.getString("telephone"));
+                formateur.setEmail(rs.getString("email"));
+
+                formateurs.put(rs.getInt("idFormateur"), formateur);
+            }
+            return formateurs;
         } catch (SQLException ex) {
             Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
         }

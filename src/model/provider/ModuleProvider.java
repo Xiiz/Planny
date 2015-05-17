@@ -66,4 +66,31 @@ public class ModuleProvider {
         }
         return null;
     }
+
+    public static HashMap<Integer, Module> getAllModules(Connection c) {
+        try {
+            HashMap<Integer, Module> modules = new HashMap();
+
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM MODULE;");
+            while (rs.next()) {
+                Module module = new Module();
+                module.setId(rs.getInt("idModule"));
+                module.setNom(rs.getString("nom"));
+                module.setAbbr(rs.getString("abbr"));
+                module.setCouleur(rs.getString("couleur"));
+                module.setNbSeances(rs.getInt("nbSeances"));
+                module.setListeSeances(SeanceProvider.getSeances(module, c));
+
+                modules.put(rs.getInt("idModule"), module);
+            }
+            rs.close();
+            stmt.close();
+
+            return modules;
+        } catch (SQLException ex) {
+            Logger.getLogger(PlanningProvider.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

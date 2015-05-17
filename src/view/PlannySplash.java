@@ -109,6 +109,7 @@ public class PlannySplash extends JFrame {
                     }
                 }
                 controller.startPlanningFrame();
+                controller.loadData();
                 dispose();
             }
         };

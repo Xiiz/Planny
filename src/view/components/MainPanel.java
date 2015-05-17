@@ -6,11 +6,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import view.PlanningFrame;
 
 /**
  *
@@ -22,18 +22,20 @@ public class MainPanel extends JPanel {
     private NavigationBar navigationBar;
     private PlanningTable planningTable;
     private JScrollPane planningSP;
+    private PlannyController controller; 
 
-    public MainPanel(PlanningFrame mainFrame) {
+    public MainPanel(PlannyController controller) {
+        this.controller = controller;
         this.setLayout(new BorderLayout());
 
         this.setPreferredSize(new Dimension(900, 600));
         this.setBackground(Color.white);
-        createToolBar();
-        navigationBar = new NavigationBar(mainFrame);
+        toolBar = new ToolBar();
+        navigationBar = new NavigationBar(controller);
         this.add(navigationBar, BorderLayout.SOUTH);
         add(toolBar, BorderLayout.NORTH);
 
-        createPlanningTable(null);
+        createPlanningTable(new Date());
 
         this.add(planningSP, BorderLayout.CENTER);
 
@@ -41,11 +43,10 @@ public class MainPanel extends JPanel {
         planningTable.setRowHeight(rowSize);
     }
 
-    public final void createToolBar() {
-        toolBar = new ToolBar();
-    }
-
     public final void createPlanningTable(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        
         Object rowData[][] = {{"Matin", "Matin", "Matin", "Matin", "Matin", "Matin", "Matin"},
         {"Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi"}};
 
@@ -59,7 +60,7 @@ public class MainPanel extends JPanel {
         for (Date wd : weekDays) {
             daysColumns.add(CalendarHelper.getDayColumnLabel(wd));
         }
-        planningTable = new PlanningTable(rowData, daysColumns.toArray());
+        planningTable = new PlanningTable(rowData, daysColumns.toArray(), controller);
         planningSP = new JScrollPane(planningTable);
         planningSP.setBorder(BorderFactory.createEmptyBorder());
     }

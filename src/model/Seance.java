@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Classe modèle pour l'objet Seance
- * 
+ *
  * @author Yassine Doghri
  */
 public class Seance {

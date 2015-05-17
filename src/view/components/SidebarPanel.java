@@ -1,6 +1,7 @@
 package view.components;
 
 import com.toedter.calendar.JCalendar;
+import controller.PlannyController;
 import helper.CalendarHelper;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,7 +24,7 @@ public class SidebarPanel extends JPanel {
     private JLabel planningYear;
     private final JCalendar calendar;
 
-    public SidebarPanel(PlanningFrame mainFrame) {
+    public SidebarPanel(PlannyController controller) {
         setPreferredSize(new Dimension(200, 400));
         setLayout(new BorderLayout());
 
@@ -34,14 +35,8 @@ public class SidebarPanel extends JPanel {
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getPropertyName().equals("calendar")) {
                     Calendar c = (Calendar) e.getNewValue();
-
-                    // rafraichir le tableau du planning
-                    PlanningTable planningTable = mainFrame.getMainPanel().getPlanningTable();
-                    planningTable.changeColumnHeaders(CalendarHelper.getWeekDays(c));
-
-                    // rafraichir l'année du planning
-                    planningTable.setColumnSelectionInterval(c.get(Calendar.DAY_OF_WEEK), c.get(Calendar.DAY_OF_WEEK));
-                    planningYear.setText("Planning : " + CalendarHelper.getPlanningYear(c.getTime()));
+                    controller.updateView(c);
+                    controller.updatePlanningView(c);
                 }
             }
         });

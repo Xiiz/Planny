@@ -1,5 +1,6 @@
 package view.components;
 
+import controller.PlannyController;
 import helper.CalendarHelper;
 import java.awt.event.ActionEvent;
 import java.util.Date;
@@ -19,13 +20,13 @@ public class NavigationBar extends JToolBar {
 
     JLabel weekLabel;
 
-    public NavigationBar(PlanningFrame mainFrame) {
+    public NavigationBar(PlannyController controller) {
         ImageIcon prevIcon = new ImageIcon(
                 ToolBar.class.getResource("images/icon-arrow-prev.png"));
         Action prevAction = new AbstractAction("Previous", prevIcon) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.updateViewPrevWeek();
+                controller.updateViewPrevWeek();
             }
         };
 
@@ -34,7 +35,7 @@ public class NavigationBar extends JToolBar {
         Action nextAction = new AbstractAction("Next", nextIcon) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.updateViewNextWeek();
+                controller.updateViewNextWeek();
             }
         };
 
