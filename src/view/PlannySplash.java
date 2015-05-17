@@ -33,6 +33,11 @@ public class PlannySplash extends JFrame {
 
     public PlannySplash(PlannyController controller) throws IOException {
         super("Planny");
+        try {
+            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         setSize(600, 400);
         setUndecorated(true);
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);

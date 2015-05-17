@@ -29,7 +29,7 @@ public class MainPanel extends JPanel {
         this.setPreferredSize(new Dimension(900, 600));
         this.setBackground(Color.white);
         createToolBar();
-        createNavigationBar(mainFrame);
+        navigationBar = new NavigationBar(mainFrame);
         this.add(navigationBar, BorderLayout.SOUTH);
         add(toolBar, BorderLayout.NORTH);
 
@@ -68,7 +68,7 @@ public class MainPanel extends JPanel {
         return this.planningTable;
     }
 
-    public final void createNavigationBar(PlanningFrame mainFrame) {
-        navigationBar = new NavigationBar(mainFrame);
+    public NavigationBar getNavigationBar() {
+        return this.navigationBar;
     }
 }

@@ -1,13 +1,19 @@
 package view;
 
 import controller.PlannyController;
+import helper.CalendarHelper;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import view.components.MainPanel;
 import view.components.SidebarPanel;
 import view.components.MenuBar;
+import view.components.PlanningTable;
 
 /**
  * Classe de la fenêtre de planning
@@ -17,12 +23,11 @@ import view.components.MenuBar;
  */
 public class PlanningFrame extends JFrame {
 
-//    private final JSplitPane splitPaneV;
     private final JSplitPane splitPaneH;
-    private SidebarPanel sidebarPanel;
-    private MainPanel mainPanel;
+    private final SidebarPanel sidebarPanel;
+    private final MainPanel mainPanel;
     private JPanel footerPanel;
-    private MenuBar menuBar;
+    private final MenuBar menuBar;
 
     /**
      * Méthode constructeur pour la Fenêtre de Planning
@@ -31,6 +36,11 @@ public class PlanningFrame extends JFrame {
      */
     public PlanningFrame(PlannyController controller) {
         setTitle("Planny");
+        try {
+            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         getContentPane().setBackground(Color.white);
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
@@ -39,11 +49,11 @@ public class PlanningFrame extends JFrame {
         getContentPane().add(topPanel);
 
         //Create the menu bar
-        createMenuBar();
+        menuBar = new MenuBar();
 
         // Create the panels
-        createSidebarPanel(this);
-        createMainPanel(this);
+        sidebarPanel = new SidebarPanel(this);
+        mainPanel = new MainPanel(this);
         createFooterPanel();
 
         // Create a splitter pane
@@ -65,18 +75,6 @@ public class PlanningFrame extends JFrame {
         });
     }
 
-    public final void createMenuBar() {
-        menuBar = new MenuBar();
-    }
-
-    public final void createSidebarPanel(PlanningFrame mainFrame) {
-        sidebarPanel = new SidebarPanel(mainFrame);
-    }
-
-    public final void createMainPanel(PlanningFrame mainFrame) {
-        mainPanel = new MainPanel(mainFrame);
-    }
-
     public final void createFooterPanel() {
         footerPanel = new JPanel();
         footerPanel.setLayout(new BorderLayout());
@@ -92,7 +90,61 @@ public class PlanningFrame extends JFrame {
         footerPanel.add(copyrightPanel, BorderLayout.WEST);
         footerPanel.add(versionPanel, BorderLayout.EAST);
     }
+
     public MainPanel getMainPanel() {
         return this.mainPanel;
+    }
+
+    public SidebarPanel getSidebarPanel() {
+        return this.sidebarPanel;
+    }
+
+    public void updateView(Calendar calendar) {
+        // refresh Sidebar
+        // Planning year
+        sidebarPanel.getPlanningYear().setText(CalendarHelper.getPlanningYear(calendar.getTime()));
+
+        // refresh planning week
+        PlanningTable planningTable = mainPanel.getPlanningTable();
+        planningTable.changeColumnHeaders(CalendarHelper.getWeekDays(calendar));
+
+        // refresh week label interval
+        mainPanel.getNavigationBar().getWeekLabel().setText(CalendarHelper.getWeekInterval(calendar.getTime()));
+    }
+
+    public void updateViewNextWeek() {
+        // get selected Date
+        Calendar calendar = sidebarPanel.getCalendar().getCalendar();
+
+        // refresh planning table
+        PlanningTable planningTable = mainPanel.getPlanningTable();
+        planningTable.changeColumnHeaders(CalendarHelper.getNextWeek(calendar.getTime()));
+
+        // Change JCalendar Date
+        sidebarPanel.getCalendar().setDate(CalendarHelper.getMondayOfNextWeek(calendar));
+
+        // Planning year
+        sidebarPanel.getPlanningYear().setText("Planning : " + CalendarHelper.getPlanningYear(calendar.getTime()));
+
+        // set weekLabel
+        mainPanel.getNavigationBar().getWeekLabel().setText(CalendarHelper.getWeekInterval(calendar.getTime()));
+    }
+
+    public void updateViewPrevWeek() {
+        // get selected Date
+        Calendar calendar = sidebarPanel.getCalendar().getCalendar();
+
+        // refresh planning table
+        PlanningTable planningTable = mainPanel.getPlanningTable();
+        planningTable.changeColumnHeaders(CalendarHelper.getNextWeek(calendar.getTime()));
+
+        // Change JCalendar Date
+        sidebarPanel.getCalendar().setDate(CalendarHelper.getMondayOfPrevWeek(calendar));
+
+        // Planning year
+        sidebarPanel.getPlanningYear().setText("Planning : " + CalendarHelper.getPlanningYear(calendar.getTime()));
+
+        // set weekLabel
+        mainPanel.getNavigationBar().getWeekLabel().setText(CalendarHelper.getWeekInterval(calendar.getTime()));
     }
 }

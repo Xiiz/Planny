@@ -48,9 +48,42 @@ public class CalendarHelper {
         return getWeekDays(cal);
     }
 
+    /**
+     * Retourne les jours de la semaine en cours
+     *
+     * @return
+     */
     public static ArrayList<Date> getCurrentWeekDays() {
         Calendar cal = Calendar.getInstance();
         return getWeekDays(cal);
+    }
+
+    /**
+     * Retourne le lundi de la semaine suivante
+     *
+     * @param calendar
+     * @return
+     */
+    public static Date getMondayOfNextWeek(Calendar calendar) {
+        calendar.add(Calendar.DATE, 7);
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            calendar.add(Calendar.DATE, -1);
+        }
+        return calendar.getTime();
+    }
+
+    /**
+     * Retourne le lundi de la semaine précédente
+     *
+     * @param calendar
+     * @return Date Lundi de la semaine précédente
+     */
+    public static Date getMondayOfPrevWeek(Calendar calendar) {
+        calendar.add(Calendar.DATE, -7);
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+            calendar.add(Calendar.DATE, -1);
+        }
+        return calendar.getTime();
     }
 
     /**

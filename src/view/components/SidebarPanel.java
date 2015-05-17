@@ -21,20 +21,19 @@ import view.PlanningFrame;
 public class SidebarPanel extends JPanel {
 
     private JLabel planningYear;
+    private final JCalendar calendar;
 
     public SidebarPanel(PlanningFrame mainFrame) {
         setPreferredSize(new Dimension(200, 400));
         setLayout(new BorderLayout());
 
-        JCalendar calendar = new JCalendar();
+        calendar = new JCalendar();
         calendar.setWeekOfYearVisible(false);
         calendar.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getPropertyName().equals("calendar")) {
                     Calendar c = (Calendar) e.getNewValue();
-                    System.out.println(c.getTime().toString());
-                    System.out.println(calendar.getParent().getParent().getName());
 
                     // rafraichir le tableau du planning
                     PlanningTable planningTable = mainFrame.getMainPanel().getPlanningTable();
@@ -57,6 +56,24 @@ public class SidebarPanel extends JPanel {
 
         add(calendarPanel, BorderLayout.CENTER);
         add(titlePanel, BorderLayout.NORTH);
+    }
+
+    /**
+     * Retourne le JCalendar
+     *
+     * @return JCalendar
+     */
+    public JCalendar getCalendar() {
+        return this.calendar;
+    }
+
+    /**
+     * Retourne le JLabel de l'année du planning
+     *
+     * @return JLabel annnée planning
+     */
+    public JLabel getPlanningYear() {
+        return this.planningYear;
     }
 
 }

@@ -1,6 +1,8 @@
 package view.components;
 
+import helper.CalendarHelper;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Box;
@@ -15,14 +17,15 @@ import view.PlanningFrame;
  */
 public class NavigationBar extends JToolBar {
 
+    JLabel weekLabel;
+
     public NavigationBar(PlanningFrame mainFrame) {
         ImageIcon prevIcon = new ImageIcon(
                 ToolBar.class.getResource("images/icon-arrow-prev.png"));
         Action prevAction = new AbstractAction("Previous", prevIcon) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Previous");
-                
+                mainFrame.updateViewPrevWeek();
             }
         };
 
@@ -31,17 +34,20 @@ public class NavigationBar extends JToolBar {
         Action nextAction = new AbstractAction("Next", nextIcon) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Next");
-                mainFrame.getMainPanel().getPlanningTable();
+                mainFrame.updateViewNextWeek();
             }
         };
 
-        JLabel weekLabel = new JLabel("Week 5");
+        weekLabel = new JLabel(CalendarHelper.getWeekInterval(new Date()));
         this.add(prevAction);
         this.add(Box.createHorizontalGlue());
         this.add(weekLabel);
         this.add(Box.createHorizontalGlue());
         this.add(nextAction);
         this.setFloatable(false);
+    }
+
+    public JLabel getWeekLabel() {
+        return this.weekLabel;
     }
 }
