@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Formation;
+import model.Planning;
 
 /**
  *
@@ -36,20 +37,21 @@ public class FormationProvider {
         System.out.println("Table Formation initialisée");
     }
 
-    public static HashMap<Integer, Formation> getFormations(int idPlanning, Connection c) {
+    public static HashMap<Integer, Formation> getFormations(Planning planning, Connection c) {
         try {
             HashMap<Integer, Formation> formations = new HashMap();
 
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT *"
                     + " FROM FORMATION"
-                    + " WHERE IDPLANNING = " + idPlanning + ";");
+                    + " WHERE IDPLANNING = " + planning.getId() + ";");
             while (rs.next()) {
                 Formation formation = new Formation();
                 formation.setId(rs.getInt("idFormation"));
                 formation.setNom(rs.getString("nom"));
                 formation.setDureeSceance(rs.getInt("dureeSceance"));
-                formation.setListeModules(ModuleProvider.getModules(rs.getInt("idFormation"), c));
+                formation.setPlanning(planning);
+                formation.setListeModules(ModuleProvider.getModules(formation, c));
 
                 formations.put(rs.getInt("idFormation"), formation);
             }

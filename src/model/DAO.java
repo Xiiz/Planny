@@ -70,6 +70,11 @@ public class DAO {
 
     public static void addSeance(Seance seance) {
         Connection c = Connect.get();
-        SeanceProvider.addSeance(c, seance);
+        SeanceProvider.insertSeance(c, seance);
+    }
+
+    public static Formateur getFormateur(String prenom, String nom) {
+        Connection c = Connect.get();
+        return FormateurProvider.getFormateur(c, prenom, nom);
     }
 }

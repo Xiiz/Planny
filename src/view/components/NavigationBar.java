@@ -10,7 +10,6 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
-import view.PlanningFrame;
 
 /**
  *
@@ -27,6 +26,7 @@ public class NavigationBar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.updateViewPrevWeek();
+                controller.updatePlanningView(controller.getSelectedDate());
             }
         };
 
@@ -36,6 +36,7 @@ public class NavigationBar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.updateViewNextWeek();
+                controller.updatePlanningView(controller.getSelectedDate());
             }
         };
 

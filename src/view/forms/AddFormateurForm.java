@@ -71,8 +71,6 @@ public class AddFormateurForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button pressed");
-//                Module module = 
-//                controller.addSeance(new Seance(1, 2, new Date(), new Module(), new Formateur()));
             }
         });
         

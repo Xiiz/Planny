@@ -75,17 +75,19 @@ public class SeanceProvider {
         return null;
     }
 
-    public static void addSeance(Connection c, Seance seance) {
+    public static void insertSeance(Connection c, Seance seance) {
         try {
             c.setAutoCommit(false);
             Statement stmt = c.createStatement();
+            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateSeance = f.format(seance.getDateSeance());
 
             String sql = "INSERT INTO SEANCE (IDMODULE,IDSEANCE,IDFORMATEUR,NUMSEANCE,DATESEANCE) "
                     + "VALUES (" + seance.getModule().getId() + ", "
                     + seance.getId() + ", "
                     + seance.getFormateur().getId() + ", "
                     + seance.getNumSeance() + ", "
-                    + seance.getDateSeance() + " );";
+                    + "'" + dateSeance + "' );";
             stmt.executeUpdate(sql);
 
             stmt.close();

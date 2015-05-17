@@ -110,6 +110,7 @@ public class PlannySplash extends JFrame {
                 }
                 controller.startPlanningFrame();
                 controller.loadData();
+                controller.updatePlanningView(controller.getSelectedDate());
                 dispose();
             }
         };

@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Formation;
 import model.Module;
 
 /**
@@ -38,14 +39,14 @@ public class ModuleProvider {
         System.out.println("Table Module initialisée");
     }
 
-    public static HashMap<Integer, Module> getModules(int idFormation, Connection c) {
+    public static HashMap<Integer, Module> getModules(Formation formation, Connection c) {
         try {
             HashMap<Integer, Module> modules = new HashMap();
 
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT *"
                     + " FROM MODULE"
-                    + " WHERE IDFORMATION = " + idFormation + ";");
+                    + " WHERE IDFORMATION = " + formation.getId() + ";");
             while (rs.next()) {
                 Module module = new Module();
                 module.setId(rs.getInt("idModule"));

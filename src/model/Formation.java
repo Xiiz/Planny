@@ -66,6 +66,15 @@ public class Formation {
         return listeModules.get(key);
     }
 
+    public Module getModuleByNom(String nom) {
+        for (HashMap.Entry<Integer, Module> entry : listeModules.entrySet()) {
+            if (entry.getValue().getNom().equals(nom)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
     public void setListeModules(HashMap<Integer, Module> listeModules) {
         this.listeModules = listeModules;
     }

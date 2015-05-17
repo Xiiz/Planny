@@ -42,7 +42,7 @@ public class PlanningProvider {
                 Planning planning = new Planning();
                 planning.setId(rs.getInt("idPlanning"));
                 planning.setAnneePlanning(rs.getString("anneePlanning"));
-                planning.setListeFormations(FormationProvider.getFormations(rs.getInt("idPlanning"), c));
+                planning.setListeFormations(FormationProvider.getFormations(planning, c));
 
                 plannings.put(rs.getInt("idPlanning"), planning);
             }

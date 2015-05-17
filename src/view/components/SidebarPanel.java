@@ -22,15 +22,15 @@ import view.PlanningFrame;
 public class SidebarPanel extends JPanel {
 
     private JLabel planningYear;
-    private final JCalendar calendar;
+    private final JCalendar jcalendar;
 
     public SidebarPanel(PlannyController controller) {
         setPreferredSize(new Dimension(200, 400));
         setLayout(new BorderLayout());
 
-        calendar = new JCalendar();
-        calendar.setWeekOfYearVisible(false);
-        calendar.addPropertyChangeListener(new PropertyChangeListener() {
+        jcalendar = new JCalendar();
+        jcalendar.setWeekOfYearVisible(false);
+        jcalendar.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 if (e.getPropertyName().equals("calendar")) {
@@ -41,7 +41,7 @@ public class SidebarPanel extends JPanel {
             }
         });
         JPanel calendarPanel = new JPanel();
-        calendarPanel.add(calendar);
+        calendarPanel.add(jcalendar);
 
         // Jlabel Planning Year
         planningYear = new JLabel("Planning : " + CalendarHelper.getPlanningYear(new Date()));
@@ -58,8 +58,8 @@ public class SidebarPanel extends JPanel {
      *
      * @return JCalendar
      */
-    public JCalendar getCalendar() {
-        return this.calendar;
+    public JCalendar getJCalendar() {
+        return this.jcalendar;
     }
 
     /**

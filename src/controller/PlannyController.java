@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.TableCellEditor;
@@ -81,7 +82,7 @@ public class PlannyController {
             Calendar cd = Calendar.getInstance();
             cd.setTime(d);
             planning.setValueAt("Matin", 0, CalendarHelper.getWeekNumber(cd));
-            planning.setValueAt("Après-midi", 1, CalendarHelper.getWeekNumber(cd));
+            planning.setValueAt("Après-Midi", 1, CalendarHelper.getWeekNumber(cd));
         }
         for (Date d : weekDays) {
             System.out.println("test");
@@ -147,14 +148,14 @@ public class PlannyController {
         MainPanel mainPanel = mainFrame.getMainPanel();
 
         // get selected Date
-        Calendar calendar = sidebarPanel.getCalendar().getCalendar();
+        Calendar calendar = sidebarPanel.getJCalendar().getCalendar();
 
         // refresh planning table
         PlanningTable planningTable = mainPanel.getPlanningTable();
         planningTable.changeColumnHeaders(CalendarHelper.getNextWeek(calendar.getTime()));
 
         // Change JCalendar Date
-        sidebarPanel.getCalendar().setDate(CalendarHelper.getMondayOfNextWeek(calendar));
+        sidebarPanel.getJCalendar().setDate(CalendarHelper.getMondayOfNextWeek(calendar));
 
         // Planning year
         sidebarPanel.getPlanningYear().setText("Planning : " + CalendarHelper.getPlanningYear(calendar.getTime()));
@@ -168,14 +169,14 @@ public class PlannyController {
         MainPanel mainPanel = mainFrame.getMainPanel();
 
         // get selected Date
-        Calendar calendar = sidebarPanel.getCalendar().getCalendar();
+        Calendar calendar = sidebarPanel.getJCalendar().getCalendar();
 
         // refresh planning table
         PlanningTable planningTable = mainPanel.getPlanningTable();
         planningTable.changeColumnHeaders(CalendarHelper.getNextWeek(calendar.getTime()));
 
         // Change JCalendar Date
-        sidebarPanel.getCalendar().setDate(CalendarHelper.getMondayOfPrevWeek(calendar));
+        sidebarPanel.getJCalendar().setDate(CalendarHelper.getMondayOfPrevWeek(calendar));
 
         // Planning year
         sidebarPanel.getPlanningYear().setText("Planning : " + CalendarHelper.getPlanningYear(calendar.getTime()));
@@ -199,10 +200,67 @@ public class PlannyController {
         }
         return modules;
     }
+
+    public void addSeance(Seance seance, Module module, Formateur formateur) {
+        try {
+            // getPlanning
+            module.addSeance(seance.getId(), seance);
+            formateur.addSeance(seance.getId(), seance);
+
+            DAO.addSeance(seance);
+        } catch (Exception ex) {
+            Logger.getLogger(PlannyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public int getNextSeanceId(Module module, Date dateSeance) {
+        Planning planning = getPlanning(CalendarHelper.getPlanningYear(dateSeance));
+        Entry<Integer, Seance> maxEntry = null;
+        for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
+            for (HashMap.Entry<Integer, Seance> entry2 : entry.getValue().getModule(module.getId()).getListeSeances().entrySet()) {
+                if (maxEntry == null || entry2.getKey() > maxEntry.getKey()) {
+                    maxEntry = entry2;
+                }
+            }
+        }
+        if (maxEntry == null) {
+            return 1;
+        } else {
+            return maxEntry.getKey() + 1;
+        }
+    }
+
+    /**
+     *
+     * @param nom
+     * @param dateSeance
+     * @return
+     */
+    public Module getModule(String nom, Date dateSeance) {
+        Planning planning = getPlanning(CalendarHelper.getPlanningYear(dateSeance));
+        for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
+            return entry.getValue().getModuleByNom(nom);
+        }
+        return null;
+    }
+
+    public Formateur getFormateur(String nom, Date dateSeance) {
+        Planning planning = getPlanning(CalendarHelper.getPlanningYear(dateSeance));
+        for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
+            for (HashMap.Entry<Integer, Module> entry2 : entry.getValue().getListeModules().entrySet()) {
+                for (HashMap.Entry<Integer, Seance> entry3 : entry2.getValue().getListeSeances().entrySet()) {
+                    String nomFormateur = entry3.getValue().getFormateur().getPrenom() + " " + entry3.getValue().getFormateur().getNom();
+                    if (nomFormateur.equals(nom)) {
+                        return entry3.getValue().getFormateur();
+                    }
+                }
+            }
+        }
+        String[] parts = nom.split(" ");
+        return DAO.getFormateur(parts[0], parts[1]);
+    }
     
-    public void addSeance(Seance seance) {
-        // getPlanning
-//        Planning planning = getPlanning(CalendarHelper.getPlanningYear(seance.getDateSeance()));
-        DAO.addSeance(seance);
+    public Calendar getSelectedDate() {
+        return mainFrame.getSidebarPanel().getJCalendar().getCalendar();
     }
 }

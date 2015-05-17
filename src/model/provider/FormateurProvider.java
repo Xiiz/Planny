@@ -65,7 +65,7 @@ public class FormateurProvider {
     public static HashMap<Integer, Formateur> getAllFormateurs(Connection c) {
         try {
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM FORMATEUR f;");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM FORMATEUR;");
 
             HashMap<Integer, Formateur> formateurs = new HashMap();
             while (rs.next()) {
@@ -81,6 +81,27 @@ public class FormateurProvider {
                 formateurs.put(rs.getInt("idFormateur"), formateur);
             }
             return formateurs;
+        } catch (SQLException ex) {
+            Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static Formateur getFormateur(Connection c, String prenom, String nom) {
+        try {
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM FORMATEUR WHERE prenom = '" + prenom + "' and nom = '" + nom + "';");
+
+            Formateur formateur = new Formateur();
+            while (rs.next()) {
+                formateur.setId(rs.getInt("idFormateur"));
+                formateur.setNom(rs.getString("nom"));
+                formateur.setPrenom(rs.getString("prenom"));
+                formateur.setInitiales(rs.getString("initiales"));
+                formateur.setTelephone(rs.getString("telephone"));
+                formateur.setEmail(rs.getString("email"));
+            }
+            return formateur;
         } catch (SQLException ex) {
             Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
