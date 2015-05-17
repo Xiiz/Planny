@@ -7,6 +7,8 @@ package model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,10 +39,14 @@ public class ModuleTest {
 
     @Before
     public void setUp() {
-        lesSeances = new HashMap<Integer, Seance>();
-        laSeance = new Seance(1, 1, null, leModule, null);
-        leModule = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
-        leModule.addSeance(1, laSeance);
+        try {
+            lesSeances = new HashMap<Integer, Seance>();
+            laSeance = new Seance(1, 1, null, leModule, null);
+            leModule = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
+            leModule.addSeance(1, laSeance);
+        } catch (Exception ex) {
+            Logger.getLogger(ModuleTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @After
@@ -192,10 +198,14 @@ public class ModuleTest {
      */
     @Test
     public void testAddSeance() {
-        Seance expResult = new Seance(1, 1, null, leModule, null);
-        leModule.addSeance(1, expResult);
-        Seance result = leModule.getSeance(1);
-        assertSame(expResult, result);
+        try {
+            Seance expResult = new Seance(1, 1, null, leModule, null);
+            leModule.addSeance(1, expResult);
+            Seance result = leModule.getSeance(1);
+            assertSame(expResult, result);
+        } catch (Exception ex) {
+            Logger.getLogger(ModuleTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
