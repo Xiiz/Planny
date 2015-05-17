@@ -259,8 +259,17 @@ public class PlannyController {
         String[] parts = nom.split(" ");
         return DAO.getFormateur(parts[0], parts[1]);
     }
-    
+
     public Calendar getSelectedDate() {
         return mainFrame.getSidebarPanel().getJCalendar().getCalendar();
+    }
+
+    public ArrayList<String> getAnneesPlannings() {
+        ArrayList<String> listeAnnees = new ArrayList();
+        for (HashMap.Entry<Integer, Planning> entry : this.getPlannings().entrySet()) {
+            Planning unPlanning = entry.getValue();
+            listeAnnees.add(unPlanning.getAnneePlanning());
+        }
+        return listeAnnees;
     }
 }
