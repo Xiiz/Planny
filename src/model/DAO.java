@@ -73,6 +73,11 @@ public class DAO {
         SeanceProvider.insertSeance(c, seance);
     }
 
+    public static void addFormation(Formation formation) {
+        Connection c = Connect.get();
+        FormationProvider.insertFormation(c, formation);
+    }
+
     public static Formateur getFormateur(String prenom, String nom) {
         Connection c = Connect.get();
         return FormateurProvider.getFormateur(c, prenom, nom);

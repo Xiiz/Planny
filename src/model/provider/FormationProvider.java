@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Formation;
 import model.Planning;
+import model.Seance;
 
 /**
  *
@@ -24,7 +26,7 @@ public class FormationProvider {
                     + "	IDFORMATION INT NOT NULL,"
                     + "	IDPLANNING INT NOT NULL,"
                     + "	NOM TEXT NULL,"
-                    + "	DUREESCEANCE INT NULL,"
+                    + "	DUREESEANCE INT NULL,"
                     + "	PRIMARY KEY (IDFORMATION),"
                     + "	FOREIGN KEY (IDPLANNING) REFERENCES PLANNING (IDPLANNING)"
                     + " );"
@@ -49,7 +51,7 @@ public class FormationProvider {
                 Formation formation = new Formation();
                 formation.setId(rs.getInt("idFormation"));
                 formation.setNom(rs.getString("nom"));
-                formation.setDureeSceance(rs.getInt("dureeSceance"));
+                formation.setDureeSceance(rs.getInt("dureeSeance"));
                 formation.setPlanning(planning);
                 formation.setListeModules(ModuleProvider.getModules(formation, c));
 
@@ -65,4 +67,32 @@ public class FormationProvider {
         return null;
     }
 
+    public static void insertFormation(Connection c, Formation formation) {
+        try {
+            c.setAutoCommit(false);
+            Statement stmt = c.createStatement();
+
+            String sql = "INSERT INTO FORMATION (IDFORMATION,IDPLANNING,NOM,DUREESEANCE) "
+                    + "VALUES (" + formation.getId() + ", "
+                    + formation.getPlanning().getId() + ", "
+                    + "'" + formation.getNom() + "', "
+                    + formation.getDureeSceance() +");";
+            stmt.executeUpdate(sql);
+
+        stmt.close();
+        c.commit();
+        c.close();
+    }
+    catch (Exception e
+
+    
+        ) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        System.exit(0);
+    }
+
+    System.out.println (
+
+"Records created successfully");
+    }
 }

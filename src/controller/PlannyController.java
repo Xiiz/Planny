@@ -272,4 +272,24 @@ public class PlannyController {
         }
         return listeAnnees;
     }
+
+    public int getNextFormationId(Planning planning) {
+        Entry<Integer, Formation> maxEntry = null;
+        for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
+            if (maxEntry == null || entry.getKey() > maxEntry.getKey()) {
+                maxEntry = entry;
+            }
+        }
+        if (maxEntry == null) {
+            return 1;
+        } else {
+            return maxEntry.getKey() + 1;
+        }
+    }
+    
+    public void addFormation(Formation formation, Planning planning) {
+        planning.addFormation(formation.getId(), formation);
+        
+        DAO.addFormation(formation);
+    }
 }
