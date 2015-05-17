@@ -18,7 +18,8 @@ public class FormateurTest {
     private Formateur leFormateur;
     private Module leModule;
     private HashMap<Integer, Seance> lesSeances;
-
+    private Formation laFormation;
+    
     public FormateurTest() {
     }
 
@@ -33,8 +34,9 @@ public class FormateurTest {
     @Before
     public void setUp() {
         lesSeances = new HashMap<Integer, Seance>();
+        laFormation = new Formation(1, "L3 2/3 A", 40, null, null);
         leFormateur = new Formateur(1, "Dujardin", "Jean", "JD", "0102030405", "Jean.Dujardin@u-pec.fr", lesSeances);
-        leModule = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
+        leModule = new Module(1, "Base de données", "BDD", "Black", 10, laFormation, lesSeances);
         Date dateSeanceUn = new Date();
         Seance seanceUn = new Seance(1, 1, dateSeanceUn, leModule, leFormateur);
         Date dateSeanceDeux = new Date();
@@ -189,7 +191,7 @@ public class FormateurTest {
     @Test
     public void testSetListeSceances() {
         HashMap<Integer, Seance> lesNouvllesSeances = new HashMap<Integer, Seance>();
-        leModule = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
+        leModule = new Module(1, "Base de données", "BDD", "Black", 10,laFormation ,lesSeances);
         Date dateSeanceTrois = new Date();
         Seance seanceTrois = new Seance(1, 1, dateSeanceTrois, leModule, leFormateur);
         Date dateSeanceQuatre = new Date();
@@ -200,6 +202,46 @@ public class FormateurTest {
         HashMap<Integer, Seance> result = leFormateur.getListeSceances();
         HashMap<Integer, Seance> expResult = lesNouvllesSeances;
         assertSame(expResult, result);
+    }
+
+    /**
+     * Test of getListeSceances method, of class Formateur.
+     */
+    @Test
+    public void testGetListeSceances() {
+        HashMap<Integer, Seance> expResult = lesSeances;
+        HashMap<Integer, Seance> result = leFormateur.getListeSceances();
+        assertSame(expResult, result);
+    }
+
+    /**
+     * Test of addSeance method, of class Formateur.
+     */
+    @Test
+    public void testAddSeance() {
+        boolean presenceSeance = false;
+        Date dateSeanceTrois = new Date();
+        Seance nouvelleSeance = new Seance(1, 1, dateSeanceTrois, leModule, leFormateur);
+        leFormateur.addSeance(Integer.SIZE, nouvelleSeance);
+        for(int lesCles : leFormateur.getListeSceances().keySet()){
+            Seance uneSeance = leFormateur.getListeSceances().get(lesCles);
+            if (uneSeance.equals(nouvelleSeance)){
+                presenceSeance = true;
+            }
+        }
+        if (presenceSeance == false) {
+            fail("La séance n\'a pas été ajoutée !");
+        }
+    }
+
+    /**
+     * Test of toString method, of class Formateur.
+     */
+    @Test
+    public void testToString() {
+        String expResult = "Jean Dujardin";
+        String result = leFormateur.toString();
+        assertEquals(expResult, result);
     }
 
 }

@@ -25,6 +25,7 @@ public class ModuleTest {
     private Module leModule;
     private HashMap<Integer, Seance> lesSeances;
     private Seance laSeance;
+    private Formation laFormation;
 
     public ModuleTest() {
     }
@@ -42,7 +43,8 @@ public class ModuleTest {
         try {
             lesSeances = new HashMap<Integer, Seance>();
             laSeance = new Seance(1, 1, null, leModule, null);
-            leModule = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
+            laFormation = new Formation();
+            leModule = new Module(1, "Base de données", "BDD", "Black", 10,laFormation,lesSeances);          
             leModule.addSeance(1, laSeance);
         } catch (Exception ex) {
             Logger.getLogger(ModuleTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -206,6 +208,38 @@ public class ModuleTest {
         } catch (Exception ex) {
             Logger.getLogger(ModuleTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * Test of getFormation method, of class Module.
+     */
+    @Test
+    public void testGetFormation() {
+        Formation expResult = laFormation;
+        Formation result = leModule.getFormation();
+        assertSame(expResult, result);
+    }
+
+    /**
+     * Test of setFormation method, of class Module.
+     */
+    @Test
+    public void testSetFormation() {
+        Formation expResult = new Formation();
+        leModule.setFormation(expResult);
+        Formation result = leModule.getFormation();
+        assertSame(expResult, result);
+
+    }
+
+    /**
+     * Test of toString method, of class Module.
+     */
+    @Test
+    public void testToString() {
+        String expResult = "Base de données";
+        String result = leModule.toString();
+        assertEquals(expResult, result);
     }
 
 }

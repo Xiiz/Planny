@@ -25,6 +25,7 @@ public class SeanceTest {
     private Module leModule;
     private HashMap<Integer, Seance> lesSeances;
     private Date laDate;
+    private Formation laFormation;
 
     public SeanceTest() {
     }
@@ -41,7 +42,8 @@ public class SeanceTest {
     public void setUp() {
         lesSeances = new HashMap<Integer, Seance>();
         leFormateur = new Formateur(1, "Dujardin", "Jean", "JD", "0102030405", "Jean.Dujardin@u-pec.fr", lesSeances);
-        leModule = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
+        laFormation = new Formation();
+        leModule = new Module(1, "Base de données", "BDD", "Black", 10, laFormation, lesSeances);
         laDate = new Date();
         laSeance = new Seance(1, 1, laDate, leModule, leFormateur);
     }
@@ -128,7 +130,7 @@ public class SeanceTest {
      */
     @Test
     public void testSetModule() {
-        Module expResult = new Module(1, "JAVA IHM", "J.IHM", "White", 5, lesSeances);
+        Module expResult = new Module(1, "JAVA IHM", "J.IHM", "White", 5,laFormation, lesSeances);
         laSeance.setModule(expResult);
         Module result = laSeance.getModule();
         assertSame(expResult, result);

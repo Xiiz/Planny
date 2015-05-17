@@ -38,9 +38,9 @@ public class PlanningTest {
     public void setUp() {
         listeFormations = new HashMap<Integer, Formation>();
         lePlanning = new Planning(1, "2015", listeFormations);
-        Module moduleFra = new Module(1, "Français", "FRA", "Blue", 5, null);
+        Module moduleFra = new Module(1, "Français", "FRA", "Blue", 5, null, null);
         HashMap<Integer, Module> listeModules = new HashMap<Integer, Module>();
-        laFormation = new Formation(1, "L3 2/3 A", 40, listeModules);
+        laFormation = new Formation(1, "L3 2/3 A", 40, null, listeModules);
         laFormation.addModule(1, moduleFra);
         lePlanning.addFormation(1, laFormation);
     }
@@ -117,8 +117,8 @@ public class PlanningTest {
     @Test
     public void testSetListeFormations() {
         HashMap<Integer, Formation> expResult = new HashMap<Integer, Formation>();
-        Formation formationUn = new Formation(1, "M1", 40, null);
-        Formation formationDeux = new Formation(2, "M2", 30, null);
+        Formation formationUn = new Formation(1, "M1", 40, null, null);
+        Formation formationDeux = new Formation(2, "M2", 30, null, null);
         expResult.put(1, formationUn);
         expResult.put(2, formationDeux);
         lePlanning.setListeFormations(expResult);
@@ -131,7 +131,7 @@ public class PlanningTest {
      */
     @Test
     public void testAddFormation() {
-        Formation expResult = new Formation(2, "M1", 40, null);
+        Formation expResult = new Formation(2, "M1", 40, null, null);
         lePlanning.addFormation(2, expResult);
         Formation result = lePlanning.getFormation(2);
         assertSame(expResult, result);
@@ -142,7 +142,7 @@ public class PlanningTest {
      */
     @Test
     public void testRemoveFormation() {
-        Formation expResult = new Formation(2, "M1", 40, null);
+        Formation expResult = new Formation(2, "M1", 40, null, null);
         lePlanning.addFormation(2, expResult);
         lePlanning.removeFormation(2);
         for (int lesCles : lePlanning.getListeFormations().keySet()) {

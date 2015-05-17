@@ -22,6 +22,7 @@ public class FormationTest {
     private Formation laFormation;
     private Module moduleFra;
     private HashMap<Integer, Module> listeModules;
+    private Planning lePlanning;
 
     public FormationTest() {
     }
@@ -36,11 +37,12 @@ public class FormationTest {
 
     @Before
     public void setUp() {
+        lePlanning = new Planning();
         HashMap<Integer, Seance> lesSeances = new HashMap<Integer, Seance>();
-        Module moduleBdd = new Module(1, "Base de données", "BDD", "Black", 10, lesSeances);
-        moduleFra = new Module(1, "Français", "FRA", "Blue", 5, lesSeances);
+        Module moduleBdd = new Module(1, "Base de données", "BDD", "Black", 10, laFormation, lesSeances);
+        moduleFra = new Module(1, "Français", "FRA", "Blue", 5, laFormation, lesSeances);
         listeModules = new HashMap<Integer, Module>();
-        laFormation = new Formation(1, "L3 2/3 A", 40, listeModules);
+        laFormation = new Formation(1, "L3 2/3 A", 40, lePlanning, listeModules);
         laFormation.addModule(1, moduleBdd);
         laFormation.addModule(2, moduleFra);
     }
@@ -139,14 +141,14 @@ public class FormationTest {
     public void testSetListeModules() {
         HashMap<Integer, Module> listeNouveauxModules = new HashMap<Integer, Module>();
         HashMap<Integer, Seance> lesNouvellesSeances = new HashMap<Integer, Seance>();
-        Module moduleEng = new Module(1, "Anglais", "ENG", "Yellow", 5, lesNouvellesSeances);
-        Module moduleMarketing = new Module(1, "Marketing", "Mark", "Orange", 10, lesNouvellesSeances);
+        Module moduleEng = new Module(1, "Anglais", "ENG", "Yellow", 5, laFormation, lesNouvellesSeances);
+        Module moduleMarketing = new Module(1, "Marketing", "Mark", "Orange", 10, laFormation, lesNouvellesSeances);
         listeNouveauxModules.put(Integer.SIZE, moduleEng);
         listeNouveauxModules.put(Integer.SIZE, moduleMarketing);
         laFormation.setListeModules(listeNouveauxModules);
         HashMap<Integer, Module> expResult = listeNouveauxModules;
         HashMap<Integer, Module> result = laFormation.getListeModules();
-        assertEquals(expResult, result);
+        assertSame(expResult, result);
     }
 
     /**
@@ -155,11 +157,32 @@ public class FormationTest {
     @Test
     public void testAddModule() {
         HashMap<Integer, Seance> lesSeances = new HashMap<Integer, Seance>();
-        Module moduleEng = new Module(1, "Anglais", "ENG", "Yellow", 5, lesSeances);
+        Module moduleEng = new Module(1, "Anglais", "ENG", "Yellow", 5, laFormation, lesSeances);
         laFormation.addModule(3, moduleEng);
         Module expResult = moduleEng;
         Module result = laFormation.getModule(3);
-        assertEquals(expResult, result);
+        assertSame(expResult, result);
+    }
+
+    /**
+     * Test of getPlanning method, of class Formation.
+     */
+    @Test
+    public void testGetPlanning() {
+        Planning expResult = lePlanning;
+        Planning result = laFormation.getPlanning();
+        assertSame(expResult, result);
+    }
+
+    /**
+     * Test of setPlanning method, of class Formation.
+     */
+    @Test
+    public void testSetPlanning() {
+        Planning expResult = new Planning();
+        laFormation.setPlanning(expResult);
+        Planning result = laFormation.getPlanning();
+        assertSame(expResult, result);
     }
 
 }
