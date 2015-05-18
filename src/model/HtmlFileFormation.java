@@ -14,6 +14,14 @@ import java.util.HashMap;
  */
 public class HtmlFileFormation {
 
+    /**
+     * Génère un fichier HTML affichant le planning d'une année donnée
+     * 
+     * @param lePlanning
+     * @param destination
+     * @param name
+     * @throws IOException
+     */
     public HtmlFileFormation(Planning lePlanning, String destination, String name) throws IOException {
         ArrayList<Seance> listeSeance = new ArrayList<>();
         File f = new File(name + ".html");

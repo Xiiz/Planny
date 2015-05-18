@@ -19,6 +19,9 @@ import model.provider.SeanceProvider;
  */
 public class DAO {
 
+    /**
+     * Initialise les tables de la base de données
+     */
     public static void initDatabase() {
         Connection c = Connect.get();
         FormateurProvider.createTable(c);
@@ -28,76 +31,103 @@ public class DAO {
         SeanceProvider.createTable(c);
     }
 
+    /**
+     * Parcours la bdd pour initialiser les objets du modèle et retourne les plannings
+     * 
+     * @return liste des plannings
+     */
     public static HashMap<Integer, Planning> initPlannings() {
         Connection c = Connect.get();
         return PlanningProvider.getAll(c);
     }
 
-    public static void insertData(String tableName, String fieldNames, String values) throws Exception {
-
-        String[] fn = fieldNames.split(",");
-        String[] v = values.split(",");
-
-        if (fn.length != v.length) {
-            throw new Exception("Le nombre de champs est différent de celui des données");
-        }
-
-        try {
-            Connection c = Connect.get();
-            Statement stmt = c.createStatement();
-            String sql = "INSERT INTO " + tableName + " (" + fieldNames + ") "
-                    + "VALUES (" + values + ");";
-            stmt.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("Records created successfully");
-    }
-
-    public static void updateData() {
-
-    }
-
+    /**
+     * Retourne tous les formateurs de la base de données
+     * 
+     * @return liste des formateurs
+     */
     public static HashMap<Integer, Formateur> getAllFormateurs() {
         Connection c = Connect.get();
         return FormateurProvider.getAllFormateurs(c);
     }
 
+    /**
+     * Retourne tous les modules de la base de données
+     *
+     * @return liste de modules
+     */
     public static HashMap<Integer, Module> getAllModules() {
         Connection c = Connect.get();
         return ModuleProvider.getAllModules(c);
     }
 
+    /**
+     * Ajoute une séance donnée à la base de données
+     *
+     * @param seance
+     */
     public static void addSeance(Seance seance) {
         Connection c = Connect.get();
         SeanceProvider.insertSeance(c, seance);
     }
 
+    /**
+     * Ajoute une formation donnée à la bdd
+     * 
+     * @param formation
+     */
     public static void addFormation(Formation formation) {
         Connection c = Connect.get();
         FormationProvider.insertFormation(c, formation);
     }
 
+    /**
+     * Retourne un fomateur trouvé par le prenom et nom donné
+     * 
+     * @param prenom
+     * @param nom
+     * @return Formateur
+     */
     public static Formateur getFormateur(String prenom, String nom) {
         Connection c = Connect.get();
         return FormateurProvider.getFormateur(c, prenom, nom);
     }
 
+    /**
+     * Ajoute un Module donné à la bdd
+     * 
+     * @param module
+     */
     public static void addModule(Module module) {
         Connection c = Connect.get();
         ModuleProvider.insertModule(c, module);
     }
 
+    /**
+     * Ajoute un formateur donné à la base de données
+     * 
+     * @param formateur
+     */
     public static void addFormateur(Formateur formateur) {
         Connection c = Connect.get();
         FormateurProvider.insertFormateur(c, formateur);
     }
 
+    /**
+     * Met à jours une séance donnée
+     *
+     * @param seance
+     */
     public static void updateSeance(Seance seance) {
         Connection c = Connect.get();
         SeanceProvider.updateSeance(c, seance);
     }
 
+    /**
+     * Ajoute un planning donné à la bdd
+     *
+     * @param planning
+     */
     public static void addPlanning(Planning planning) {
         Connection c = Connect.get();
         PlanningProvider.insertPlanning(c, planning);

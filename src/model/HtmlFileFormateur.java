@@ -14,6 +14,15 @@ import java.util.HashMap;
  */
 public class HtmlFileFormateur {
 
+    /**
+     * Génère un Fichier HTML affichant le planning d'un formateur
+     * 
+     * @param lePlanning
+     * @param leFormateur
+     * @param destination
+     * @param name
+     * @throws IOException
+     */
     public HtmlFileFormateur(Planning lePlanning, Formateur leFormateur, String destination, String name) throws IOException {
         ArrayList<Seance> listeSeance = new ArrayList<>();
         File f = new File(name + ".html");

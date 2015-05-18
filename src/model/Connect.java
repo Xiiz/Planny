@@ -25,6 +25,10 @@ public class Connect {
         return c;
     }
 
+    /**
+     * Retourne la connection à la bdd en cours ou la crée
+     * @return
+     */
     public static Connection get() {
         if (c == null) {
             c = Connect.open();
@@ -32,6 +36,9 @@ public class Connect {
         return c;
     }
 
+    /**
+     * Ferme la bdd
+     */
     public static void close() {
         try {
             c.close();
