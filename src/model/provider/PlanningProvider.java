@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import model.Planning;
 
 /**
+ * Classe Provider pour l'objet Planning
  *
  * @author Yassine Doghri
  */

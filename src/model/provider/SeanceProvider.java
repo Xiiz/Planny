@@ -13,6 +13,7 @@ import model.Module;
 import model.Seance;
 
 /**
+ * Classe Provider pour l'objet Seance
  *
  * @author Yassine Doghri
  */

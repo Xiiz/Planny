@@ -11,7 +11,7 @@ import model.Formateur;
 import model.Seance;
 
 /**
- *
+ * Classe Provider pour l'objet Formateur
  *
  * @author Yassine Doghri
  */

@@ -12,7 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 /**
- *Création de la toolbar permettant la navigation entre les semaines
+ * Création de la toolbar permettant la navigation entre les semaines
+ *
  * @author Amine Bouazizi
  */
 public class NavigationBar extends JToolBar {
@@ -20,7 +21,8 @@ public class NavigationBar extends JToolBar {
     JLabel weekLabel;
 
     /**
-     *Constructeur de la classe NavigationBar
+     * Constructeur de la classe NavigationBar
+     *
      * @param controller
      */
     public NavigationBar(PlannyController controller) {
@@ -54,7 +56,8 @@ public class NavigationBar extends JToolBar {
     }
 
     /**
-     *Getter qui renvoi un objet JLabel
+     * Getter qui renvoi un objet JLabel
+     *
      * @return JLabel
      */
     public JLabel getWeekLabel() {

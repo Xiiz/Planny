@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Classe de la sidebar contenant le JCalendar et les informations sur une
+ * formation donnée
  *
  * @author Amine Bouazizi
  * @author Yassine Doghri

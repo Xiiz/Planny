@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
+ * Classe Helper pour le Java Calendar
  *
  * @author Yassine Doghri
  */
@@ -218,6 +219,13 @@ public class CalendarHelper {
         return cal.get(Calendar.DAY_OF_WEEK) - 2;
     }
 
+    /**
+     * Méthode déterminant si deux dates sont du même jour ou non
+     *
+     * @param d1
+     * @param d2
+     * @return boolean
+     */
     public static Boolean isSameDay(Date d1, Date d2) {
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();

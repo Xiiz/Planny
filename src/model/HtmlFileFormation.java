@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Classe de génration Html du planning
  *
- * @author Lasalmonie Pierre
+ * @author Pierre Lasalmonie
  */
 public class HtmlFileFormation {
 
     /**
      * Génère un fichier HTML affichant le planning d'une année donnée
-     * 
+     *
      * @param lePlanning
      * @param destination
      * @param name

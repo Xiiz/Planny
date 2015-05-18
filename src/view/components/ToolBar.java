@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
 
 /**
+ * Classe de toolbar pour l'interaction avec le planning
+ *
  * @author Amine Bouazizi
  */
 public class ToolBar extends JToolBar {

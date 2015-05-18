@@ -21,6 +21,7 @@ import net.miginfocom.swing.MigLayout;
 import sun.applet.Main;
 
 /**
+ * Frame du formulaire d'ajout d'une Formation
  *
  * @author Amine
  */
@@ -31,7 +32,8 @@ public class AddFormationForm extends JFrame {
     private PlannyController controller;
 
     /**
-     *Création de la frame qui permet l'ajout d'une formation
+     * Création de la frame qui permet l'ajout d'une formation
+     *
      * @param controller
      */
     public AddFormationForm(PlannyController controller) {

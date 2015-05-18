@@ -11,11 +11,12 @@ import model.Formation;
 import model.Module;
 
 /**
+ * Classe Provider pour l'objet Module
  *
  * @author Yassine Doghri
  */
 public class ModuleProvider {
-    
+
     public static void createTable(Connection c) {
         Statement stmt = null;
         try {
@@ -38,11 +39,11 @@ public class ModuleProvider {
         }
         System.out.println("Table Module initialisée");
     }
-    
+
     public static HashMap<Integer, Module> getModules(Formation formation, Connection c) {
         try {
             HashMap<Integer, Module> modules = new HashMap();
-            
+
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT *"
                     + " FROM MODULE"
@@ -56,23 +57,23 @@ public class ModuleProvider {
                 module.setNbSeances(rs.getInt("nbSeances"));
                 module.setFormation(formation);
                 module.setListeSeances(SeanceProvider.getSeances(module, c));
-                
+
                 modules.put(rs.getInt("idModule"), module);
             }
             rs.close();
             stmt.close();
-            
+
             return modules;
         } catch (SQLException ex) {
             Logger.getLogger(PlanningProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
+
     public static HashMap<Integer, Module> getAllModules(Connection c) {
         try {
             HashMap<Integer, Module> modules = new HashMap();
-            
+
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM MODULE;");
             while (rs.next()) {
@@ -83,24 +84,24 @@ public class ModuleProvider {
                 module.setCouleur(rs.getString("couleur"));
                 module.setNbSeances(rs.getInt("nbSeances"));
                 module.setListeSeances(SeanceProvider.getSeances(module, c));
-                
+
                 modules.put(rs.getInt("idModule"), module);
             }
             rs.close();
             stmt.close();
-            
+
             return modules;
         } catch (SQLException ex) {
             Logger.getLogger(PlanningProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
+
     public static void insertModule(Connection c, Module module) {
         try {
             c.setAutoCommit(false);
             Statement stmt = c.createStatement();
-            
+
             String sql = "INSERT INTO MODULE (IDMODULE,IDFORMATION,NOM,ABBR,COULEUR,NBSEANCES) "
                     + "VALUES (" + module.getId() + ", "
                     + module.getFormation().getId() + ", "
@@ -109,14 +110,14 @@ public class ModuleProvider {
                     + "'" + module.getCouleur() + "', "
                     + module.getNbSeances() + ");";
             stmt.executeUpdate(sql);
-            
+
             stmt.close();
             c.commit();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        
+
         System.out.println("Records created successfully");
     }
 }

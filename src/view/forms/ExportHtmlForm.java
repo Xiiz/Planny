@@ -31,8 +31,9 @@ import model.HtmlFileFormation;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Frame du formulaire d'exportation du planning
  *
- * @author Xiiz
+ * @author Pierre Lasalmonie
  */
 public class ExportHtmlForm extends JFrame {
 
@@ -41,7 +42,8 @@ public class ExportHtmlForm extends JFrame {
     private Object selectedFormateur;
 
     /**
-     *Frame qui permet l'export en HTML des plannings
+     * Frame qui permet l'export en HTML des plannings
+     *
      * @param controller
      */
     public ExportHtmlForm(PlannyController controller) {
@@ -64,8 +66,7 @@ public class ExportHtmlForm extends JFrame {
         anneeComboBox.setPreferredSize(new Dimension(200, 24));
         choixComboExport.add(new JLabel("Année à sélectionner :"), "alignx trailing");
         choixComboExport.add(anneeComboBox, "wrap");
-        
- 
+
         String[] choice = {"Formation", "Formateur"};
         JComboBox choiceExport = new JComboBox(choice);
         choixComboExport.add(new JLabel("Que voulez vous exporter ?"), "alignx trailing");

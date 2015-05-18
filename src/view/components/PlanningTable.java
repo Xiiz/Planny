@@ -26,6 +26,7 @@ import view.forms.AddSeanceForm;
 import view.forms.UpdateSeanceForm;
 
 /**
+ * Classe du planning basé sur une JTable
  *
  * @author Yassine Doghri
  */

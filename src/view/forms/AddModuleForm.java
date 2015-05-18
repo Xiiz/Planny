@@ -20,6 +20,7 @@ import model.Module;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Frame du formulaire d'ajout d'un Module
  *
  * @author Amine
  */
@@ -29,7 +30,8 @@ public class AddModuleForm extends JFrame {
     JComboBox formationComboBox;
 
     /**
-     *Création de la frame qui permet l'ajout d'un module
+     * Création de la frame qui permet l'ajout d'un module
+     *
      * @param controller
      */
     public AddModuleForm(PlannyController controller) {
@@ -77,7 +79,7 @@ public class AddModuleForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Formation formation = controller.getFormation(formationComboBox.getSelectedItem().toString());
                 Module module = new Module(controller.getNextModuleId(), nomModuleField.getText(), abbreviationField.getText(), couleurField.getText(), Integer.parseInt(nbSeanceField.getText()), formation, null);
-                
+
                 controller.addModule(formation, module);
                 dispose();
             }

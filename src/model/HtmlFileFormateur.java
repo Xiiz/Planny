@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Classe de génération Html pour un formateur
  *
- * @author Lasalmonie Pierre
+ * @author Pierre Lasalmonie
  */
 public class HtmlFileFormateur {
 
     /**
      * Génère un Fichier HTML affichant le planning d'un formateur
-     * 
+     *
      * @param lePlanning
      * @param leFormateur
      * @param destination
@@ -34,17 +35,17 @@ public class HtmlFileFormateur {
         bw.write("<div id=\"info\" style=\"width : 80%; height : 80%; margin:0 auto\">");
         bw.write("<h1>Voici le planning pour l'année " + lePlanning.getAnneePlanning() + " de " + leFormateur.getPrenom() + " " + leFormateur.getNom() + "</h1>");
         bw.write("<p>Voici le planning de toute vos séances : <br />");
-        
+
         for (HashMap.Entry<Integer, Seance> uneSeance : leFormateur.getListeSceances().entrySet()) {
             Seance laSeance = uneSeance.getValue();
             Module leModule = laSeance.getModule();
             bw.write(leModule.detailModule());
             bw.write(laSeance.getInfoSeance());
-                bw.write("nombre de séance : " + leFormateur.getListeSceances().size() + "<br />");
-                bw.write("<br />");
+            bw.write("nombre de séance : " + leFormateur.getListeSceances().size() + "<br />");
+            bw.write("<br />");
             bw.write("<br />");
         }
-        
+
         bw.write("</body>");
         bw.write("</html>");
 

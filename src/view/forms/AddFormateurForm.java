@@ -19,6 +19,7 @@ import net.miginfocom.swing.MigLayout;
 import sun.applet.Main;
 
 /**
+ * Frame du formulaire d'ajout d'un Formateur
  *
  * @author Amine
  */
@@ -27,7 +28,8 @@ public class AddFormateurForm extends JFrame {
     JTextField nomField, prenomField, initialesField, telephoneField, emailField;
 
     /**
-     *Création de la Frame qui permet l'ajout d'un formateur
+     * Création de la Frame qui permet l'ajout d'un formateur
+     *
      * @param controller
      */
     public AddFormateurForm(PlannyController controller) {

@@ -29,7 +29,8 @@ import model.Seance;
 import net.miginfocom.swing.MigLayout;
 
 /**
- *Création de la frame qui permet l'ajout d'une séance
+ * Création de la frame qui permet l'ajout d'une séance
+ *
  * @author Yassine Doghri
  */
 public class AddSeanceForm extends JFrame {

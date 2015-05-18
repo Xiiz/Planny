@@ -15,7 +15,8 @@ import view.forms.ExportHtmlForm;
 import view.forms.NewPlanningForm;
 
 /**
- *Création de la barre du menu au dessus du MainPanel
+ * Création de la barre du menu au dessus du MainPanel
+ *
  * @author Amine
  */
 public class MenuBar extends JMenuBar {
@@ -26,7 +27,8 @@ public class MenuBar extends JMenuBar {
             addFormation, addFormateur, addModule, addSeance, about;
 
     /**
-     *Constructeur de la classe MenuBar
+     * Constructeur de la classe MenuBar
+     *
      * @param controller
      */
     public MenuBar(PlannyController controller) {

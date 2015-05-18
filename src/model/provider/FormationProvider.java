@@ -11,6 +11,7 @@ import model.Formation;
 import model.Planning;
 
 /**
+ * Classe Provider pour l'objet Formation
  *
  * @author Yassine Doghri
  */

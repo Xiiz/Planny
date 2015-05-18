@@ -18,6 +18,7 @@ import model.Planning;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Frame du formulaire de création d'un planning
  *
  * @author Yassine Doghri
  */
@@ -26,7 +27,8 @@ public class NewPlanningForm extends JFrame {
     private final JTextField planningYearField;
 
     /**
-     *Création de la frame qui permet la création d'un nouveau planning
+     * Création de la frame qui permet la création d'un nouveau planning
+     *
      * @param controller
      */
     public NewPlanningForm(PlannyController controller) {

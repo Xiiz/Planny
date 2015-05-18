@@ -13,7 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- * Création du panel central où sont disposés les jours de la semaine avec leurs modules
+ * Création du panel central où sont disposés les jours de la semaine avec leurs
+ * modules
+ *
  * @author Amine
  */
 public class MainPanel extends JPanel {
@@ -22,10 +24,11 @@ public class MainPanel extends JPanel {
     private final NavigationBar navigationBar;
     private PlanningTable planningTable;
     private JScrollPane planningSP;
-    private final PlannyController controller; 
+    private final PlannyController controller;
 
     /**
-     *Constructeur de la classe MainPanel
+     * Constructeur de la classe MainPanel
+     *
      * @param controller
      */
     public MainPanel(PlannyController controller) {
@@ -48,13 +51,14 @@ public class MainPanel extends JPanel {
     }
 
     /**
-     *Création du planning en fonction de la date local
+     * Création du planning en fonction de la date local
+     *
      * @param date
      */
     public final void createPlanningTable(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        
+
         Object rowData[][] = {{"Matin", "Matin", "Matin", "Matin", "Matin", "Matin", "Matin"},
         {"Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi", "Après-Midi"}};
 
@@ -74,7 +78,8 @@ public class MainPanel extends JPanel {
     }
 
     /**
-     *Getter de qui un objet PlanningTable
+     * Getter de qui un objet PlanningTable
+     *
      * @return PlanningTable
      */
     public PlanningTable getPlanningTable() {
@@ -83,6 +88,7 @@ public class MainPanel extends JPanel {
 
     /**
      * Getter de qui un objet NavigationBar
+     *
      * @return NavigationBar
      */
     public NavigationBar getNavigationBar() {
