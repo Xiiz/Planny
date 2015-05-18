@@ -15,6 +15,7 @@ import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
+import model.Formateur;
 import model.Seance;
 import net.miginfocom.swing.MigLayout;
 
@@ -70,10 +71,12 @@ public class AddFormateurForm extends JFrame {
         buttonAjouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
+                Formateur formateur = new Formateur(controller.getNextFormateurId(), nomField.getText(), prenomField.getText(), initialesField.getText(), telephoneField.getText(), emailField.getText(), null);
+                controller.addFormateur(formateur);
+                dispose();
             }
         });
-        
+
         JButton buttonAnnuler = new JButton("Annuler");
         this.add(buttonAnnuler, "growx");
         buttonAnnuler.addActionListener(new ActionListener() {

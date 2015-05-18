@@ -76,23 +76,16 @@ public class FormationProvider {
                     + "VALUES (" + formation.getId() + ", "
                     + formation.getPlanning().getId() + ", "
                     + "'" + formation.getNom() + "', "
-                    + formation.getDureeSceance() +");";
+                    + formation.getDureeSceance() + ");";
             stmt.executeUpdate(sql);
 
-        stmt.close();
-        c.commit();
-        c.close();
-    }
-    catch (Exception e
-
-    
-        ) {
+            stmt.close();
+            c.commit();
+        } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        System.exit(0);
-    }
+            System.exit(0);
+        }
 
-    System.out.println (
-
-"Records created successfully");
+        System.out.println("Records created successfully");
     }
 }

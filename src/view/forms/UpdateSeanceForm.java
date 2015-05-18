@@ -18,9 +18,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import model.DAO;
 import model.Formateur;
 import model.Module;
 import model.Seance;
@@ -30,16 +32,17 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author Yassine Doghri
  */
-public class AddSeanceForm extends JFrame {
+public class UpdateSeanceForm extends JFrame {
 
     private JDateChooser dateChooser;
     private JTextField numSeanceField;
     private JComboBox comboModules;
     private JComboBox comboFormateurs;
     private JComboBox comboTime;
+    private JComboBox comboSeances;
 
-    public AddSeanceForm(PlannyController controller) {
-        super("Planny | Ajouter une séance");
+    public UpdateSeanceForm(PlannyController controller, Seance seance) {
+        super("Planny | Modifier une séance");
         try {
             setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
         } catch (IOException e) {
@@ -48,7 +51,7 @@ public class AddSeanceForm extends JFrame {
 
         this.setLayout(new MigLayout("center"));
 
-        JLabel title = new JLabel("Ajouter une seance");
+        JLabel title = new JLabel("Modifier une seance");
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 20));
         this.add(title, "dock north");
 
@@ -62,16 +65,27 @@ public class AddSeanceForm extends JFrame {
 
         this.add(new JLabel("Date"), "alignx trailing");
         this.add(dateChooser, "wrap");
+        dateChooser.setDate(seance.getDateSeance());
         this.add(new JLabel("Heure"), "alignx trailing");
         this.add(comboTime, "wrap");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        int heure = Integer.parseInt(sdf.format(seance.getDateSeance()));
+        if (heure < 12) {
+            comboTime.setSelectedIndex(0);
+        } else {
+            comboTime.setSelectedIndex(1);
+        }
         this.add(new JLabel("Modules"), "alignx trailing");
         this.add(comboModules, "wrap");
+        comboModules.setSelectedItem(seance.getModule().toString());
         this.add(new JLabel("Numéro Séance"), "alignx trailing");
         this.add(numSeanceField, "wrap");
+        numSeanceField.setText(Integer.toString(seance.getNumSeance()));
         this.add(new JLabel("Formateurs"), "alignx trailing");
         this.add(comboFormateurs, "wrap");
+        comboFormateurs.setSelectedItem(seance.getFormateur().toString());
 
-        JButton buttonAjouter = new JButton("Ajouter");
+        JButton buttonAjouter = new JButton("Modifier");
         this.add(buttonAjouter, "skip, split2, growx");
         buttonAjouter.addActionListener(new ActionListener() {
             @Override
@@ -88,14 +102,38 @@ public class AddSeanceForm extends JFrame {
                     Logger.getLogger(AddSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                System.out.println(dateSeance2 + " " + numSeanceField.getText() + " " + comboFormateurs.getSelectedItem().toString() + " " + comboModules.getSelectedItem().toString());
-                Module module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
-                Formateur formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), dateChooser.getDate());
-                Seance seance = new Seance(controller.getNextSeanceId(module, dateSeance2), Integer.parseInt(numSeanceField.getText()), dateSeance2, module, formateur);
-                controller.addSeance(seance, module, formateur);
+                Seance seance2 = new Seance(seance.getId(), Integer.parseInt(numSeanceField.getText()), dateSeance2, null, null);
 
+                Module module = seance.getModule();
+                Formateur formateur = seance.getFormateur();
+                // check if module and formateur changed
+                if (!comboFormateurs.getSelectedItem().toString().equals(seance.getFormateur().getPrenom() + " " + seance.getFormateur().getNom())) {
+                    module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
+                }
+                if (!comboModules.getSelectedItem().toString().equals(seance.getModule().getNom())) {
+                    formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), dateChooser.getDate());
+                }
+
+                module.removeSeance(seance.getId());
+                formateur.removeSeance(seance.getId());
+
+                seance2.setModule(module);
+                seance2.setFormateur(formateur);
+
+                try {
+                    module.addSeance(seance.getId(), seance2);
+                } catch (Exception ex) {
+                    Logger.getLogger(UpdateSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                            "Le nombre de séances pour le module est dépassé !",
+                            "A plain message",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
+                formateur.addSeance(seance.getId(), seance2);
+
+                DAO.updateSeance(seance2);
                 controller.updatePlanningView(controller.getSelectedDate());
-                
+
                 dispose();
             }
         });

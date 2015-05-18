@@ -65,7 +65,7 @@ public class AddFormationForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Planning planning = controller.getPlanning(anneePlanningCombo.getSelectedItem().toString());
-                Formation formation = new Formation(controller.getNextFormationId(planning), nomFormationField.getText(), Integer.parseInt(dureeField.getText()), planning, null);
+                Formation formation = new Formation(controller.getNextFormationId(), nomFormationField.getText(), Integer.parseInt(dureeField.getText()), planning, null);
 
                 controller.addFormation(formation, planning);
                 dispose();

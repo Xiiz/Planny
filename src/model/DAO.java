@@ -82,4 +82,19 @@ public class DAO {
         Connection c = Connect.get();
         return FormateurProvider.getFormateur(c, prenom, nom);
     }
+
+    public static void addModule(Module module) {
+        Connection c = Connect.get();
+        ModuleProvider.insertModule(c, module);
+    }
+
+    public static void addFormateur(Formateur formateur) {
+        Connection c = Connect.get();
+        FormateurProvider.insertFormateur(c, formateur);
+    }
+
+    public static void updateSeance(Seance seance) {
+        Connection c = Connect.get();
+        SeanceProvider.updateSeance(c, seance);
+    }
 }

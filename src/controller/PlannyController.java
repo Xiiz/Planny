@@ -11,6 +11,8 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.TableCellEditor;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
 import model.DAO;
 import model.Formateur;
 import model.Formation;
@@ -18,6 +20,7 @@ import model.Module;
 import model.Planning;
 import model.Seance;
 import model.provider.FormateurProvider;
+import org.jsoup.Jsoup;
 import view.PlanningFrame;
 import view.PlannySplash;
 import view.components.MainPanel;
@@ -85,7 +88,6 @@ public class PlannyController {
             planning.setValueAt("Après-Midi", 1, CalendarHelper.getWeekNumber(cd));
         }
         for (Date d : weekDays) {
-            System.out.println("test");
             for (Seance s : seances) {
                 boolean isSameDay = CalendarHelper.isSameDay(s.getDateSeance(), d);
                 if (isSameDay) {
@@ -93,12 +95,12 @@ public class PlannyController {
                     dateSeance.setTime(s.getDateSeance());
 
                     if (dateSeance.get(Calendar.HOUR_OF_DAY) <= 12) {
-                        System.out.println("Matin");
+                        // Matin
                         TableCellEditor c = planning.getCellEditor(0, CalendarHelper.getWeekNumber(dateSeance));
 
                         planning.setValueAt(s, 0, CalendarHelper.getWeekNumber(dateSeance));
                     } else {
-                        System.out.println("Aprem");
+                        // Aprem
                         planning.setValueAt(s, 1, CalendarHelper.getWeekNumber(dateSeance));
                     }
                 }
@@ -123,6 +125,34 @@ public class PlannyController {
             }
         }
         return seances;
+    }
+
+    public Seance getSeanceFromHtml(String html) {
+        if (!html.equals("Matin") || !html.equals("Après-Midi")) {
+            org.jsoup.nodes.Document doc = Jsoup.parse(html);
+            org.jsoup.nodes.Element module = doc.select("h4").first();
+            org.jsoup.nodes.Element seance = doc.select("p").first();
+
+            int idModule = Integer.parseInt(module.id());
+            int idSeance = Integer.parseInt(seance.id());
+
+            return getSeance(idSeance, idModule);
+        }
+        return null;
+    }
+
+    public Seance getSeance(int idSeance, int idModule) {
+        Planning planning = getCurrentPlanning();
+        for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
+            for (HashMap.Entry<Integer, Module> entry2 : entry.getValue().getListeModules().entrySet()) {
+                for (HashMap.Entry<Integer, Seance> entry3 : entry2.getValue().getListeSeances().entrySet()) {
+                    if ((entry3.getValue().getId() == idSeance) && (entry3.getValue().getModule().getId() == idModule)) {
+                        return entry3.getValue();
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public void updateView(Calendar calendar) {
@@ -273,9 +303,66 @@ public class PlannyController {
         return listeAnnees;
     }
 
-    public int getNextFormationId(Planning planning) {
+    public int getNextFormationId() {
         Entry<Integer, Formation> maxEntry = null;
-        for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
+        for (HashMap.Entry<Integer, Planning> entry : plannings.entrySet()) {
+            for (HashMap.Entry<Integer, Formation> entry2 : entry.getValue().getListeFormations().entrySet()) {
+                if (maxEntry == null || entry2.getKey() > maxEntry.getKey()) {
+                    maxEntry = entry2;
+                }
+            }
+        }
+        if (maxEntry == null) {
+            return 1;
+        } else {
+            return maxEntry.getKey() + 1;
+        }
+    }
+
+    public void addFormation(Formation formation, Planning planning) {
+        planning.addFormation(formation.getId(), formation);
+
+        DAO.addFormation(formation);
+    }
+
+    public ArrayList<String> getFormations(String planningYear) {
+        ArrayList<String> listeFormations = new ArrayList();
+        for (HashMap.Entry<Integer, Formation> entry : getPlanning(planningYear).getListeFormations().entrySet()) {
+            listeFormations.add(entry.getValue().getNom());
+        }
+        return listeFormations;
+    }
+
+    public int getNextModuleId() {
+        Entry<Integer, Module> maxEntry = null;
+        for (HashMap.Entry<Integer, Planning> entry : plannings.entrySet()) {
+            for (HashMap.Entry<Integer, Formation> entry2 : entry.getValue().getListeFormations().entrySet()) {
+                for (HashMap.Entry<Integer, Module> entry3 : entry2.getValue().getListeModules().entrySet()) {
+                    if (maxEntry == null || entry3.getKey() > maxEntry.getKey()) {
+                        maxEntry = entry3;
+                    }
+                }
+            }
+        }
+        if (maxEntry == null) {
+            return 1;
+        } else {
+            return maxEntry.getKey() + 1;
+        }
+    }
+
+    public Formation getFormation(String nom) {
+        for (HashMap.Entry<Integer, Formation> entry : getCurrentPlanning().getListeFormations().entrySet()) {
+            if (entry.getValue().getNom().equals(nom)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
+    public int getNextPlanningId() {
+        Entry<Integer, Planning> maxEntry = null;
+        for (HashMap.Entry<Integer, Planning> entry : plannings.entrySet()) {
             if (maxEntry == null || entry.getKey() > maxEntry.getKey()) {
                 maxEntry = entry;
             }
@@ -286,10 +373,41 @@ public class PlannyController {
             return maxEntry.getKey() + 1;
         }
     }
-    
-    public void addFormation(Formation formation, Planning planning) {
-        planning.addFormation(formation.getId(), formation);
-        
-        DAO.addFormation(formation);
+
+    public Planning getCurrentPlanning() {
+        Planning planning = this.getPlanning(CalendarHelper.getPlanningYear(this.getSelectedDate().getTime()));
+        if (planning == null) {
+            return new Planning(getNextPlanningId(), CalendarHelper.getPlanningYear(this.getSelectedDate().getTime()), null);
+        } else {
+            return planning;
+        }
+    }
+
+    public void addModule(Formation formation, Module module) {
+        formation.addModule(module.getId(), module);
+        DAO.addModule(module);
+    }
+
+    public void addFormateur(Formateur formateur) {
+        DAO.addFormateur(formateur);
+    }
+
+    public int getNextFormateurId() {
+        Integer maxEntry = null;
+        Planning planning = this.getCurrentPlanning();
+        for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
+            for (HashMap.Entry<Integer, Module> entry2 : entry.getValue().getListeModules().entrySet()) {
+                for (HashMap.Entry<Integer, Seance> entry3 : entry2.getValue().getListeSeances().entrySet()) {
+                    if (maxEntry == null || entry3.getValue().getFormateur().getId() > maxEntry) {
+                        maxEntry = entry3.getValue().getFormateur().getId();
+                    }
+                }
+            }
+        }
+        if (maxEntry == null) {
+            return 1;
+        } else {
+            return maxEntry + 1;
+        }
     }
 }

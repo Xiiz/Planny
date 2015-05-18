@@ -4,12 +4,12 @@ import controller.PlannyController;
 import helper.CalendarHelper;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -22,9 +22,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import model.Seance;
-import view.components.tableModel.PlanningCellRenderer;
-import view.components.tableModel.PlanningTableModel;
 import view.forms.AddSeanceForm;
+import view.forms.UpdateSeanceForm;
 
 /**
  *
@@ -77,6 +76,19 @@ public final class PlanningTable extends JTable implements ActionListener {
                         source.changeSelection(row, column, false, false);
                     }
                     popup.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                Point p = me.getPoint();
+                int row = rowAtPoint(p);
+                int column = columnAtPoint(p);
+                if (me.getClickCount() == 2) {
+                    if (!getValueAt(row, column).toString().equals("Matin") || !getValueAt(row, column).toString().equals("Après-Midi")) {
+                        Seance seance = controller.getSeanceFromHtml(getValueAt(row, column).toString());
+                        UpdateSeanceForm updateSeanceForm = new UpdateSeanceForm(controller, seance);
+                    }
                 }
             }
         });

@@ -98,12 +98,16 @@ public class Module {
         }
     }
 
+    public void removeSeance(Integer key) {
+        listeSeances.remove(key);
+    }
+
     @Override
     public String toString() {
         return nom;
     }
-    
-    public String detailModule(){
-        return "Module : "+this.getNom() +"<br /> Abréviation : "+this.getAbbr() +", de couleur : <span style='display: inline-block;background-color:"+this.getCouleur()+";width:20px;height:10px'></span><br />";
+
+    public String detailModule() {
+        return "Module : " + this.getNom() + "<br /> Abréviation : " + this.getAbbr() + ", de couleur : <span style='display: inline-block;background-color:" + this.getCouleur() + ";width:20px;height:10px'></span><br />";
     }
 }

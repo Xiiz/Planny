@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Formateur;
+import model.Module;
 import model.Seance;
 
 /**
@@ -106,6 +108,29 @@ public class FormateurProvider {
             Logger.getLogger(FormateurProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static void insertFormateur(Connection c, Formateur formateur) {
+        try {
+            c.setAutoCommit(false);
+            Statement stmt = c.createStatement();
+
+            String sql = "INSERT INTO FORMATEUR (IDFORMATEUR,NOM,PRENOM,INITIALES,TELEPHONE,EMAIL) "
+                    + "VALUES (" + formateur.getId() + ", "
+                    + "'" + formateur.getNom() + "', "
+                    + "'" + formateur.getPrenom() + "', "
+                    + "'" + formateur.getInitiales() + "', "
+                    + "'" + formateur.getTelephone() + "', "
+                    + "'" + formateur.getEmail() + "' );";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            c.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records created successfully");
     }
 
 }

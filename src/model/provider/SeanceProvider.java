@@ -28,7 +28,7 @@ public class SeanceProvider {
                     + "	IDFORMATEUR INT NOT NULL,"
                     + "	NUMSEANCE INT NULL,"
                     + "	DATESEANCE DATE NULL,"
-                    + "	PRIMARY KEY (IDMODULE, IDSEANCE),"
+                    + "	PRIMARY KEY (IDSEANCE),"
                     + "	FOREIGN KEY (IDMODULE) REFERENCES MODULE (IDMODULE),"
                     + "	FOREIGN KEY (IDFORMATEUR) REFERENCES FORMATEUR (IDFORMATEUR)"
                     + " );"
@@ -92,11 +92,33 @@ public class SeanceProvider {
 
             stmt.close();
             c.commit();
-            c.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
         System.out.println("Records created successfully");
+    }
+
+    public static void updateSeance(Connection c, Seance seance) {
+        try {
+            c.setAutoCommit(false);
+            Statement stmt = c.createStatement();
+            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateSeance = f.format(seance.getDateSeance());
+
+            String sql = "UPDATE SEANCE SET"
+                    + " IDMODULE = " + seance.getModule().getId() + ","
+                    + " IDFORMATEUR = " + seance.getFormateur().getId() + ","
+                    + " NUMSEANCE = " + seance.getNumSeance() + ","
+                    + " DATESEANCE = '" + dateSeance + "'"
+                    + " WHERE IDSEANCE = " + seance.getId() + ";";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            c.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records updated successfully");
     }
 }

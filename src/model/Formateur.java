@@ -100,6 +100,10 @@ public class Formateur {
     public void addSeance(Integer key, Seance seance) {
         this.listeSeance.put(key, seance);
     }
+    
+    public void removeSeance(Integer key) {
+        listeSeance.remove(key);
+    }
 
     @Override
     public String toString() {
