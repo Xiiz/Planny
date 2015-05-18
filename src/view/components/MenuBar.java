@@ -26,7 +26,8 @@ public class MenuBar extends JMenuBar {
             addFormation, addFormateur, addModule, addSeance, about;
 
     /**
-     *
+     *Constructeur de la classe MenuBar
+     * @param controller
      */
     public MenuBar(PlannyController controller) {
         // create menus
