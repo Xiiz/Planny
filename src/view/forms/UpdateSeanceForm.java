@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,7 +44,7 @@ public class UpdateSeanceForm extends JFrame {
     public UpdateSeanceForm(PlannyController controller, Seance seance) {
         super("Planny | Modifier une séance");
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+            setIconImage(ImageIO.read(UpdateSeanceForm.class.getResource("/planny-icon.png")));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -137,7 +136,7 @@ public class UpdateSeanceForm extends JFrame {
 
                     DAO.updateSeance(seance2);
                     controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
-                    
+
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null,

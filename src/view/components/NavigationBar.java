@@ -21,7 +21,7 @@ public class NavigationBar extends JToolBar {
 
     public NavigationBar(PlannyController controller) {
         ImageIcon prevIcon = new ImageIcon(
-                ToolBar.class.getResource("images/icon-arrow-prev.png"));
+                NavigationBar.class.getResource("/icon-arrow-prev.png"));
         Action prevAction = new AbstractAction("Previous", prevIcon) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -31,7 +31,7 @@ public class NavigationBar extends JToolBar {
         };
 
         ImageIcon nextIcon = new ImageIcon(
-                ToolBar.class.getResource("images/icon-arrow-next.png"));
+                NavigationBar.class.getResource("/icon-arrow-next.png"));
         Action nextAction = new AbstractAction("Next", nextIcon) {
             @Override
             public void actionPerformed(ActionEvent e) {

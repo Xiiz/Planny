@@ -1,7 +1,6 @@
 package controller;
 
 import helper.CalendarHelper;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.table.TableCellEditor;
 import model.DAO;
 import model.Formateur;
@@ -37,14 +35,8 @@ public class PlannyController {
     private PlanningFrame mainFrame;
 
     public void startApplication() {
-        try {
-            PlannySplash splashScreen = new PlannySplash(this);
-            splashScreen.setVisible(true);
-
-        } catch (IOException ex) {
-            Logger.getLogger(PlannyController.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
+        PlannySplash splashScreen = new PlannySplash(this);
+        splashScreen.setVisible(true);
     }
 
     public void startPlanningFrame() {

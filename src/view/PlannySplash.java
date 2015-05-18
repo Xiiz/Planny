@@ -8,9 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -32,12 +30,12 @@ public class PlannySplash extends JFrame {
     private static JProgressBar pbar;
     Thread t = null;
 
-    public PlannySplash(PlannyController controller) throws IOException {
+    public PlannySplash(PlannyController controller) {
         super("Planny");
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            setIconImage(ImageIO.read(PlannySplash.class.getResource("/planny-icon.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(PlannySplash.class.getName()).log(Level.SEVERE, null, ex);
         }
         setSize(600, 400);
         setUndecorated(true);
@@ -45,7 +43,12 @@ public class PlannySplash extends JFrame {
         setLocationRelativeTo(null);
         toFront();
 
-        BufferedImage myImage = ImageIO.read(new File("src/view/components/images/splash-bg.jpg"));
+        BufferedImage myImage = null;
+        try {
+            myImage = ImageIO.read(PlannySplash.class.getResource("/splash-bg.jpg"));
+        } catch (IOException ex) {
+            Logger.getLogger(PlannySplash.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setContentPane(new ImagePanel(myImage));
 
         JLabel copyrightText = new JLabel("© 2015 Planny - Amine Bouazizi | Yassine Doghri | Pierre Lasalmonie");

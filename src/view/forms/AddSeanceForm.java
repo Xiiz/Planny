@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +43,7 @@ public class AddSeanceForm extends JFrame {
     public AddSeanceForm(PlannyController controller) {
         super("Planny | Ajouter une Séance");
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+            setIconImage(ImageIO.read(AddSeanceForm.class.getResource("/planny-icon.png")));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

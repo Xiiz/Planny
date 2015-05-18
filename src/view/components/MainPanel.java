@@ -18,11 +18,11 @@ import javax.swing.JScrollPane;
  */
 public class MainPanel extends JPanel {
 
-    private ToolBar toolBar;
-    private NavigationBar navigationBar;
+    private final ToolBar toolBar;
+    private final NavigationBar navigationBar;
     private PlanningTable planningTable;
     private JScrollPane planningSP;
-    private PlannyController controller; 
+    private final PlannyController controller; 
 
     public MainPanel(PlannyController controller) {
         this.controller = controller;

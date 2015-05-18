@@ -4,8 +4,9 @@ import controller.PlannyController;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import view.components.MainPanel;
@@ -34,9 +35,9 @@ public class PlanningFrame extends JFrame {
     public PlanningFrame(PlannyController controller) {
         setTitle("Planny");
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            setIconImage(ImageIO.read(PlanningFrame.class.getResource("/planny-icon.png")));
+        } catch (IOException ex) {
+            Logger.getLogger(PlanningFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         getContentPane().setBackground(Color.white);
         JPanel topPanel = new JPanel();

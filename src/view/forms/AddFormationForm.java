@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 import model.Formation;
 import model.Planning;
 import net.miginfocom.swing.MigLayout;
+import sun.applet.Main;
 
 /**
  *
@@ -33,7 +34,7 @@ public class AddFormationForm extends JFrame {
         super("Planny | Ajouter une Formation");
         this.controller = controller;
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+            setIconImage(ImageIO.read(AddFormationForm.class.getResource("/planny-icon.png")));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

@@ -3,8 +3,6 @@ package view.components;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 
 import javax.swing.JToolBar;
@@ -18,15 +16,15 @@ public class ToolBar extends JToolBar {
     public ToolBar() {
         // creating the icons
         ImageIcon undoIcon = new ImageIcon(
-                ToolBar.class.getResource("images/icon-undo.png"));
+                ToolBar.class.getResource("/icon-undo.png"));
         ImageIcon redoIcon = new ImageIcon(
-                ToolBar.class.getResource("images/icon-redo.png"));
+                ToolBar.class.getResource("/icon-redo.png"));
         ImageIcon copyIcon = new ImageIcon(
-                ToolBar.class.getResource("images/icon-copy.png"));
+                ToolBar.class.getResource("/icon-copy.png"));
         ImageIcon pasteIcon = new ImageIcon(
-                ToolBar.class.getResource("images/icon-paste.png"));
+                ToolBar.class.getResource("/icon-paste.png"));
         ImageIcon deleteIcon = new ImageIcon(
-                ToolBar.class.getResource("images/icon-delete.png"));
+                ToolBar.class.getResource("/icon-delete.png"));
 
         Action undoAction = new AbstractAction("Undo", undoIcon) {
             @Override

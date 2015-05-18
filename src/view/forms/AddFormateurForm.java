@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 import model.Formateur;
 import model.Seance;
 import net.miginfocom.swing.MigLayout;
+import sun.applet.Main;
 
 /**
  *
@@ -30,7 +31,7 @@ public class AddFormateurForm extends JFrame {
     public AddFormateurForm(PlannyController controller) {
         super("Planny | Ajouter un formateur");
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+            setIconImage(ImageIO.read(AddFormateurForm.class.getResource("/planny-icon.png")));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

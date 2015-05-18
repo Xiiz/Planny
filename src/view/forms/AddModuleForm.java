@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -32,7 +31,7 @@ public class AddModuleForm extends JFrame {
     public AddModuleForm(PlannyController controller) {
         super("Planny | Ajouter un Module");
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+            setIconImage(ImageIO.read(AddModuleForm.class.getResource("/planny-icon.png")));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

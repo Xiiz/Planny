@@ -1,16 +1,13 @@
 package view.forms;
 
-import com.toedter.calendar.JDateChooser;
 import controller.PlannyController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRootPane;
@@ -31,7 +28,7 @@ public class NewPlanningForm extends JFrame {
     public NewPlanningForm(PlannyController controller) {
         super("Planny | Ajouter une Séance");
         try {
-            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+            setIconImage(ImageIO.read(NewPlanningForm.class.getResource("/planny-icon.png")));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
