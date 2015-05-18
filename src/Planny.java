@@ -24,7 +24,7 @@ public class Planny {
     }
 
     /**
-     * Installs the Synthetica Look & Feel
+     * Installs the Synthetica Look and Feel
      */
     public static final void initializeLookAndFeel() {
         try {
