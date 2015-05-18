@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,4 +56,24 @@ public class PlanningProvider {
         }
         return null;
     }
+
+    public static void insertPlanning(Connection c, Planning planning) {
+        try {
+            c.setAutoCommit(false);
+            Statement stmt = c.createStatement();
+
+            String sql = "INSERT INTO PLANNING (IDPLANNING,ANNEEPLANNING) "
+                    + "VALUES (" + planning.getId() + ", "
+                    + "'" + planning.getAnneePlanning() + "' );";
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            c.commit();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        System.out.println("Records created successfully");
+    }
+
 }

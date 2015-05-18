@@ -97,4 +97,9 @@ public class DAO {
         Connection c = Connect.get();
         SeanceProvider.updateSeance(c, seance);
     }
+
+    public static void addPlanning(Planning planning) {
+        Connection c = Connect.get();
+        PlanningProvider.insertPlanning(c, planning);
+    }
 }
