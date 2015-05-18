@@ -12,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import view.forms.ExportHtmlForm;
+import view.forms.NewPlanningForm;
 
 /**
  *
@@ -51,7 +52,15 @@ public class MenuBar extends JMenuBar {
         addModule = new JMenuItem("Module...");
         addSeance = new JMenuItem("Seance...");
 
+        newPlanning.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                NewPlanningForm newPlaningForm = new NewPlanningForm(controller);
+                newPlaningForm.setVisible(true);
+            }
+        });
         addFormation.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ae) {
                 AddFormationForm formationForm = new AddFormationForm(controller);
                 formationForm.setVisible(true);
@@ -59,6 +68,7 @@ public class MenuBar extends JMenuBar {
             }
         });
         addFormateur.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ae) {
                 AddFormateurForm formateurForm = new AddFormateurForm(controller);
                 formateurForm.setVisible(true);
@@ -66,6 +76,7 @@ public class MenuBar extends JMenuBar {
             }
         });
         addModule.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ae) {
                 AddModuleForm moduleForm = new AddModuleForm(controller);
                 moduleForm.setVisible(true);
@@ -73,6 +84,7 @@ public class MenuBar extends JMenuBar {
             }
         });
         addSeance.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ae) {
                 AddSeanceForm seanceForm = new AddSeanceForm(controller);
                 seanceForm.setVisible(true);
@@ -80,6 +92,7 @@ public class MenuBar extends JMenuBar {
             }
         });
         html.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent ae) {
                 ExportHtmlForm YearCalendarForm = new ExportHtmlForm(controller);
                 YearCalendarForm.setVisible(true);

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -77,27 +79,36 @@ public class AddSeanceForm extends JFrame {
         buttonAjouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Date dateSeance = dateChooser.getDate();
-                String time = comboTime.getSelectedItem().toString();
-                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-                String dateSeanceS = f.format(dateSeance);
-                SimpleDateFormat f2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date dateSeance2 = dateSeance;
-                try {
-                    dateSeance2 = f2.parse(dateSeanceS + " " + time);
-                } catch (ParseException ex) {
-                    Logger.getLogger(AddSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
+                Calendar calSeance = dateChooser.getCalendar();
+
+                if ((calSeance.get(Calendar.DAY_OF_WEEK) != 1) || (calSeance.get(Calendar.DAY_OF_WEEK) != 7)) {
+                    Date dateSeance = dateChooser.getDate();
+                    String time = comboTime.getSelectedItem().toString();
+                    SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                    String dateSeanceS = f.format(dateSeance);
+                    SimpleDateFormat f2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    Date dateSeance2 = dateSeance;
+                    try {
+                        dateSeance2 = f2.parse(dateSeanceS + " " + time);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AddSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    System.out.println(dateSeance2 + " " + numSeanceField.getText() + " " + comboFormateurs.getSelectedItem().toString() + " " + comboModules.getSelectedItem().toString());
+                    Module module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
+                    Formateur formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), CalendarHelper.getPlanningYear(dateChooser.getDate()));
+                    Seance seance = new Seance(controller.getNextSeanceId(), Integer.parseInt(numSeanceField.getText()), dateSeance2, module, formateur);
+                    controller.addSeance(seance, module, formateur);
+
+                    controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
+
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Les Samedis et Dimanches sont non ouvrés !",
+                            "A plain message",
+                            JOptionPane.PLAIN_MESSAGE);
                 }
-
-                System.out.println(dateSeance2 + " " + numSeanceField.getText() + " " + comboFormateurs.getSelectedItem().toString() + " " + comboModules.getSelectedItem().toString());
-                Module module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
-                Formateur formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), CalendarHelper.getPlanningYear(dateChooser.getDate()));
-                Seance seance = new Seance(controller.getNextSeanceId(), Integer.parseInt(numSeanceField.getText()), dateSeance2, module, formateur);
-                controller.addSeance(seance, module, formateur);
-
-                controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
-
-                dispose();
             }
         });
 
