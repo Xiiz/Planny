@@ -30,6 +30,10 @@ public class AddFormationForm extends JFrame {
     JComboBox anneePlanningCombo;
     private PlannyController controller;
 
+    /**
+     *Création de la frame qui permet l'ajout d'une formation
+     * @param controller
+     */
     public AddFormationForm(PlannyController controller) {
         super("Planny | Ajouter une Formation");
         this.controller = controller;

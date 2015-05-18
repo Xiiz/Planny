@@ -15,7 +15,7 @@ import view.forms.ExportHtmlForm;
 import view.forms.NewPlanningForm;
 
 /**
- *
+ *Création de la barre du menu au dessus du MainPanel
  * @author Amine
  */
 public class MenuBar extends JMenuBar {

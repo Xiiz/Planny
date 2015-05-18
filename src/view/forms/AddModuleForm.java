@@ -28,6 +28,10 @@ public class AddModuleForm extends JFrame {
     JTextField nomModuleField, abbreviationField, nbSeanceField, couleurField;
     JComboBox formationComboBox;
 
+    /**
+     *Création de la frame qui permet l'ajout d'un module
+     * @param controller
+     */
     public AddModuleForm(PlannyController controller) {
         super("Planny | Ajouter un Module");
         try {

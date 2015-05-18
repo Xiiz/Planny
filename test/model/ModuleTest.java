@@ -232,14 +232,6 @@ public class ModuleTest {
 
     }
 
-    /**
-     * Test of toString method, of class Module.
-     */
-    @Test
-    public void testToString() {
-        String expResult = "Base de données";
-        String result = leModule.toString();
-        assertEquals(expResult, result);
-    }
+
 
 }

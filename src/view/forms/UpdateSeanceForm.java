@@ -41,6 +41,11 @@ public class UpdateSeanceForm extends JFrame {
     private JComboBox comboFormateurs;
     private JComboBox comboTime;
 
+    /**
+     *Frame qui permet la modification des attributs d'une séance.
+     * @param controller
+     * @param seance
+     */
     public UpdateSeanceForm(PlannyController controller, Seance seance) {
         super("Planny | Modifier une séance");
         try {

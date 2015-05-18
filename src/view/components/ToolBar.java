@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JToolBar;
 
 /**
- *
  * @author Amine Bouazizi
  */
 public class ToolBar extends JToolBar {
