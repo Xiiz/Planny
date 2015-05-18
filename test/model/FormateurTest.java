@@ -234,14 +234,5 @@ public class FormateurTest {
         }
     }
 
-    /**
-     * Test of toString method, of class Formateur.
-     */
-    @Test
-    public void testToString() {
-        String expResult = "Jean Dujardin";
-        String result = leFormateur.toString();
-        assertEquals(expResult, result);
-    }
 
 }

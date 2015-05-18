@@ -40,6 +40,10 @@ public class ExportHtmlForm extends JFrame {
     private JComboBox formateurComboBox;
     private Object selectedFormateur;
 
+    /**
+     *Frame qui permet l'export en HTML des plannings
+     * @param controller
+     */
     public ExportHtmlForm(PlannyController controller) {
         super("Planny | Exportation HTML");
         try {

@@ -14,9 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.border.TitledBorder;
 import model.Formateur;
-import model.Seance;
 import net.miginfocom.swing.MigLayout;
 import sun.applet.Main;
 
@@ -28,6 +26,10 @@ public class AddFormateurForm extends JFrame {
 
     JTextField nomField, prenomField, initialesField, telephoneField, emailField;
 
+    /**
+     *Création de la Frame qui permet l'ajout d'un formateur
+     * @param controller
+     */
     public AddFormateurForm(PlannyController controller) {
         super("Planny | Ajouter un formateur");
         try {
