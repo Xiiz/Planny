@@ -254,10 +254,7 @@ public class PlannyController {
 
     public void addSeance(Seance seance, Module module, Formateur formateur) {
         try {
-            // getPlanning
-            System.out.println(module);
-            System.out.println(seance);
-            
+            // set seance to lists
             module.addSeance(seance.getId(), seance);
             formateur.addSeance(seance.getId(), seance);
 
@@ -435,5 +432,9 @@ public class PlannyController {
         } else {
             return maxEntry + 1;
         }
+    }
+
+    public void createPlanning() {
+
     }
 }

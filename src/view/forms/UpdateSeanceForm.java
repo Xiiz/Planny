@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,51 +91,60 @@ public class UpdateSeanceForm extends JFrame {
         buttonAjouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Date dateSeance = dateChooser.getDate();
-                String time = comboTime.getSelectedItem().toString();
-                SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-                String dateSeanceS = f.format(dateSeance);
-                SimpleDateFormat f2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date dateSeance2 = dateSeance;
-                try {
-                    dateSeance2 = f2.parse(dateSeanceS + " " + time);
-                } catch (ParseException ex) {
-                    Logger.getLogger(AddSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Calendar calSeance = dateChooser.getCalendar();
 
-                Seance seance2 = new Seance(seance.getId(), Integer.parseInt(numSeanceField.getText()), dateSeance2, null, null);
+                if ((calSeance.get(Calendar.DAY_OF_WEEK) != 1) || (calSeance.get(Calendar.DAY_OF_WEEK) != 7)) {
+                    Date dateSeance = dateChooser.getDate();
+                    String time = comboTime.getSelectedItem().toString();
+                    SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+                    String dateSeanceS = f.format(dateSeance);
+                    SimpleDateFormat f2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    Date dateSeance2 = dateSeance;
+                    try {
+                        dateSeance2 = f2.parse(dateSeanceS + " " + time);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AddSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-                Module module = seance.getModule();
-                Formateur formateur = seance.getFormateur();
-                // check if module and formateur changed
-                if (!comboFormateurs.getSelectedItem().toString().equals(seance.getFormateur().getPrenom() + " " + seance.getFormateur().getNom())) {
-                    module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
-                }
-                if (!comboModules.getSelectedItem().toString().equals(seance.getModule().getNom())) {
-                    formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), CalendarHelper.getPlanningYear(dateChooser.getDate()));
-                }
+                    Seance seance2 = new Seance(seance.getId(), Integer.parseInt(numSeanceField.getText()), dateSeance2, null, null);
 
-                module.removeSeance(seance.getId());
-                formateur.removeSeance(seance.getId());
+                    Module module = seance.getModule();
+                    Formateur formateur = seance.getFormateur();
+                    // check if module and formateur changed
+                    if (!comboFormateurs.getSelectedItem().toString().equals(seance.getFormateur().getPrenom() + " " + seance.getFormateur().getNom())) {
+                        module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
+                    }
+                    if (!comboModules.getSelectedItem().toString().equals(seance.getModule().getNom())) {
+                        formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), CalendarHelper.getPlanningYear(dateChooser.getDate()));
+                    }
 
-                seance2.setModule(module);
-                seance2.setFormateur(formateur);
+                    module.removeSeance(seance.getId());
+                    formateur.removeSeance(seance.getId());
 
-                try {
-                    module.addSeance(seance.getId(), seance2);
-                } catch (Exception ex) {
-                    Logger.getLogger(UpdateSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
+                    seance2.setModule(module);
+                    seance2.setFormateur(formateur);
+
+                    try {
+                        module.addSeance(seance.getId(), seance2);
+                    } catch (Exception ex) {
+                        Logger.getLogger(UpdateSeanceForm.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null,
+                                "Le nombre de séances pour le module est dépassé !",
+                                "A plain message",
+                                JOptionPane.PLAIN_MESSAGE);
+                    }
+                    formateur.addSeance(seance.getId(), seance2);
+
+                    DAO.updateSeance(seance2);
+                    controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
+                    
+                    dispose();
+                } else {
                     JOptionPane.showMessageDialog(null,
-                            "Le nombre de séances pour le module est dépassé !",
+                            "Les Samedis et Dimanches sont non ouvrés !",
                             "A plain message",
                             JOptionPane.PLAIN_MESSAGE);
                 }
-                formateur.addSeance(seance.getId(), seance2);
-
-                DAO.updateSeance(seance2);
-                controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
-
-                dispose();
             }
         });
 
