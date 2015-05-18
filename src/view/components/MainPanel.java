@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- *
+ * Création du panel central où sont disposés les jours de la semaine avec leurs modules
  * @author Amine
  */
 public class MainPanel extends JPanel {
@@ -24,6 +24,10 @@ public class MainPanel extends JPanel {
     private JScrollPane planningSP;
     private final PlannyController controller; 
 
+    /**
+     *Constructeur de la classe MainPanel
+     * @param controller
+     */
     public MainPanel(PlannyController controller) {
         this.controller = controller;
         this.setLayout(new BorderLayout());
@@ -43,6 +47,10 @@ public class MainPanel extends JPanel {
         planningTable.setRowHeight(rowSize);
     }
 
+    /**
+     *Création du planning en fonction de la date local
+     * @param date
+     */
     public final void createPlanningTable(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -65,10 +73,18 @@ public class MainPanel extends JPanel {
         planningSP.setBorder(BorderFactory.createEmptyBorder());
     }
 
+    /**
+     *Getter de qui un objet PlanningTable
+     * @return PlanningTable
+     */
     public PlanningTable getPlanningTable() {
         return this.planningTable;
     }
 
+    /**
+     * Getter de qui un objet NavigationBar
+     * @return NavigationBar
+     */
     public NavigationBar getNavigationBar() {
         return this.navigationBar;
     }
