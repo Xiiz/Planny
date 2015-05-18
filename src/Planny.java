@@ -1,7 +1,6 @@
 
 import controller.PlannyController;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;

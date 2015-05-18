@@ -18,6 +18,7 @@ public class Seance {
 
     /**
      * Constructeur de la classe Seance
+     *
      * @param id
      * @param numSeance
      * @param dateSeance
@@ -33,13 +34,14 @@ public class Seance {
     }
 
     /**
-     *Constructeur de la classe Seance
+     * Constructeur de la classe Seance
      */
     public Seance() {
     }
 
     /**
-     *Getter de l'attribut Id
+     * Getter de l'attribut Id
+     *
      * @return Integer
      */
     public Integer getId() {
@@ -47,7 +49,8 @@ public class Seance {
     }
 
     /**
-     *Setter de l'attribut Id
+     * Setter de l'attribut Id
+     *
      * @param id
      */
     public void setId(Integer id) {
@@ -55,7 +58,8 @@ public class Seance {
     }
 
     /**
-     *Getter de l'attribut numSeance
+     * Getter de l'attribut numSeance
+     *
      * @return int
      */
     public int getNumSeance() {
@@ -63,7 +67,8 @@ public class Seance {
     }
 
     /**
-     *Setter de l'attribut numSeance
+     * Setter de l'attribut numSeance
+     *
      * @param numSeance
      */
     public void setNumSeance(int numSeance) {
@@ -71,7 +76,8 @@ public class Seance {
     }
 
     /**
-     *Getter de l'attribue dateSeance
+     * Getter de l'attribue dateSeance
+     *
      * @return Date
      */
     public Date getDateSeance() {
@@ -79,7 +85,8 @@ public class Seance {
     }
 
     /**
-     *Setter de l'attribut dateSeance
+     * Setter de l'attribut dateSeance
+     *
      * @param dateSeance
      */
     public void setDateSeance(Date dateSeance) {
@@ -87,7 +94,8 @@ public class Seance {
     }
 
     /**
-     *Getter de l'attribut module
+     * Getter de l'attribut module
+     *
      * @return Module
      */
     public Module getModule() {
@@ -95,7 +103,8 @@ public class Seance {
     }
 
     /**
-     *Setter de l'attribut module
+     * Setter de l'attribut module
+     *
      * @param module
      */
     public void setModule(Module module) {
@@ -103,7 +112,8 @@ public class Seance {
     }
 
     /**
-     *Getter de l'attribut formateur
+     * Getter de l'attribut formateur
+     *
      * @return Formateur
      */
     public Formateur getFormateur() {
@@ -111,7 +121,8 @@ public class Seance {
     }
 
     /**
-     *Setter de l'attribut formateur
+     * Setter de l'attribut formateur
+     *
      * @param formateur
      */
     public void setFormateur(Formateur formateur) {
@@ -119,7 +130,9 @@ public class Seance {
     }
 
     /**
-     *Renvoi dans une chaine de caractères le numSeance / le nombre de Seances total, la date de la séance et le formateur.
+     * Renvoi dans une chaine de caractères le numSeance / le nombre de Seances
+     * total, la date de la séance et le formateur.
+     *
      * @return String
      */
     public String getInfoSeance() {

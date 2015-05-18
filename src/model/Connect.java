@@ -27,6 +27,7 @@ public class Connect {
 
     /**
      * Retourne la connection à la bdd en cours ou la crée
+     *
      * @return
      */
     public static Connection get() {

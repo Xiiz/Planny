@@ -1,11 +1,7 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.provider.FormateurProvider;
 import model.provider.FormationProvider;
 import model.provider.ModuleProvider;
@@ -32,8 +28,9 @@ public class DAO {
     }
 
     /**
-     * Parcours la bdd pour initialiser les objets du modèle et retourne les plannings
-     * 
+     * Parcours la bdd pour initialiser les objets du modèle et retourne les
+     * plannings
+     *
      * @return liste des plannings
      */
     public static HashMap<Integer, Planning> initPlannings() {
@@ -43,7 +40,7 @@ public class DAO {
 
     /**
      * Retourne tous les formateurs de la base de données
-     * 
+     *
      * @return liste des formateurs
      */
     public static HashMap<Integer, Formateur> getAllFormateurs() {
@@ -73,7 +70,7 @@ public class DAO {
 
     /**
      * Ajoute une formation donnée à la bdd
-     * 
+     *
      * @param formation
      */
     public static void addFormation(Formation formation) {
@@ -83,7 +80,7 @@ public class DAO {
 
     /**
      * Retourne un fomateur trouvé par le prenom et nom donné
-     * 
+     *
      * @param prenom
      * @param nom
      * @return Formateur
@@ -95,7 +92,7 @@ public class DAO {
 
     /**
      * Ajoute un Module donné à la bdd
-     * 
+     *
      * @param module
      */
     public static void addModule(Module module) {
@@ -105,7 +102,7 @@ public class DAO {
 
     /**
      * Ajoute un formateur donné à la base de données
-     * 
+     *
      * @param formateur
      */
     public static void addFormateur(Formateur formateur) {

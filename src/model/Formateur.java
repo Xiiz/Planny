@@ -46,6 +46,7 @@ public class Formateur {
 
     /**
      * Retourne l'id du Formateur
+     *
      * @return int id du formateur
      */
     public Integer getId() {
@@ -54,6 +55,7 @@ public class Formateur {
 
     /**
      * Affecte un id donné à un formateur
+     *
      * @param id
      */
     public void setId(Integer id) {
@@ -62,6 +64,7 @@ public class Formateur {
 
     /**
      * Retourne le nom du Formateur
+     *
      * @return String nom du formateur
      */
     public String getNom() {
@@ -70,6 +73,7 @@ public class Formateur {
 
     /**
      * Affecte un nom donné à un formateur
+     *
      * @param nom
      */
     public void setNom(String nom) {
@@ -78,6 +82,7 @@ public class Formateur {
 
     /**
      * Retourne le prénom du formateur
+     *
      * @return String prénom du formateur
      */
     public String getPrenom() {
@@ -86,6 +91,7 @@ public class Formateur {
 
     /**
      * Affecte un prénom donné à un formateur
+     *
      * @param prenom
      */
     public void setPrenom(String prenom) {
@@ -94,6 +100,7 @@ public class Formateur {
 
     /**
      * Retourne les initiales du Formateur
+     *
      * @return String initiales formateur
      */
     public String getInitiales() {
@@ -102,6 +109,7 @@ public class Formateur {
 
     /**
      * Affecte des initiales données à un formateur
+     *
      * @param initiales
      */
     public void setInitiales(String initiales) {
@@ -110,6 +118,7 @@ public class Formateur {
 
     /**
      * Retourne téléphone du Formateur
+     *
      * @return
      */
     public String getTelephone() {
@@ -118,6 +127,7 @@ public class Formateur {
 
     /**
      * Affecte un numéro de téléphone donné à un formateur
+     *
      * @param telephone
      */
     public void setTelephone(String telephone) {
@@ -126,6 +136,7 @@ public class Formateur {
 
     /**
      * Retourne l'email du formateur
+     *
      * @return
      */
     public String getEmail() {
@@ -134,6 +145,7 @@ public class Formateur {
 
     /**
      * Affecte un email donné à un formateur
+     *
      * @param email
      */
     public void setEmail(String email) {
@@ -141,7 +153,8 @@ public class Formateur {
     }
 
     /**
-     * Retourne la liste des séances du formateur 
+     * Retourne la liste des séances du formateur
+     *
      * @return
      */
     public HashMap<Integer, Seance> getListeSceances() {
@@ -150,6 +163,7 @@ public class Formateur {
 
     /**
      * Affecte une liste de séances données à un formateur
+     *
      * @param listeSceances
      */
     public void setListeSceances(HashMap<Integer, Seance> listeSceances) {
@@ -158,15 +172,17 @@ public class Formateur {
 
     /**
      * Ajoute une séance à la liste des séances du formateur
+     *
      * @param key
      * @param seance
      */
     public void addSeance(Integer key, Seance seance) {
         this.listeSeance.put(key, seance);
     }
-    
+
     /**
      * Retire une séance donnée à la liste des séances du formateur
+     *
      * @param key
      */
     public void removeSeance(Integer key) {

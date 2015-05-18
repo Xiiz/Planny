@@ -17,6 +17,7 @@ public class Formation {
 
     /**
      * Contructeur de l'objet formation
+     *
      * @param id
      * @param nom
      * @param dureeSceance
@@ -39,6 +40,7 @@ public class Formation {
 
     /**
      * Retourne l'id de la formation
+     *
      * @return
      */
     public Integer getId() {
@@ -47,6 +49,7 @@ public class Formation {
 
     /**
      * Affecte un id donné à une formation
+     *
      * @param id
      */
     public void setId(Integer id) {
@@ -55,6 +58,7 @@ public class Formation {
 
     /**
      * Retourne le nom de la formation
+     *
      * @return
      */
     public String getNom() {
@@ -63,6 +67,7 @@ public class Formation {
 
     /**
      * Affecte un nom donné à une formation
+     *
      * @param nom
      */
     public void setNom(String nom) {
@@ -71,6 +76,7 @@ public class Formation {
 
     /**
      * Retourne la durée type d'une séance pour la formation
+     *
      * @return
      */
     public int getDureeSceance() {
@@ -79,6 +85,7 @@ public class Formation {
 
     /**
      * Affecte une durée type de séance à une formation
+     *
      * @param dureeSceance
      */
     public void setDureeSceance(int dureeSceance) {
@@ -87,6 +94,7 @@ public class Formation {
 
     /**
      * Retourne le planning de la formation
+     *
      * @return
      */
     public Planning getPlanning() {
@@ -95,6 +103,7 @@ public class Formation {
 
     /**
      * Affecte un planning à la formation
+     *
      * @param planning
      */
     public void setPlanning(Planning planning) {
@@ -103,6 +112,7 @@ public class Formation {
 
     /**
      * Retourne la liste des modules de la formation
+     *
      * @return
      */
     public HashMap<Integer, Module> getListeModules() {
@@ -111,6 +121,7 @@ public class Formation {
 
     /**
      * Retourne un des modules de la formation identifé par une clé
+     *
      * @param key
      * @return module
      */
@@ -120,6 +131,7 @@ public class Formation {
 
     /**
      * Retourne le module de la formation avec un nom donné
+     *
      * @param nom
      * @return module
      */
@@ -134,6 +146,7 @@ public class Formation {
 
     /**
      * Affecte une liste de modules à la formation
+     *
      * @param listeModules
      */
     public void setListeModules(HashMap<Integer, Module> listeModules) {
@@ -142,6 +155,7 @@ public class Formation {
 
     /**
      * Ajoute un module à la liste des modules de la formation
+     *
      * @param key
      * @param module
      */
@@ -151,6 +165,7 @@ public class Formation {
 
     /**
      * Retourne le nombre total d'heures de la formation
+     *
      * @return float nombre d'heures
      */
     public float getHeureTotalFormation() {

@@ -30,6 +30,7 @@ import model.Seance;
 import net.miginfocom.swing.MigLayout;
 
 /**
+ * Frame du formulaire de mise à jour d'une seance
  *
  * @author Yassine Doghri
  */
@@ -42,7 +43,8 @@ public class UpdateSeanceForm extends JFrame {
     private JComboBox comboTime;
 
     /**
-     *Frame qui permet la modification des attributs d'une séance.
+     * Frame qui permet la modification des attributs d'une séance.
+     *
      * @param controller
      * @param seance
      */

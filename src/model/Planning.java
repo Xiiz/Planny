@@ -34,6 +34,7 @@ public class Planning {
 
     /**
      * Retourne l'id du planning
+     *
      * @return
      */
     public Integer getId() {
@@ -42,6 +43,7 @@ public class Planning {
 
     /**
      * Affecte une id donnée au planning
+     *
      * @param id
      */
     public void setId(Integer id) {
@@ -50,6 +52,7 @@ public class Planning {
 
     /**
      * Retourne l'année du planning
+     *
      * @return String année planning
      */
     public String getAnneePlanning() {
@@ -58,6 +61,7 @@ public class Planning {
 
     /**
      * Affecte une année donnée au planning
+     *
      * @param anneePlanning
      */
     public void setAnneePlanning(String anneePlanning) {
@@ -66,6 +70,7 @@ public class Planning {
 
     /**
      * Retourne la liste des fomations du planning
+     *
      * @return liste formations
      */
     public HashMap<Integer, Formation> getListeFormations() {
@@ -74,6 +79,7 @@ public class Planning {
 
     /**
      * Retourne une formation grâce à une clé donnée
+     *
      * @param key
      * @return Formation
      */
@@ -83,6 +89,7 @@ public class Planning {
 
     /**
      * Affecte une liste de formation donnée à la liste de formation du planning
+     *
      * @param listeFormations
      */
     public void setListeFormations(HashMap<Integer, Formation> listeFormations) {
@@ -91,6 +98,7 @@ public class Planning {
 
     /**
      * Ajoute une formation donnée à la liste de formations du planning
+     *
      * @param key
      * @param formation
      */
@@ -100,6 +108,7 @@ public class Planning {
 
     /**
      * Retire une formation identifiée par une clé donnée
+     *
      * @param key
      */
     public void removeFormation(Integer key) {
