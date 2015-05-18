@@ -10,22 +10,33 @@ import helper.ChooseFile;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import model.HtmlFile;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import model.Formateur;
+import model.HtmlFileFormateur;
+import model.HtmlFileFormation;
 import model.Planning;
 import net.miginfocom.swing.MigLayout;
 
@@ -35,39 +46,64 @@ import net.miginfocom.swing.MigLayout;
  */
 public class ExportHtmlForm extends JFrame {
 
+    private String choixExport;
+    private JComboBox formateurComboBox;
+    private Object selectedFormateur;
+
     public ExportHtmlForm(PlannyController controller) {
+        super("Planny | Exportation HTML");
+        try {
+            setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        choixExport = "Formation";
 
         ArrayList<String> listeAnnees = controller.getAnneesPlannings();
+        ArrayList<String> listeFormateur = controller.getAllFormateurs();
+
         this.setLayout(new MigLayout("center"));
-        
-        JFileChooser fc = new JFileChooser();
-        fc.setSelectedFile(new File("fichier.html"));
-        this.add(fc, "north");
+
+        JPanel choixComboExport = new JPanel();
+        this.add(choixComboExport);
 
         JComboBox anneeComboBox = new JComboBox(listeAnnees.toArray());
         anneeComboBox.setPreferredSize(new Dimension(200, 24));
-        this.add(new JLabel("Année à sélectionner :"), "alignx trailing");
-        this.add(anneeComboBox, "wrap");
+        choixComboExport.add(new JLabel("Année à sélectionner :"), "alignx trailing");
+        choixComboExport.add(anneeComboBox, "wrap");
 
+        String[] choice = {"Formation", "Formateur"};
+        JComboBox choiceExport = new JComboBox(choice);
+        choixComboExport.add(new JLabel("Que voulez vous exporter ?"), "alignx trailing");
+        choixComboExport.add(choiceExport, "wrap");
 
+        Object selectedYear = anneeComboBox.getSelectedItem();
 
-        JButton buttonValider = new JButton("Valider");
-        this.add(buttonValider, "skip, split2, growx");
+        JFileChooser fc = new JFileChooser();
+        fc.setControlButtonsAreShown(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("HTML File", "html");
+        fc.setFileFilter(filter);
+        fc.setSelectedFile(new File("planning-" + anneeComboBox.getSelectedItem().toString() + ".html"));
+        this.add(fc, "north");
 
-        Object selectedValue = anneeComboBox.getSelectedItem();
-
-        buttonValider.addActionListener(new ActionListener() {
+        choiceExport.addItemListener(new ItemListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    File destination = fc.getCurrentDirectory();
-                    String nomFicher = fc.getName(destination);
-                    HtmlFile exportHtml = new HtmlFile(controller.getPlanning(selectedValue.toString()), fc.toString(), nomFicher);
-                } catch (IOException ex) {
-                    Logger.getLogger(ExportHtmlForm.class.getName()).log(Level.SEVERE, null, ex);
+            public void itemStateChanged(ItemEvent e) {
+                choixExport = e.getItem().toString();
+                if (choixExport.equals("Formateur")) {
+                    formateurComboBox = new JComboBox(listeFormateur.toArray());
+                    formateurComboBox.setPreferredSize(new Dimension(200, 24));
+                    choiceExport.getParent().add(new JLabel("Formateur à sélectionner :"), "alignx trailing");
+                    choiceExport.getParent().add(formateurComboBox);
+                    choiceExport.getParent().repaint();
+                    choiceExport.getParent().validate();
                 }
             }
         });
+
+        JButton buttonValider = new JButton("Valider");
+        this.add(buttonValider, "growx");
 
         JButton buttonAnnuler = new JButton("Annuler");
         this.add(buttonAnnuler, "growx");
@@ -76,8 +112,27 @@ public class ExportHtmlForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
-        });
-
+        }
+        );
+        buttonValider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (choixExport.equals("Formateur")) {
+                        File destination = fc.getCurrentDirectory();
+                        String nomFicher = fc.getName(destination);
+//                        HtmlFileFormateur exportHtml = new HtmlFileFormateur(controller.getPlanning(selectedYear.toString()), controller.getFormateur(selectedFormateur.toString(), null), destination.toString(), nomFicher);
+                    } else if (choixExport.equals("Formation")) {
+                        File destination = fc.getCurrentDirectory();
+                        String nomFicher = fc.getName(destination);
+                        HtmlFileFormation exportHtml = new HtmlFileFormation(controller.getPlanning(selectedYear.toString()), destination.toString(), nomFicher);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(ExportHtmlForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        );
         this.pack();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);

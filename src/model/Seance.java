@@ -70,7 +70,7 @@ public class Seance {
     public String getInfoSeance() {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMM yyyy");
         String date = sdf.format(dateSeance);
-        return "Séance : n° de séance : " + numSeance + ", date de la séance : " + date + ", formateur : " + formateur + "<br />";
+        return "Séance : n° de séance : " + numSeance +"/"+ this.getModule().getNbSeances() +", date de la séance : " + date + ", formateur : " + formateur + "<br />";
     }
 
     @Override

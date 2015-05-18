@@ -108,6 +108,6 @@ public class Module {
     }
 
     public String detailModule() {
-        return "Module : " + this.getNom() + "<br /> Abréviation : " + this.getAbbr() + ", de couleur : <span style='display: inline-block;background-color:" + this.getCouleur() + ";width:20px;height:10px'></span><br />";
+        return "<p style='background-color:" + this.getCouleur() + ";diplay:inline-block;padding:10px; color:#ffffff'>" + this.getNom() + " </p> <br /> Abréviation : " + this.getAbbr() + ", de couleur : <span style='display: inline-block;background-color:" + this.getCouleur() + ";width:20px;height:10px'></span><br />";
     }
 }

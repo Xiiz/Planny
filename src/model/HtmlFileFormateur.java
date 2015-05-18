@@ -20,11 +20,11 @@ import java.util.HashMap;
 
 /**
  *
- * @author Xiiz
+ * @author Lasalmonie Pierre
  */
-public class HtmlFile {
+public class HtmlFileFormateur {
 
-    public HtmlFile(Planning lePlanning, String destination, String name) throws IOException {
+    public HtmlFileFormateur(Planning lePlanning,Formateur leFormateur, String destination, String name) throws IOException {
         ArrayList<Seance> listeSeance = new ArrayList<>();
         File f = new File(name + ".html");
         BufferedWriter bw = new BufferedWriter(new FileWriter(f));
@@ -46,7 +46,8 @@ public class HtmlFile {
                     Seance laSeance = uneSeance.getValue();
                     bw.write(laSeance.getInfoSeance());
                 }
-                bw.write(unModule.toString() + ", nombre de séance :" + unModule.getListeSeances().size() + "<br />");
+                bw.write("nombre de séance : " + unModule.getListeSeances().size() + "<br />");
+                bw.write("<br />");
             }
             bw.write("</p>");
             bw.write("<br />");
