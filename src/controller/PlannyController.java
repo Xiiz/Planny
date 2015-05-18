@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableCellEditor;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
@@ -240,6 +241,10 @@ public class PlannyController {
             DAO.addSeance(seance);
         } catch (Exception ex) {
             Logger.getLogger(PlannyController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                    "Le nombre de séances maximum pour le module est atteint !",
+                    "A plain message",
+                    JOptionPane.PLAIN_MESSAGE);
         }
     }
 
