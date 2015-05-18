@@ -39,7 +39,7 @@ public class CalendarHelper {
      * d'une date donnée
      *
      * @param date
-     * @return
+     * @return WeekDays
      */
     public static ArrayList<Date> getWeekDays(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -50,7 +50,7 @@ public class CalendarHelper {
     /**
      * Retourne les jours de la semaine en cours
      *
-     * @return
+     * @return WeekDays
      */
     public static ArrayList<Date> getCurrentWeekDays() {
         Calendar cal = Calendar.getInstance();
@@ -61,7 +61,7 @@ public class CalendarHelper {
      * Retourne le lundi de la semaine suivante
      *
      * @param calendar
-     * @return
+     * @return le temps du calendrier
      */
     public static Date getMondayOfNextWeek(Calendar calendar) {
         calendar.add(Calendar.DATE, 7);
@@ -147,7 +147,7 @@ public class CalendarHelper {
      * Retourne l'année scolaire du planning
      *
      * @param date
-     * @return
+     * @return annee
      */
     public static String getPlanningYear(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -166,7 +166,7 @@ public class CalendarHelper {
      * scolaire
      *
      * @param date
-     * @return
+     * @return numero du weekend
      */
     public static int getWeekNumber(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -195,7 +195,7 @@ public class CalendarHelper {
      * Retourne une chaine de caractère informant de l'intervalle de la semaine
      *
      * @param date
-     * @return
+     * @return intervalle de la semaine
      */
     public static String getWeekInterval(Date date) {
         ArrayList<Date> weekDays = getWeekDays(date);
@@ -209,7 +209,7 @@ public class CalendarHelper {
      * Retourne le numéro du jour pour la JTable
      *
      * @param cal
-     * @return int numéro du jour
+     * @return int numéro du jour en question
      */
     public static int getWeekNumber(Calendar cal) {
         if (cal.get(Calendar.DAY_OF_WEEK) == 1) {

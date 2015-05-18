@@ -9,7 +9,7 @@ import javax.swing.JToolBar;
 
 /**
  *
- * @author Amine
+ * @author Amine Bouazizi
  */
 public class ToolBar extends JToolBar {
 

@@ -79,6 +79,9 @@ public final class PlanningTable extends JTable implements ActionListener {
                 }
             }
         });
+        /**
+         * ActionListener en cliquant sur le JTable
+         */
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 Point p = me.getPoint();
@@ -114,6 +117,10 @@ public final class PlanningTable extends JTable implements ActionListener {
         return c;
     }
 
+    /**
+     *
+     * @param weekDays
+     */
     public void changeColumnHeaders(ArrayList<Date> weekDays) {
         JTableHeader th = getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
@@ -125,6 +132,12 @@ public final class PlanningTable extends JTable implements ActionListener {
         }
     }
 
+    /**
+     * Methode action en cliquant sur une cellule de la table, elle lance le
+     * frame AddSeanceForm
+     *
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         int y = this.getSelectedRow() + 1;

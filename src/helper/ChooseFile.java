@@ -26,6 +26,9 @@ public class ChooseFile extends JFrame {
     private JFileChooser fc;
     private JTextArea log;
 
+    /**
+     * Constructeur de la classe ChosseFile
+     */
     public ChooseFile() {
 
         //Create the log first, because the action listeners
@@ -54,10 +57,20 @@ public class ChooseFile extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Methode qui renvoie un string avec le chemin de dossier
+     *
+     * @return dir
+     */
     public String getDir() {
         return dir.getText();
     }
 
+    /**
+     * Methode qui renvoie le nom du fichier a enregistrer
+     *
+     * @return filename
+     */
     public String getFilename() {
         return filename.getText();
     }

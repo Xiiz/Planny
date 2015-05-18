@@ -30,6 +30,11 @@ public class SidebarPanel extends JPanel {
     private JComboBox comboFormations;
     private JLabel infosFormation;
 
+    /**
+     * Constructeur de la classe SidebarPanel
+     *
+     * @param controller
+     */
     public SidebarPanel(PlannyController controller) {
         setPreferredSize(new Dimension(200, 400));
         setLayout(new BorderLayout());

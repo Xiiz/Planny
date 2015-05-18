@@ -34,11 +34,17 @@ public class PlannyController {
     private HashMap<Integer, Planning> plannings;
     private PlanningFrame mainFrame;
 
+    /**
+     * Lance l'application en ouvrant le Splash Screen
+     */
     public void startApplication() {
         PlannySplash splashScreen = new PlannySplash(this);
         splashScreen.setVisible(true);
     }
 
+    /**
+     * Lance le frame principal de l'application
+     */
     public void startPlanningFrame() {
         mainFrame = new PlanningFrame(this);
         mainFrame.pack();
@@ -78,11 +84,22 @@ public class PlannyController {
         }
     }
 
+    /**
+     * Methode qui met a jour une formation
+     *
+     * @param nom
+     */
     public void updateFormationLabel(String nom) {
         JLabel label = mainFrame.getSidebarPanel().getInfosFormationLabel();
         label.setText(this.getFormation(nom).toString());
     }
 
+    /**
+     * Methode le view de calendrier selon la
+     *
+     * @param calendar
+     * @param nomFormation
+     */
     public void updatePlanningView(Calendar calendar, String nomFormation) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(calendar.getTime());
@@ -123,7 +140,7 @@ public class PlannyController {
      * Retourne toutes les séances disponibles
      *
      * @param planningYear
-     * @return
+     * @return seances
      */
     public ArrayList<Seance> getSeancesPlanning(String planningYear, String nomFormation) {
         Planning planning = getPlanning(planningYear);
@@ -140,6 +157,12 @@ public class PlannyController {
         return seances;
     }
 
+    /**
+     * Methode qui recuper la seance du html
+     *
+     * @param html
+     * @return seance
+     */
     public Seance getSeanceFromHtml(String html) {
         if (!html.equals("Matin") || !html.equals("Après-Midi")) {
             org.jsoup.nodes.Document doc = Jsoup.parse(html);
@@ -154,6 +177,13 @@ public class PlannyController {
         return null;
     }
 
+    /**
+     * Methode qui renvoie la seance
+     *
+     * @param idSeance
+     * @param idModule
+     * @return seance
+     */
     public Seance getSeance(int idSeance, int idModule) {
         Planning planning = getCurrentPlanning();
         for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
@@ -168,6 +198,11 @@ public class PlannyController {
         return null;
     }
 
+    /**
+     * Methode qui met la vue a jour selon la date du systeme
+     *
+     * @param calendar
+     */
     public void updateView(Calendar calendar) {
         SidebarPanel sidebarPanel = mainFrame.getSidebarPanel();
         MainPanel mainPanel = mainFrame.getMainPanel();
@@ -186,6 +221,9 @@ public class PlannyController {
         mainPanel.getNavigationBar().getWeekLabel().setText(CalendarHelper.getWeekInterval(cal.getTime()));
     }
 
+    /**
+     * Methode qui met a jour la semaine prochaine sur la vue
+     */
     public void updateViewNextWeek() {
         SidebarPanel sidebarPanel = mainFrame.getSidebarPanel();
         MainPanel mainPanel = mainFrame.getMainPanel();
@@ -207,6 +245,9 @@ public class PlannyController {
         mainPanel.getNavigationBar().getWeekLabel().setText(CalendarHelper.getWeekInterval(calendar.getTime()));
     }
 
+    /**
+     * Methode qui met a jour la semaine precedente sur la vue
+     */
     public void updateViewPrevWeek() {
         SidebarPanel sidebarPanel = mainFrame.getSidebarPanel();
         MainPanel mainPanel = mainFrame.getMainPanel();
@@ -228,6 +269,11 @@ public class PlannyController {
         mainPanel.getNavigationBar().getWeekLabel().setText(CalendarHelper.getWeekInterval(calendar.getTime()));
     }
 
+    /**
+     * Methode qui affiche la liste de tous les formateurs
+     *
+     * @return formateurs
+     */
     public ArrayList<String> getAllFormateurs() {
         ArrayList<String> formateurs = new ArrayList();
         for (Map.Entry<Integer, Formateur> entry : DAO.getAllFormateurs().entrySet()) {
@@ -236,6 +282,11 @@ public class PlannyController {
         return formateurs;
     }
 
+    /**
+     * Methode qui affiche une liste de tous les modules
+     *
+     * @return modules
+     */
     public ArrayList<String> getAllModules() {
         ArrayList<String> modules = new ArrayList();
         for (Map.Entry<Integer, Module> entry : DAO.getAllModules().entrySet()) {
@@ -244,6 +295,13 @@ public class PlannyController {
         return modules;
     }
 
+    /**
+     * Methode pour ajouter une seance
+     *
+     * @param seance
+     * @param module
+     * @param formateur
+     */
     public void addSeance(Seance seance, Module module, Formateur formateur) {
         try {
             // set seance to lists
@@ -256,6 +314,11 @@ public class PlannyController {
         }
     }
 
+    /**
+     * Methode qui renvoie l'id de la prochaine seance
+     *
+     * @return 1
+     */
     public int getNextSeanceId() {
         Planning planning = getPlanning(CalendarHelper.getPlanningYear(this.getSelectedDate().getTime()));
         Entry<Integer, Seance> maxEntry = null;
@@ -276,6 +339,7 @@ public class PlannyController {
     }
 
     /**
+     * Methode qui renvoie le module d'une seance a une date precise
      *
      * @param nom
      * @param dateSeance
@@ -289,6 +353,13 @@ public class PlannyController {
         return null;
     }
 
+    /**
+     * Methode qui renvoie le nom d'un formateur
+     *
+     * @param nom
+     * @param planningYear
+     * @return formateur
+     */
     public Formateur getFormateur(String nom, String planningYear) {
         Planning planning = getPlanning(planningYear);
         for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
@@ -305,10 +376,20 @@ public class PlannyController {
         return DAO.getFormateur(parts[0], parts[1]);
     }
 
+    /**
+     * Methode qui renvoie le calendrier d'une date selectionnee
+     *
+     * @return Calendar
+     */
     public Calendar getSelectedDate() {
         return mainFrame.getSidebarPanel().getJCalendar().getCalendar();
     }
 
+    /**
+     * Methode qui renvoie une liste des annees d'un planning
+     *
+     * @return listeAnnees
+     */
     public ArrayList<String> getAnneesPlannings() {
         ArrayList<String> listeAnnees = new ArrayList();
         for (HashMap.Entry<Integer, Planning> entry : this.getPlannings().entrySet()) {
@@ -318,6 +399,11 @@ public class PlannyController {
         return listeAnnees;
     }
 
+    /**
+     * Une methode qui renvoie l'id de la formation suivante
+     *
+     * @return id
+     */
     public int getNextFormationId() {
         Entry<Integer, Formation> maxEntry = null;
         for (HashMap.Entry<Integer, Planning> entry : plannings.entrySet()) {
@@ -334,12 +420,25 @@ public class PlannyController {
         }
     }
 
+    /**
+     * Methode qui appelle la methode addFormation de la classe DAO pour ajouter
+     * une nouvelle formation
+     *
+     * @param formation
+     * @param planning
+     */
     public void addFormation(Formation formation, Planning planning) {
         planning.addFormation(formation.getId(), formation);
 
         DAO.addFormation(formation);
     }
 
+    /**
+     * Methode qui renvoie une liste des formations
+     *
+     * @param planningYear
+     * @return listeFormations
+     */
     public ArrayList<String> getFormations(String planningYear) {
         ArrayList<String> listeFormations = new ArrayList();
         for (HashMap.Entry<Integer, Formation> entry : getPlanning(planningYear).getListeFormations().entrySet()) {
@@ -348,6 +447,11 @@ public class PlannyController {
         return listeFormations;
     }
 
+    /**
+     * Methode qui renvoie l'id du prochain module
+     *
+     * @return id
+     */
     public int getNextModuleId() {
         Entry<Integer, Module> maxEntry = null;
         for (HashMap.Entry<Integer, Planning> entry : plannings.entrySet()) {
@@ -366,6 +470,12 @@ public class PlannyController {
         }
     }
 
+    /**
+     * Methode qui renvoie le nom d'une formation
+     *
+     * @param nom
+     * @return formation
+     */
     public Formation getFormation(String nom) {
         for (HashMap.Entry<Integer, Formation> entry : getCurrentPlanning().getListeFormations().entrySet()) {
             if (entry.getValue().getNom().equals(nom)) {
@@ -375,6 +485,11 @@ public class PlannyController {
         return null;
     }
 
+    /**
+     * Methode qui renvoie l'id du prochain planning
+     *
+     * @return id
+     */
     public int getNextPlanningId() {
         Entry<Integer, Planning> maxEntry = null;
         for (HashMap.Entry<Integer, Planning> entry : plannings.entrySet()) {
@@ -389,6 +504,11 @@ public class PlannyController {
         }
     }
 
+    /**
+     * Methode qui renvoie le planning actuel
+     *
+     * @return planning
+     */
     public Planning getCurrentPlanning() {
         Planning planning = this.getPlanning(CalendarHelper.getPlanningYear(this.getSelectedDate().getTime()));
         if (planning == null) {
@@ -398,15 +518,31 @@ public class PlannyController {
         }
     }
 
+    /**
+     * Methode qui appelle la methode addModule de la classe DAO
+     *
+     * @param formation
+     * @param module
+     */
     public void addModule(Formation formation, Module module) {
         formation.addModule(module.getId(), module);
         DAO.addModule(module);
     }
 
+    /**
+     * Methode qui appelle la methode addFormateur de la classe DAO
+     *
+     * @param formateur
+     */
     public void addFormateur(Formateur formateur) {
         DAO.addFormateur(formateur);
     }
 
+    /**
+     * Methode qui renvoie le formateur suivant
+     *
+     * @return id
+     */
     public int getNextFormateurId() {
         Integer maxEntry = null;
         Planning planning = this.getCurrentPlanning();
