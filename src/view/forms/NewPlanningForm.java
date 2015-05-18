@@ -25,6 +25,10 @@ public class NewPlanningForm extends JFrame {
 
     private final JTextField planningYearField;
 
+    /**
+     *Création de la frame qui permet la création d'un nouveau planning
+     * @param controller
+     */
     public NewPlanningForm(PlannyController controller) {
         super("Planny | Ajouter une Séance");
         try {
