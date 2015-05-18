@@ -8,6 +8,7 @@ package view.forms;
 import controller.PlannyController;
 import helper.ChooseFile;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -59,10 +60,8 @@ public class ExportHtmlForm extends JFrame {
         }
 
         choixExport = "Formation";
-
         ArrayList<String> listeAnnees = controller.getAnneesPlannings();
         ArrayList<String> listeFormateur = controller.getAllFormateurs();
-
         this.setLayout(new MigLayout("center"));
 
         JPanel choixComboExport = new JPanel();
@@ -72,11 +71,12 @@ public class ExportHtmlForm extends JFrame {
         anneeComboBox.setPreferredSize(new Dimension(200, 24));
         choixComboExport.add(new JLabel("Année à sélectionner :"), "alignx trailing");
         choixComboExport.add(anneeComboBox, "wrap");
-
+        
+ 
         String[] choice = {"Formation", "Formateur"};
         JComboBox choiceExport = new JComboBox(choice);
         choixComboExport.add(new JLabel("Que voulez vous exporter ?"), "alignx trailing");
-        choixComboExport.add(choiceExport, "wrap");
+        choixComboExport.add(choiceExport, "width :100:,grow,push");
 
         Object selectedYear = anneeComboBox.getSelectedItem();
 
@@ -94,19 +94,23 @@ public class ExportHtmlForm extends JFrame {
                 if (choixExport.equals("Formateur")) {
                     formateurComboBox = new JComboBox(listeFormateur.toArray());
                     formateurComboBox.setPreferredSize(new Dimension(200, 24));
-                    choiceExport.getParent().add(new JLabel("Formateur à sélectionner :"), "alignx trailing");
+                    choiceExport.getParent().add(new JLabel("Formateur à sélectionner :"));
                     choiceExport.getParent().add(formateurComboBox);
                     choiceExport.getParent().repaint();
                     choiceExport.getParent().validate();
                 }
             }
         });
+        JPanel boutonSouth = new JPanel();
+        boutonSouth.setLayout(new FlowLayout());
+        this.add(boutonSouth, "dock south");
 
         JButton buttonValider = new JButton("Valider");
-        this.add(buttonValider, "growx");
+        boutonSouth.add(buttonValider);
 
         JButton buttonAnnuler = new JButton("Annuler");
-        this.add(buttonAnnuler, "growx");
+        boutonSouth.add(buttonAnnuler);
+
         buttonAnnuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,14 +118,16 @@ public class ExportHtmlForm extends JFrame {
             }
         }
         );
+
         buttonValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (choixExport.equals("Formateur")) {
+                        selectedFormateur = formateurComboBox.getSelectedItem();
                         File destination = fc.getCurrentDirectory();
                         String nomFicher = fc.getName(destination);
-//                        HtmlFileFormateur exportHtml = new HtmlFileFormateur(controller.getPlanning(selectedYear.toString()), controller.getFormateur(selectedFormateur.toString(), null), destination.toString(), nomFicher);
+                        HtmlFileFormateur exportHtml = new HtmlFileFormateur(controller.getPlanning(selectedYear.toString()), controller.getFormateur(selectedFormateur.toString(), selectedYear.toString()), destination.toString(), nomFicher);
                     } else if (choixExport.equals("Formation")) {
                         File destination = fc.getCurrentDirectory();
                         String nomFicher = fc.getName(destination);
