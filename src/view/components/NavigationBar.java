@@ -26,7 +26,7 @@ public class NavigationBar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.updateViewPrevWeek();
-                controller.updatePlanningView(controller.getSelectedDate());
+                controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
             }
         };
 
@@ -36,7 +36,7 @@ public class NavigationBar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.updateViewNextWeek();
-                controller.updatePlanningView(controller.getSelectedDate());
+                controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
             }
         };
 

@@ -83,12 +83,30 @@ public class Formation {
         this.listeModules.put(key, module);
     }
 
-    public int getHeureTotalFormation() {
+    public float getHeureTotalFormation() {
         int i = 0;
         for (HashMap.Entry<Integer, Module> unModule : this.getListeModules().entrySet()) {
             Module leModule = unModule.getValue();
-            i+= leModule.getListeSeances().size() * this.getDureeSceance();
+            i += leModule.getListeSeances().size() * this.getDureeSceance();
         }
-        return i/60;
+        return (float) i / 60;
     }
+
+    @Override
+    public String toString() {
+        String string = "<html><h3>Formation : " + nom + " [" + this.getHeureTotalFormation() + "h]<h3>"
+                + "<p>Duree type /séance : " + (float) dureeSceance / 60 + "h</p>";
+
+        if (listeModules.size() > 0) {
+            string += "<p>Modules :</p><ul>";
+            for (HashMap.Entry<Integer, Module> entry : listeModules.entrySet()) {
+                string += "<li>" + entry.getValue() + "</li>";
+            }
+            string += "</ul>";
+        } else {
+            string += "<em>Aucun Module</em>";
+        }
+        return string + "</html>";
+    }
+
 }

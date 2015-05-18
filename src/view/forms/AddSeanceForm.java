@@ -2,6 +2,7 @@ package view.forms;
 
 import com.toedter.calendar.JDateChooser;
 import controller.PlannyController;
+import helper.CalendarHelper;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -39,7 +40,7 @@ public class AddSeanceForm extends JFrame {
     private JComboBox comboTime;
 
     public AddSeanceForm(PlannyController controller) {
-        super("Planny | Ajouter une séance");
+        super("Planny | Ajouter une Séance");
         try {
             setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
         } catch (IOException e) {
@@ -90,12 +91,12 @@ public class AddSeanceForm extends JFrame {
 
                 System.out.println(dateSeance2 + " " + numSeanceField.getText() + " " + comboFormateurs.getSelectedItem().toString() + " " + comboModules.getSelectedItem().toString());
                 Module module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
-                Formateur formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), dateChooser.getDate());
-                Seance seance = new Seance(controller.getNextSeanceId(module, dateSeance2), Integer.parseInt(numSeanceField.getText()), dateSeance2, module, formateur);
+                Formateur formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), CalendarHelper.getPlanningYear(dateChooser.getDate()));
+                Seance seance = new Seance(controller.getNextSeanceId(), Integer.parseInt(numSeanceField.getText()), dateSeance2, module, formateur);
                 controller.addSeance(seance, module, formateur);
 
-                controller.updatePlanningView(controller.getSelectedDate());
-                
+                controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
+
                 dispose();
             }
         });

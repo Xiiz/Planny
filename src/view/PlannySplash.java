@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -103,14 +104,14 @@ public class PlannySplash extends JFrame {
                 for (int i = 0; i <= 100; i++) {
                     pbar.setValue(i);
                     try {
-                        t.sleep(15);
+                        t.sleep(10);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(PlannySplash.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 controller.startPlanningFrame();
                 controller.loadData();
-                controller.updatePlanningView(controller.getSelectedDate());
+                controller.updateFormationInfos(controller.getSelectedDate());
                 dispose();
             }
         };

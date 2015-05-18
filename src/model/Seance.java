@@ -70,7 +70,7 @@ public class Seance {
     public String getInfoSeance() {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MMM yyyy");
         String date = sdf.format(dateSeance);
-        return "Séance : n° de séance : " + numSeance +"/"+ this.getModule().getNbSeances() +", date de la séance : " + date + ", formateur : " + formateur + "<br />";
+        return "Séance : n° de séance : " + numSeance + "/" + this.getModule().getNbSeances() + ", date de la séance : " + date + ", formateur : " + formateur + "<br />";
     }
 
     @Override
@@ -78,6 +78,7 @@ public class Seance {
         String value = "<html>"
                 + "<body style='width: 100%; text-align:center; padding: 10px; height:100px; color:#ffffff; background-color:" + module.getCouleur() + "'>"
                 + "<h4 style='margin-bottom:0' id='" + module.getId() + "'>" + module.getNom() + " (" + module.getFormation().getNom() + ")</h4>"
+                + "<br><span style=''>" + (float) module.getFormation().getDureeSceance() / 60 + " H</span>"
                 + "<br>Form. " + formateur.getPrenom() + " " + formateur.getNom()
                 + "<br><p id='" + this.id + "'>Seance : " + this.numSeance + "/" + module.getNbSeances()
                 + "</body>"

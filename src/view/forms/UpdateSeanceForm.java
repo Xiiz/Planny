@@ -2,6 +2,7 @@ package view.forms;
 
 import com.toedter.calendar.JDateChooser;
 import controller.PlannyController;
+import helper.CalendarHelper;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -39,7 +40,6 @@ public class UpdateSeanceForm extends JFrame {
     private JComboBox comboModules;
     private JComboBox comboFormateurs;
     private JComboBox comboTime;
-    private JComboBox comboSeances;
 
     public UpdateSeanceForm(PlannyController controller, Seance seance) {
         super("Planny | Modifier une séance");
@@ -111,7 +111,7 @@ public class UpdateSeanceForm extends JFrame {
                     module = controller.getModule(comboModules.getSelectedItem().toString(), dateChooser.getDate());
                 }
                 if (!comboModules.getSelectedItem().toString().equals(seance.getModule().getNom())) {
-                    formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), dateChooser.getDate());
+                    formateur = controller.getFormateur(comboFormateurs.getSelectedItem().toString(), CalendarHelper.getPlanningYear(dateChooser.getDate()));
                 }
 
                 module.removeSeance(seance.getId());
@@ -132,7 +132,7 @@ public class UpdateSeanceForm extends JFrame {
                 formateur.addSeance(seance.getId(), seance2);
 
                 DAO.updateSeance(seance2);
-                controller.updatePlanningView(controller.getSelectedDate());
+                controller.updatePlanningView(controller.getSelectedDate(), controller.getSelectedFormation());
 
                 dispose();
             }

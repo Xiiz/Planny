@@ -68,6 +68,7 @@ public class AddFormationForm extends JFrame {
                 Formation formation = new Formation(controller.getNextFormationId(), nomFormationField.getText(), Integer.parseInt(dureeField.getText()), planning, null);
 
                 controller.addFormation(formation, planning);
+                controller.updateFormationInfos(controller.getSelectedDate());
                 dispose();
             }
 

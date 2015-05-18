@@ -30,7 +30,7 @@ public class AddModuleForm extends JFrame {
     JComboBox formationComboBox;
 
     public AddModuleForm(PlannyController controller) {
-        super("Planny | Ajouter un formateur");
+        super("Planny | Ajouter un Module");
         try {
             setIconImage(ImageIO.read(new File("src/view/components/images/planny-icon.png")));
         } catch (IOException e) {

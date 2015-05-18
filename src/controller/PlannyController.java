@@ -10,17 +10,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellEditor;
-import javax.swing.text.Document;
-import javax.swing.text.Element;
 import model.DAO;
 import model.Formateur;
 import model.Formation;
 import model.Module;
 import model.Planning;
 import model.Seance;
-import model.provider.FormateurProvider;
 import org.jsoup.Jsoup;
 import view.PlanningFrame;
 import view.PlannySplash;
@@ -73,12 +72,31 @@ public class PlannyController {
         return plannings;
     }
 
-    public void updatePlanningView(Calendar calendar) {
+    public String getSelectedFormation() {
+        JComboBox combo = mainFrame.getSidebarPanel().getComboFormations();
+        return combo.getSelectedItem().toString();
+    }
+
+    public void updateFormationInfos(Calendar calendar) {
+        ArrayList<String> formationsS = this.getFormations(CalendarHelper.getPlanningYear(calendar.getTime()));
+        JComboBox combo = mainFrame.getSidebarPanel().getComboFormations();
+        combo.removeAllItems();
+        for (String s : formationsS) {
+            combo.addItem(s);
+        }
+    }
+
+    public void updateFormationLabel(String nom) {
+        JLabel label = mainFrame.getSidebarPanel().getInfosFormationLabel();
+        label.setText(this.getFormation(nom).toString());
+    }
+
+    public void updatePlanningView(Calendar calendar, String nomFormation) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(calendar.getTime());
 
         ArrayList<Date> weekDays = CalendarHelper.getWeekDays(cal);
-        ArrayList<Seance> seances = getSeancesPlanning(CalendarHelper.getPlanningYear(cal.getTime()));
+        ArrayList<Seance> seances = getSeancesPlanning(CalendarHelper.getPlanningYear(cal.getTime()), nomFormation);
 
         PlanningTable planning = mainFrame.getMainPanel().getPlanningTable();
         // Repaint Planning
@@ -115,13 +133,15 @@ public class PlannyController {
      * @param planningYear
      * @return
      */
-    public ArrayList<Seance> getSeancesPlanning(String planningYear) {
+    public ArrayList<Seance> getSeancesPlanning(String planningYear, String nomFormation) {
         Planning planning = getPlanning(planningYear);
         ArrayList<Seance> seances = new ArrayList();
         for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
-            for (HashMap.Entry<Integer, Module> entry2 : entry.getValue().getListeModules().entrySet()) {
-                for (HashMap.Entry<Integer, Seance> entry3 : entry2.getValue().getListeSeances().entrySet()) {
-                    seances.add(entry3.getValue());
+            if (entry.getValue().getNom().equals(nomFormation)) {
+                for (HashMap.Entry<Integer, Module> entry2 : entry.getValue().getListeModules().entrySet()) {
+                    for (HashMap.Entry<Integer, Seance> entry3 : entry2.getValue().getListeSeances().entrySet()) {
+                        seances.add(entry3.getValue());
+                    }
                 }
             }
         }
@@ -235,26 +255,27 @@ public class PlannyController {
     public void addSeance(Seance seance, Module module, Formateur formateur) {
         try {
             // getPlanning
+            System.out.println(module);
+            System.out.println(seance);
+            
             module.addSeance(seance.getId(), seance);
             formateur.addSeance(seance.getId(), seance);
 
             DAO.addSeance(seance);
         } catch (Exception ex) {
             Logger.getLogger(PlannyController.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,
-                    "Le nombre de séances maximum pour le module est atteint !",
-                    "A plain message",
-                    JOptionPane.PLAIN_MESSAGE);
         }
     }
 
-    public int getNextSeanceId(Module module, Date dateSeance) {
-        Planning planning = getPlanning(CalendarHelper.getPlanningYear(dateSeance));
+    public int getNextSeanceId() {
+        Planning planning = getPlanning(CalendarHelper.getPlanningYear(this.getSelectedDate().getTime()));
         Entry<Integer, Seance> maxEntry = null;
         for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
-            for (HashMap.Entry<Integer, Seance> entry2 : entry.getValue().getModule(module.getId()).getListeSeances().entrySet()) {
-                if (maxEntry == null || entry2.getKey() > maxEntry.getKey()) {
-                    maxEntry = entry2;
+            for (HashMap.Entry<Integer, Module> entry2 : entry.getValue().getListeModules().entrySet()) {
+                for (HashMap.Entry<Integer, Seance> entry3 : entry2.getValue().getListeSeances().entrySet()) {
+                    if (maxEntry == null || entry3.getKey() > maxEntry.getKey()) {
+                        maxEntry = entry3;
+                    }
                 }
             }
         }
@@ -279,8 +300,8 @@ public class PlannyController {
         return null;
     }
 
-    public Formateur getFormateur(String nom, Date dateSeance) {
-        Planning planning = getPlanning(CalendarHelper.getPlanningYear(dateSeance));
+    public Formateur getFormateur(String nom, String planningYear) {
+        Planning planning = getPlanning(planningYear);
         for (HashMap.Entry<Integer, Formation> entry : planning.getListeFormations().entrySet()) {
             for (HashMap.Entry<Integer, Module> entry2 : entry.getValue().getListeModules().entrySet()) {
                 for (HashMap.Entry<Integer, Seance> entry3 : entry2.getValue().getListeSeances().entrySet()) {
