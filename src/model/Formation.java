@@ -83,4 +83,12 @@ public class Formation {
         this.listeModules.put(key, module);
     }
 
+    public int getHeureTotalFormation() {
+        int i = 0;
+        for (HashMap.Entry<Integer, Module> unModule : this.getListeModules().entrySet()) {
+            Module leModule = unModule.getValue();
+            i+= leModule.getListeSeances().size() * this.getDureeSceance();
+        }
+        return i/60;
+    }
 }

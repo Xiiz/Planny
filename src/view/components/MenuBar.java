@@ -21,11 +21,11 @@ public class MenuBar extends JMenuBar {
 
     private final JMenu file, edit, element, help, exportPlanning;
     private final JMenuItem newPlanning, openPlanning,
-            html, pdf, exit, undo, redo, copy, paste,
+            html, exit, undo, redo, copy, paste,
             addFormation, addFormateur, addModule, addSeance, about;
 
     /**
-     * 
+     *
      */
     public MenuBar(PlannyController controller) {
         // create menus
@@ -39,7 +39,6 @@ public class MenuBar extends JMenuBar {
         newPlanning = new JMenuItem("Nouveau planning...");
         openPlanning = new JMenuItem("Ouvrir planning...");
         html = new JMenuItem("HTML...");
-        pdf = new JMenuItem("PDF...");
         exit = new JMenuItem("Fermer");
 
         undo = new JMenuItem("Annuler");
@@ -81,12 +80,12 @@ public class MenuBar extends JMenuBar {
             }
         });
         html.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {               
+            public void actionPerformed(ActionEvent ae) {
                 ExportHtmlForm YearCalendarForm = new ExportHtmlForm(controller);
                 YearCalendarForm.setVisible(true);
             }
         });
-        
+
         about = new JMenuItem("A propos");
 
         // add menu items to menus
@@ -95,7 +94,6 @@ public class MenuBar extends JMenuBar {
         file.add(new JSeparator());
         file.add(exportPlanning);
         exportPlanning.add(html);
-        exportPlanning.add(pdf);
         file.add(new JSeparator());
         file.add(exit);
 
